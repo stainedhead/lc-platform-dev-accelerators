@@ -1,4 +1,4 @@
-# LCPlatform-DevAccelerator - Product Details
+# lc-platform-dev-accelerators - Product Details
 
 **Status**: All 11 Services Complete (User Stories 1-7)
 
@@ -409,7 +409,7 @@ await storage.copyObject(
 ### Platform Initialization
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Mock Provider (for development/testing)
 const mockPlatform = new LCPlatform({
@@ -576,7 +576,7 @@ class AuthenticationError extends LCPlatformError {
 ### Error Handling Example
 
 ```typescript
-import { ResourceNotFoundError, ServiceUnavailableError } from '@lcplatform/dev-accelerator';
+import { ResourceNotFoundError, ServiceUnavailableError } from '@stainedhead/lc-platform-dev-accelerators';
 
 try {
   const deployment = await hosting.getDeployment('non-existent-id');
@@ -609,7 +609,7 @@ All operations have built-in retry logic with exponential backoff:
 
 ```typescript
 import { describe, it, expect, beforeEach } from 'bun:test';
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 describe('My Application', () => {
   let platform: LCPlatform;

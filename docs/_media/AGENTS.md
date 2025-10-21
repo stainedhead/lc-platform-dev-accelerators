@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**LCPlatform-DevAccelerator** (`@lcplatform/dev-accelerator`) is a TypeScript package that provides cloud-agnostic service wrappers using Clean/Hexagonal Architecture. The package allows applications to use cloud services (initially AWS, future: Azure, GCP) through provider-independent interfaces.
+**lc-platform-dev-accelerators** (`@stainedhead/lc-platform-dev-accelerators`) is a TypeScript package that provides cloud-agnostic service wrappers using Clean/Hexagonal Architecture. The package allows applications to use cloud services (initially AWS, future: Azure, GCP) through provider-independent interfaces.
 
 **Runtime**: Bun 1.0+ (not Node.js) - Modern JavaScript runtime with native TypeScript support and built-in test runner.
 
@@ -326,7 +326,7 @@ README sections:
 
 ## Package Information
 
-- **Package name**: `@lcplatform/dev-accelerator`
+- **Package name**: `@stainedhead/lc-platform-dev-accelerators`
 - **TypeScript version**: 5.9.3
 - **Runtime**: Bun 1.0+ (not Node.js)
 - **Package manager**: bun (replaces npm)

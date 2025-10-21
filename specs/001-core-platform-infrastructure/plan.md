@@ -7,7 +7,7 @@
 
 ## Summary
 
-Implement 11 cloud-agnostic service wrappers (WebHosting, Batch, Secrets, Configuration, DocumentStore, DataStore, ObjectStore, Queue, EventBus, Notification, Authentication) using hexagonal architecture with TypeScript 5.9.3 and Bun runtime 1.0+. AWS SDK v3 modular packages provide AWS provider implementation, with mock provider for local testing. Package published to GitHub Packages as `@lcplatform/dev-accelerator`.
+Implement 11 cloud-agnostic service wrappers (WebHosting, Batch, Secrets, Configuration, DocumentStore, DataStore, ObjectStore, Queue, EventBus, Notification, Authentication) using hexagonal architecture with TypeScript 5.9.3 and Bun runtime 1.0+. AWS SDK v3 modular packages provide AWS provider implementation, with mock provider for local testing. Package published to GitHub Packages as `@stainedhead/lc-platform-dev-accelerators`.
 
 ## Technical Context
 
@@ -16,7 +16,7 @@ Implement 11 cloud-agnostic service wrappers (WebHosting, Batch, Secrets, Config
 **Storage**: N/A (package provides storage abstractions, not storage itself)
 **Testing**: Bun test framework, LocalStack for AWS integration tests, contract tests for provider parity
 **Target Platform**: Bun runtime on Linux/macOS servers, cloud environments with workload identity
-**Project Type**: Single TypeScript package (`@lcplatform/dev-accelerator`)
+**Project Type**: Single TypeScript package (`@stainedhead/lc-platform-dev-accelerators`)
 **Performance Goals**: <100ms secret retrieval (cached), 1000 msg/sec queue throughput, 99.9% operation success rate under normal conditions
 **Constraints**: Provider-agnostic interfaces (no AWS/Azure types in core), TDD mandatory, 80% code coverage, zero critical linting violations
 **Scale/Scope**: 11 service interfaces, 3 providers (AWS, Mock, future Azure), 66 functional requirements, ~50-60 TypeScript interface methods total

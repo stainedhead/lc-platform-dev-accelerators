@@ -1,10 +1,10 @@
-# LCPlatform-DevAccelerator Product Definition
+# lc-platform-dev-accelerators Product Definition
 
 ## Executive Summary
 
-LCPlatform-DevAccelerator is a TypeScript package designed to provide cloud-agnostic service wrappers, initially implementing AWS services with a clean, hexagonal architecture approach. This design enables future migration to other cloud providers (Azure, GCP) without requiring application code changes.
+lc-platform-dev-accelerators is a TypeScript package designed to provide cloud-agnostic service wrappers, initially implementing AWS services with a clean, hexagonal architecture approach. This design enables future migration to other cloud providers (Azure, GCP) without requiring application code changes.
 
-**Package Name**: `@lcplatform/dev-accelerator`  
+**Package Name**: `@stainedhead/lc-platform-dev-accelerators`  
 **TypeScript Version**: 5.9.3  
 **Architecture Pattern**: Clean/Hexagonal Architecture  
 **Initial Provider**: AWS  
@@ -23,7 +23,7 @@ LCPlatform-DevAccelerator is a TypeScript package designed to provide cloud-agno
 ### Package Structure
 
 ```
-@lcplatform/dev-accelerator/
+@stainedhead/lc-platform-dev-accelerators/
 ├── src/
 │   ├── core/               # Core interfaces and types
 │   │   ├── hosting/
@@ -418,7 +418,7 @@ AZURE_CLIENT_SECRET=xxx
 
 ### Programmatic Configuration
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 const platform = new LCPlatform({
   provider: 'aws',
@@ -454,8 +454,8 @@ const queue = platform.getQueue();
 
 ### Example Test
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
-import { MockProvider } from '@lcplatform/dev-accelerator/providers/mock';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
+import { MockProvider } from '@stainedhead/lc-platform-dev-accelerators/providers/mock';
 
 describe('ObjectStoreService', () => {
   let platform: LCPlatform;
@@ -488,7 +488,7 @@ await s3.putObject({
 });
 
 // After: LCPlatform
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 const platform = new LCPlatform({ provider: 'aws' });
 const storage = platform.getObjectStore();
 await storage.putObject('my-bucket', 'file.txt', Buffer.from('content'));

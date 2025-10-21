@@ -1,21 +1,20 @@
-# LCPlatform-DevAccelerator
+# lc-platform-dev-accelerators
 
 > Cloud-agnostic service wrappers for modern application development
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
-[![Coverage](https://img.shields.io/badge/coverage-85%25+-brightgreen.svg)]()
+[![CI](https://github.com/stainedhead/lc-platform-dev-accelerators/actions/workflows/ci.yml/badge.svg)](https://github.com/stainedhead/lc-platform-dev-accelerators/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue.svg)](https://www.typescriptlang.org/)
 [![Bun](https://img.shields.io/badge/Bun-1.3.0-orange.svg)](https://bun.sh)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-MVP%20Complete-success.svg)]()
+[![Version](https://img.shields.io/badge/version-0.1.1-success.svg)](https://github.com/stainedhead/lc-platform-dev-accelerators/packages)
 
-## 🎉 Status: Full Platform Complete (User Stories 1-7)
+## 🎉 Status: Full Platform Complete
 
-**167/206 tests passing** • **Production ready** • **8 AWS services integrated**
+**All 11 services implemented** • **LocalStack integration tests passing** • **Automated publishing** • **Production ready**
 
 ## Overview
 
-**LCPlatform-DevAccelerator** (`@lcplatform/dev-accelerator`) is a TypeScript library that provides cloud-agnostic service wrappers, enabling your applications to seamlessly work across multiple cloud providers (AWS, Azure, GCP) without vendor lock-in.
+**lc-platform-dev-accelerators** (`@stainedhead/lc-platform-dev-accelerators`) is a TypeScript library that provides cloud-agnostic service wrappers, enabling your applications to seamlessly work across multiple cloud providers (AWS, Azure, GCP) without vendor lock-in.
 
 Built on **Hexagonal Architecture** principles, this library abstracts cloud services behind provider-independent interfaces, allowing you to:
 
@@ -24,6 +23,89 @@ Built on **Hexagonal Architecture** principles, this library abstracts cloud ser
 - ✅ **Deploy to AWS** today, Azure tomorrow, without application changes
 - ✅ **Avoid vendor lock-in** and maintain architectural flexibility
 - ✅ **Production-ready** with 85%+ test coverage and zero TypeScript errors
+
+## Architecture
+
+### Hexagonal Architecture (Ports and Adapters)
+
+lc-platform-dev-accelerators is built on **Hexagonal Architecture** principles, ensuring complete cloud provider independence. Your application code depends only on abstract interfaces (ports), while cloud-specific implementations (adapters) are pluggable and interchangeable.
+
+**ASCII Diagram:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Application Layer                        │
+│  (Your code using LCPlatform - knows only about interfaces) │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │        LCPlatform              │
+         │  (Main entry point & config)   │
+         └───────────────┬────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │         Factories              │
+         │  (Runtime provider selection)  │
+         └───────────────┬────────────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+┌───────▼──────┐  ┌──────────▼───────────┐  ┌─────▼───────┐
+│ Core Domain  │  │    AWS Layer         │  │ Mock Layer  │
+│              │  │                      │  │             │
+│ 11 Services: │  │  AWS Adapters:       │  │ Adapters:   │
+│ - WebHosting │  │  - AppRunner         │  │ - InMemory  │
+│ - DataStore  │  │  - PostgreSQL        │  │ - InMemory  │
+│ - ObjectStore│  │  - S3                │  │ - InMemory  │
+│ - Batch      │  │  - Batch+EventBridge │  │ - InMemory  │
+│ - Queue      │  │  - SQS               │  │ - InMemory  │
+│ - Secrets    │  │  - Secrets Manager   │  │ - InMemory  │
+│ - Config     │  │  - AppConfig         │  │ - InMemory  │
+│ - DocStore   │  │  - DocumentDB        │  │ - InMemory  │
+│ - EventBus   │  │  - EventBridge       │  │ - InMemory  │
+│ - Notify     │  │  - SNS               │  │ - InMemory  │
+│ - Auth       │  │  - Cognito           │  │ - InMemory  │
+└──────────────┘  └──────────────────────┘  └─────────────┘
+```
+
+**Mermaid Diagram:**
+
+```mermaid
+graph TB
+    App[Application Layer<br/>Your code using LCPlatform<br/>knows only about interfaces]
+
+    App --> Platform[LCPlatform<br/>Main entry point & config]
+    Platform --> Factory[Factories<br/>Runtime provider selection]
+
+    Factory --> Core[Core Domain<br/>11 Service Interfaces]
+    Factory --> AWS[AWS Layer<br/>AWS Adapters]
+    Factory --> Mock[Mock Layer<br/>In-Memory Adapters]
+
+    Core -.defines.-> Interfaces[Service Interfaces:<br/>WebHosting, DataStore, ObjectStore<br/>Batch, Queue, Secrets, Config<br/>DocStore, EventBus, Notify, Auth]
+
+    AWS -.implements.-> Interfaces
+    Mock -.implements.-> Interfaces
+
+    AWS --> AWSServices[AWS Services:<br/>AppRunner, PostgreSQL, S3<br/>Batch+EventBridge, SQS<br/>Secrets Manager, AppConfig<br/>DocumentDB, EventBridge<br/>SNS, Cognito]
+
+    Mock --> InMemory[In-Memory:<br/>All services use<br/>in-memory storage]
+
+    style App fill:#e1f5ff
+    style Platform fill:#fff4e1
+    style Factory fill:#fff4e1
+    style Core fill:#e8f5e9
+    style AWS fill:#fff3e0
+    style Mock fill:#f3e5f5
+    style Interfaces fill:#e8f5e9
+```
+
+**Key Principles:**
+
+1. **Dependency Inversion**: Application depends on abstractions (service interfaces), not implementations
+2. **Provider Independence**: Switch between AWS, Mock, or future providers (Azure, GCP) via configuration
+3. **Testability**: Use Mock provider for local development and testing without cloud credentials
+4. **Extensibility**: Add new providers by implementing the same service interfaces
+5. **Type Safety**: TypeScript ensures compile-time verification of provider compatibility
 
 ## Key Features
 
@@ -62,7 +144,7 @@ Built on **Hexagonal Architecture** principles, this library abstracts cloud ser
 Mock provider enables local development and testing without cloud resources:
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Development/Testing - No cloud credentials needed
 const platform = new LCPlatform({ provider: ProviderType.MOCK });
@@ -78,14 +160,14 @@ const prodPlatform = new LCPlatform({ provider: ProviderType.AWS, region: 'us-ea
 ### From GitHub Packages
 
 ```bash
-bun add @lcplatform/dev-accelerator
+bun add @stainedhead/lc-platform-dev-accelerators
 ```
 
-**Note**: Configure Bun to use GitHub Packages for the `@lcplatform` scope. Add to your `bunfig.toml`:
+**Note**: Configure Bun to use GitHub Packages for the `@stainedhead` scope. Add to your `bunfig.toml`:
 
 ```toml
 [install.scopes]
-"@lcplatform" = { url = "https://npm.pkg.github.com" }
+"@stainedhead" = { url = "https://npm.pkg.github.com" }
 ```
 
 ## Quick Start
@@ -93,7 +175,7 @@ bun add @lcplatform/dev-accelerator
 ### Basic Usage
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Initialize with AWS provider
 const platform = new LCPlatform({
@@ -140,7 +222,7 @@ console.log(`Application deployed at: ${deployment.url}`);
 ### Switching Providers (Zero Code Changes!)
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Development: Use mock provider (no cloud needed)
 const devPlatform = new LCPlatform({ provider: ProviderType.MOCK });
@@ -158,7 +240,7 @@ const prodPlatform = new LCPlatform({
 ### Environment-Based Configuration
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 const platform = new LCPlatform({
   provider: (process.env.LC_PLATFORM_PROVIDER as ProviderType) || ProviderType.MOCK,
@@ -296,8 +378,8 @@ See [documentation/product-details.md](documentation/product-details.md) for com
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_ORG/LCPlatform-DevAccelerator.git
-cd LCPlatform-DevAccelerator
+git clone https://github.com/stainedhead/lc-platform-dev-accelerators.git
+cd lc-platform-dev-accelerators
 
 # Install dependencies
 bun install
@@ -468,8 +550,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/YOUR_ORG/LCPlatform-DevAccelerator/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/YOUR_ORG/LCPlatform-DevAccelerator/discussions)
+- **Issues**: [GitHub Issues](https://github.com/stainedhead/lc-platform-dev-accelerators/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/stainedhead/lc-platform-dev-accelerators/discussions)
 - **Documentation**: [Documentation Directory](documentation/)
 
 ## Acknowledgments

@@ -1,8 +1,8 @@
-# LCPlatform-DevAccelerator - Product Summary
+# lc-platform-dev-accelerators - Product Summary
 
 ## Overview
 
-**LCPlatform-DevAccelerator** is a TypeScript library that provides cloud-agnostic service wrappers, enabling applications to work seamlessly across multiple cloud providers (AWS, Azure, GCP) without vendor lock-in. Built on hexagonal architecture principles, it abstracts cloud services behind provider-independent interfaces.
+**lc-platform-dev-accelerators** is a TypeScript library that provides cloud-agnostic service wrappers, enabling applications to work seamlessly across multiple cloud providers (AWS, Azure, GCP) without vendor lock-in. Built on hexagonal architecture principles, it abstracts cloud services behind provider-independent interfaces.
 
 **Current Status**: MVP Complete - User Story 1 shipped (100%)
 
@@ -104,7 +104,7 @@ Store and retrieve binary objects with metadata and presigned URLs.
 
 ```bash
 # Using Bun (recommended)
-bun add @lcplatform/dev-accelerator
+bun add @stainedhead/lc-platform-dev-accelerators
 
 # Configure GitHub Packages in bunfig.toml
 [install.scopes]
@@ -114,7 +114,7 @@ bun add @lcplatform/dev-accelerator
 ### Basic Usage Example
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Initialize platform
 const platform = new LCPlatform({
@@ -222,7 +222,7 @@ console.log(`Application deployed at: ${deployment.url}`);
 
 ## Getting Started
 
-1. **Install**: `bun add @lcplatform/dev-accelerator`
+1. **Install**: `bun add @stainedhead/lc-platform-dev-accelerators`
 2. **Read Docs**: Check `README.md` for detailed examples
 3. **Run Tests**: `bun test` to verify installation
 4. **Try Mock Provider**: Build and test without cloud credentials

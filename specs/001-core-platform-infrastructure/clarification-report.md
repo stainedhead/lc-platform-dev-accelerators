@@ -43,7 +43,7 @@
 
 ## Specification Status
 
-**Updated Spec**: `/Users/iggybdda/Code/stainedhead/Typescript/LCPlatform-DevAccelerator/specs/001-core-platform-infrastructure/spec.md`
+**Updated Spec**: `/Users/iggybdda/Code/stainedhead/Typescript/lc-platform-dev-accelerators/specs/001-core-platform-infrastructure/spec.md`
 
 **Total Functional Requirements**: 66 (was 65, added FR-066 for concurrency control)
 

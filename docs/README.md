@@ -2,7 +2,7 @@
 
 ***
 
-# LCPlatform-DevAccelerator
+# lc-platform-dev-accelerators
 
 > Cloud-agnostic service wrappers for modern application development
 
@@ -19,7 +19,7 @@
 
 ## Overview
 
-**LCPlatform-DevAccelerator** (`@lcplatform/dev-accelerator`) is a TypeScript library that provides cloud-agnostic service wrappers, enabling your applications to seamlessly work across multiple cloud providers (AWS, Azure, GCP) without vendor lock-in.
+**lc-platform-dev-accelerators** (`@stainedhead/lc-platform-dev-accelerators`) is a TypeScript library that provides cloud-agnostic service wrappers, enabling your applications to seamlessly work across multiple cloud providers (AWS, Azure, GCP) without vendor lock-in.
 
 Built on **Hexagonal Architecture** principles, this library abstracts cloud services behind provider-independent interfaces, allowing you to:
 
@@ -65,7 +65,7 @@ Built on **Hexagonal Architecture** principles, this library abstracts cloud ser
 Mock provider enables local development and testing without cloud resources:
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Development/Testing - No cloud credentials needed
 const platform = new LCPlatform({ provider: ProviderType.MOCK });
@@ -81,7 +81,7 @@ const prodPlatform = new LCPlatform({ provider: ProviderType.AWS, region: 'us-ea
 ### From GitHub Packages
 
 ```bash
-bun add @lcplatform/dev-accelerator
+bun add @stainedhead/lc-platform-dev-accelerators
 ```
 
 **Note**: Configure Bun to use GitHub Packages for the `@lcplatform` scope. Add to your `bunfig.toml`:
@@ -96,7 +96,7 @@ bun add @lcplatform/dev-accelerator
 ### Basic Usage (MVP - User Story 1)
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Initialize with AWS provider
 const platform = new LCPlatform({
@@ -143,7 +143,7 @@ console.log(`Application deployed at: ${deployment.url}`);
 ### Switching Providers (Zero Code Changes!)
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Development: Use mock provider (no cloud needed)
 const devPlatform = new LCPlatform({ provider: ProviderType.MOCK });
@@ -161,7 +161,7 @@ const prodPlatform = new LCPlatform({
 ### Environment-Based Configuration
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 const platform = new LCPlatform({
   provider: (process.env.LC_PLATFORM_PROVIDER as ProviderType) || ProviderType.MOCK,
@@ -286,8 +286,8 @@ See [documentation/product-details.md](_media/product-details.md) for complete A
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_ORG/LCPlatform-DevAccelerator.git
-cd LCPlatform-DevAccelerator
+git clone https://github.com/YOUR_ORG/lc-platform-dev-accelerators.git
+cd lc-platform-dev-accelerators
 
 # Install dependencies
 bun install
@@ -447,8 +447,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/YOUR_ORG/LCPlatform-DevAccelerator/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/YOUR_ORG/LCPlatform-DevAccelerator/discussions)
+- **Issues**: [GitHub Issues](https://github.com/YOUR_ORG/lc-platform-dev-accelerators/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/YOUR_ORG/lc-platform-dev-accelerators/discussions)
 - **Documentation**: [Documentation Directory](_media/documentation)
 
 ## Acknowledgments

@@ -1,5 +1,5 @@
 /**
- * LCPlatform-DevAccelerator
+ * lc-platform-dev-accelerators
  *
  * Cloud-agnostic service wrappers for modern application development.
  * Provides seamless abstraction across AWS, Azure, and GCP.

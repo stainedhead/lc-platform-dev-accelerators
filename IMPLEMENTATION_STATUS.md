@@ -1,4 +1,4 @@
-# LCPlatform-DevAccelerator Implementation Status
+# lc-platform-dev-accelerators Implementation Status
 
 **Date**: 2025-10-20
 **Branch**: `001-core-platform-infrastructure`
@@ -256,7 +256,7 @@ specs/001-core-platform-infrastructure/
 ### Mock Provider (Testing & Development)
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Create platform with Mock provider (no AWS credentials needed)
 const platform = new LCPlatform({

@@ -1,4 +1,4 @@
-# LCPlatform-DevAccelerator - Technical Details
+# lc-platform-dev-accelerators - Technical Details
 
 **Status**: Full Platform Complete - 11 Services Implemented (User Stories 1-7)
 
@@ -18,7 +18,7 @@
 
 ### Hexagonal Architecture (Ports and Adapters)
 
-LCPlatform-DevAccelerator follows hexagonal architecture principles to achieve complete provider independence.
+lc-platform-dev-accelerators follows hexagonal architecture principles to achieve complete provider independence.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -70,7 +70,7 @@ LCPlatform-DevAccelerator follows hexagonal architecture principles to achieve c
 ### Directory Structure
 
 ```
-LCPlatform-DevAccelerator/
+lc-platform-dev-accelerators/
 ├── src/
 │   ├── core/                    # Domain layer (provider-agnostic)
 │   │   ├── types/              # Type definitions
@@ -604,7 +604,7 @@ export class LCPlatform {
 ```json
 // package.json (partial)
 {
-  "name": "@lcplatform/dev-accelerator",
+  "name": "@stainedhead/lc-platform-dev-accelerators",
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.js",

@@ -23,7 +23,7 @@ Templates Requiring Updates:
 Follow-up TODOs: None
 -->
 
-# LCPlatform-DevAccelerator Constitution
+# lc-platform-dev-accelerators Constitution
 
 ## Core Principles
 

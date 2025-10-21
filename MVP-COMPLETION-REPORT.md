@@ -152,7 +152,7 @@ src/
 ## 📝 Example Usage
 
 ```typescript
-import { LCPlatform, ProviderType } from '@lcplatform/dev-accelerator';
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Create platform instance (Mock for testing, AWS for production)
 const platform = new LCPlatform({

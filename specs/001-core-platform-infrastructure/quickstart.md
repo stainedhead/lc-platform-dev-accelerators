@@ -1,13 +1,13 @@
 # Quickstart Guide: LCPlatform DevAccelerator
 
-**Package**: `@lcplatform/dev-accelerator`
+**Package**: `@stainedhead/lc-platform-dev-accelerators`
 **Version**: 1.0.0 (planned)
 **Runtime**: Bun 1.0+
 
 ## Installation
 
 ```bash
-bun add @lcplatform/dev-accelerator
+bun add @stainedhead/lc-platform-dev-accelerators
 ```
 
 ## Quick Examples
@@ -15,7 +15,7 @@ bun add @lcplatform/dev-accelerator
 ### Example 1: Store and Retrieve Secrets
 
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Initialize with AWS provider
 const platform = new LCPlatform({ provider: 'aws', region: 'us-east-1' });
@@ -41,7 +41,7 @@ console.log('All secrets:', allSecrets.map(s => s.name));
 ### Example 2: Upload and Download Files (Object Storage)
 
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 import { readFile } from 'fs/promises';
 
 const platform = new LCPlatform({ provider: 'aws', region: 'us-east-1' });
@@ -71,7 +71,7 @@ console.log('Files:', files.map(f => f.key));
 ### Example 3: Send and Receive Queue Messages
 
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 const platform = new LCPlatform({ provider: 'aws', region: 'us-east-1' });
 const queue = platform.getQueue();
@@ -110,7 +110,7 @@ for (const msg of messages) {
 ### Example 4: Publish and Subscribe to Events
 
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 const platform = new LCPlatform({ provider: 'aws', region: 'us-east-1' });
 const eventBus = platform.getEventBus();
@@ -150,7 +150,7 @@ await eventBus.addTarget('user-created-notifications', {
 ### Example 5: Deploy a Web Application
 
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 const platform = new LCPlatform({ provider: 'aws', region: 'us-east-1' });
 const hosting = platform.getWebHosting();
@@ -188,7 +188,7 @@ console.log('Current instances:', status.currentInstances);
 ### Example 6: Submit a Batch Job
 
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 const platform = new LCPlatform({ provider: 'aws', region: 'us-east-1' });
 const batch = platform.getBatch();
@@ -228,7 +228,7 @@ if (jobStatus.status === 'SUCCEEDED') {
 ### Example 7: OAuth2 Authentication
 
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 const platform = new LCPlatform({ provider: 'aws', region: 'us-east-1' });
 const auth = platform.getAuthentication();
@@ -268,7 +268,7 @@ if (tokens.refreshToken) {
 The mock provider enables local development and testing without cloud provider credentials:
 
 ```typescript
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 // Use mock provider
 const platform = new LCPlatform({ provider: 'mock' });
@@ -305,7 +305,7 @@ await azureSecrets.createSecret('api-key', 'my-api-key');
 All services throw provider-agnostic errors:
 
 ```typescript
-import { LCPlatformError } from '@lcplatform/dev-accelerator';
+import { LCPlatformError } from '@stainedhead/lc-platform-dev-accelerators';
 
 try {
   const secret = await secrets.getSecret('nonexistent-secret');
@@ -370,7 +370,7 @@ const platform = new LCPlatform({
 
 ```typescript
 import { describe, it, expect, beforeEach } from 'bun:test';
-import { LCPlatform } from '@lcplatform/dev-accelerator';
+import { LCPlatform } from '@stainedhead/lc-platform-dev-accelerators';
 
 describe('My Application', () => {
   let platform: LCPlatform;
