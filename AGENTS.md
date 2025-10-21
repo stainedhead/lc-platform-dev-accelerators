@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **LCPlatform-DevAccelerator** (`@lcplatform/dev-accelerator`) is a TypeScript package that provides cloud-agnostic service wrappers using Clean/Hexagonal Architecture. The package allows applications to use cloud services (initially AWS, future: Azure, GCP) through provider-independent interfaces.
 
+**Runtime**: Bun 1.0+ (not Node.js) - Modern JavaScript runtime with native TypeScript support and built-in test runner.
+
 **Current Status**: Early-stage project - no source code implementation yet. The product definition (lcplatform-product-definition.md) outlines the complete architecture and service specifications.
 
 ## Architecture
@@ -121,17 +123,31 @@ Applications are deployed with config files that declare all dependencies, which
 
 ### Testing Strategy
 
-- **Unit tests**: Use mock provider for all interface methods
-- **Integration tests**: Use LocalStack (AWS) or Azurite (Azure) for local cloud simulation
+- **Test Framework**: Bun's built-in test runner (compatible with Jest-like API)
+- **Unit tests**: Use mock provider for all interface methods (in `tests/unit/`)
+- **Integration tests**: Use LocalStack (AWS) or Azurite (Azure) for local cloud simulation (in `tests/integration/`)
+- **Contract tests**: Verify provider parity (AWS ↔ Mock) (in `tests/contract/`)
 - **Error scenarios**: Test timeout, retry, and circuit breaker behavior
 - **Performance**: Benchmark connection pooling and batch operations
 
-Example test pattern (see lcplatform-product-definition.md:456-475):
+Example test pattern using Bun test:
 ```typescript
-const platform = new LCPlatform({ provider: 'mock' });
-const storage = platform.getObjectStore();
-await storage.putObject('bucket', 'key', Buffer.from('data'));
-const result = await storage.getObject('bucket', 'key');
+import { describe, it, expect, beforeEach } from 'bun:test';
+
+describe('ObjectStoreService', () => {
+  let platform: LCPlatform;
+
+  beforeEach(() => {
+    platform = new LCPlatform({ provider: 'mock' });
+  });
+
+  it('should store and retrieve objects', async () => {
+    const storage = platform.getObjectStore();
+    await storage.putObject('bucket', 'key', Buffer.from('data'));
+    const result = await storage.getObject('bucket', 'key');
+    expect(result.data).toEqual(Buffer.from('data'));
+  });
+});
 ```
 
 ## Key Design Decisions
@@ -252,20 +268,22 @@ The CI/CD pipeline runs on every push and pull request:
 
 ### Local Development Commands
 
-Development commands will be available in `package.json`:
+Development commands using Bun runtime (in `package.json`):
 
 ```bash
-npm run build          # Compile TypeScript
-npm run test           # Run tests with coverage
-npm run test:watch     # Run tests in watch mode
-npm run test:unit      # Run unit tests only
-npm run test:integration # Run integration tests
-npm run lint           # Run ESLint
-npm run lint:fix       # Auto-fix linting issues
-npm run format         # Format code with Prettier
-npm run format:check   # Check formatting without changes
-npm run typecheck      # Type-check without building
+bun run build          # Compile TypeScript
+bun test               # Run tests with coverage (Bun's built-in test runner)
+bun test --watch       # Run tests in watch mode
+bun test tests/unit    # Run unit tests only
+bun test tests/integration # Run integration tests
+bun run lint           # Run ESLint
+bun run lint:fix       # Auto-fix linting issues
+bun run format         # Format code with Prettier
+bun run format:check   # Check formatting without changes
+bun run typecheck      # Type-check without building
 ```
+
+**Note**: This project uses **Bun runtime**, not Node.js. Bun provides native TypeScript support and a built-in test runner that's significantly faster than Jest/Vitest.
 
 ## Repository Configuration
 
@@ -310,7 +328,9 @@ README sections:
 
 - **Package name**: `@lcplatform/dev-accelerator`
 - **TypeScript version**: 5.9.3
-- **Package manager**: npm (standard for TypeScript packages)
-- **Registry**: GitHub Packages (npm)
-- **Dependencies**: AWS SDK v3, Azure SDK, Jest/Vitest for testing
-- **Dev dependencies**: TypeScript, ESLint, Prettier, testing frameworks
+- **Runtime**: Bun 1.0+ (not Node.js)
+- **Package manager**: bun (replaces npm)
+- **Registry**: GitHub Packages (npm compatible)
+- **Dependencies**: AWS SDK v3 (modular packages), openid-client (OAuth2), lru-cache (caching)
+- **Dev dependencies**: TypeScript, ESLint, Prettier
+- **Testing**: Bun's built-in test runner (not Jest/Vitest)

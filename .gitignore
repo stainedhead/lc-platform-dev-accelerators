@@ -113,3 +113,6 @@ docs/.vitepress/cache
 # Backup files
 *.bak
 *.backup
+
+# Bun
+bun.lockb
