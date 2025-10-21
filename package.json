@@ -21,7 +21,7 @@
     "docs": "typedoc",
     "docs:watch": "typedoc --watch",
     "bench": "bun run benchmarks/index.ts",
-    "prepublishOnly": "bun run build && bun run test:unit && bun run test:contract"
+    "prepublishOnly": "bun run build"
   },
   "keywords": [
     "cloud",

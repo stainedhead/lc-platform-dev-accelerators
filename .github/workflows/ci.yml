@@ -83,10 +83,77 @@ jobs:
           path: dist/
           retention-days: 7
 
+  integration:
+    name: Integration Tests (LocalStack)
+    runs-on: ubuntu-latest
+    needs: build
+
+    services:
+      localstack:
+        image: localstack/localstack:latest
+        ports:
+          - 4566:4566
+        env:
+          SERVICES: s3,rds,dynamodb,sqs,sns,secretsmanager,events,appconfig,batch,apprunner
+          DEBUG: 1
+          DOCKER_HOST: unix:///var/run/docker.sock
+        options: >-
+          --health-cmd "awslocal s3 ls || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Wait for LocalStack to be ready
+        run: |
+          echo "Waiting for LocalStack to be ready..."
+          max_attempts=30
+          attempt=0
+          until curl -f http://localhost:4566/_localstack/health | grep -q '"s3": "available"' || [ $attempt -eq $max_attempts ]; do
+            attempt=$((attempt + 1))
+            echo "Attempt $attempt/$max_attempts: LocalStack not ready yet..."
+            sleep 2
+          done
+
+          if [ $attempt -eq $max_attempts ]; then
+            echo "LocalStack failed to become ready"
+            exit 1
+          fi
+
+          echo "LocalStack is ready!"
+          curl http://localhost:4566/_localstack/health
+
+      - name: Run integration tests
+        run: bun run test:integration
+        env:
+          AWS_ENDPOINT_URL: http://localhost:4566
+          AWS_ACCESS_KEY_ID: test
+          AWS_SECRET_ACCESS_KEY: test
+          AWS_REGION: us-east-1
+
+      - name: Run contract tests
+        run: bun run test:contract
+        env:
+          AWS_ENDPOINT_URL: http://localhost:4566
+          AWS_ACCESS_KEY_ID: test
+          AWS_SECRET_ACCESS_KEY: test
+          AWS_REGION: us-east-1
+
   publish:
     name: Publish to GitHub Packages
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, integration]
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     permissions:
       contents: read
