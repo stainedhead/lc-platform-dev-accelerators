@@ -54,13 +54,14 @@ await storage.putObject('bucket', 'test.txt', Buffer.from('Hello World'));
 ### From GitHub Packages
 
 ```bash
-npm install @lcplatform/dev-accelerator
+bun add @lcplatform/dev-accelerator
 ```
 
-**Note**: Configure npm to use GitHub Packages for the `@lcplatform` scope:
+**Note**: Configure Bun to use GitHub Packages for the `@lcplatform` scope. Add to your `bunfig.toml`:
 
-```bash
-echo "@lcplatform:registry=https://npm.pkg.github.com" >> .npmrc
+```toml
+[install.scopes]
+"@lcplatform" = { url = "https://npm.pkg.github.com" }
 ```
 
 ## Quick Start
@@ -199,9 +200,9 @@ See [documentation/product-details.md](documentation/product-details.md) for com
 
 ### Prerequisites
 
-- Node.js 18+ (LTS recommended)
-- npm 9+
+- **Bun 1.0+** (not Node.js) - [Install Bun](https://bun.sh)
 - TypeScript 5.9.3+
+- Git
 
 ### Setup
 
@@ -211,25 +212,25 @@ git clone https://github.com/YOUR_ORG/LCPlatform-DevAccelerator.git
 cd LCPlatform-DevAccelerator
 
 # Install dependencies
-npm install
+bun install
 
 # Build the project
-npm run build
+bun run build
 ```
 
 ### Development Commands
 
 ```bash
-npm run build          # Compile TypeScript
-npm run test           # Run tests with coverage
-npm run test:watch     # Run tests in watch mode
-npm run test:unit      # Run unit tests only
-npm run test:integration # Run integration tests
-npm run lint           # Run ESLint
-npm run lint:fix       # Auto-fix linting issues
-npm run format         # Format code with Prettier
-npm run format:check   # Check formatting
-npm run typecheck      # Type-check without building
+bun run build          # Compile TypeScript
+bun test               # Run tests with coverage (Bun's built-in test runner)
+bun test --watch       # Run tests in watch mode
+bun test tests/unit    # Run unit tests only
+bun test tests/integration # Run integration tests
+bun run lint           # Run ESLint
+bun run lint:fix       # Auto-fix linting issues
+bun run format         # Format code with Prettier
+bun run format:check   # Check formatting
+bun run typecheck      # Type-check without building
 ```
 
 ### Running Tests
@@ -243,13 +244,13 @@ We practice **Test-Driven Development (TDD)** with strict quality standards:
 
 ```bash
 # Run all tests with coverage
-npm test
+bun test
 
 # Run tests in watch mode during development
-npm run test:watch
+bun test --watch
 
 # Run only unit tests (fast feedback)
-npm run test:unit
+bun test tests/unit
 ```
 
 ## Contributing
@@ -262,7 +263,7 @@ We welcome contributions! Please see our contributing guidelines:
 2. **Write tests first** (TDD approach)
 3. **Implement the feature** to make tests pass
 4. **Ensure coverage ≥ 80%** for new code
-5. **Run linting and formatting** (`npm run lint:fix && npm run format`)
+5. **Run linting and formatting** (`bun run lint:fix && bun run format`)
 6. **Update documentation** in `documentation/` directory
 7. **Submit a pull request** to the `develop` branch
 
@@ -329,10 +330,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 Built with ❤️ using:
+- [Bun](https://bun.sh/) - Fast JavaScript runtime with native TypeScript support
 - [TypeScript](https://www.typescriptlang.org/)
 - [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
 - [Azure SDK for JavaScript](https://github.com/Azure/azure-sdk-for-js)
-- [Jest](https://jestjs.io/) for testing
 
 ---
 

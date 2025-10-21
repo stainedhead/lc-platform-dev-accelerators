@@ -44,7 +44,7 @@ LCPlatform-DevAccelerator is a TypeScript package designed to provide cloud-agno
 
 ### 1. Web Hosting Service
 
-**Purpose**: Deploy and manage containerized web applications
+**Purpose**: Deploy and manage web applications
 
 | AWS Service | Azure Equivalent | Abstraction |
 |------------|------------------|-------------|
@@ -1050,7 +1050,7 @@ Streams or retrieves application logs.
 - `follow`: Stream logs in real-time (default: false)
 - `since`: RFC3339 timestamp
 - `lines`: Number of lines to return
-- `container`: Specific container name
+- `component`: Specific application component name
 
 ##### 8. Application Metrics
 
