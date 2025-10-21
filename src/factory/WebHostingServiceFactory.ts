@@ -8,19 +8,27 @@ import type { ProviderConfig } from '../core/types/common';
 import type { WebHostingService } from '../core/services/WebHostingService';
 import { BaseProviderFactory } from './ProviderFactory';
 import { MockWebHostingService } from '../providers/mock/MockWebHostingService';
-import { AwsWebHostingService } from '../providers/aws/AwsWebHostingService';
+import {
+  AwsWebHostingService,
+  type AwsWebHostingConfig,
+} from '../providers/aws/AwsWebHostingService';
 
 export class WebHostingServiceFactory extends BaseProviderFactory<WebHostingService> {
   protected createAwsService(config: ProviderConfig): WebHostingService {
-    const awsConfig: any = {
-      region: config.region,
-    };
+    const awsConfig: AwsWebHostingConfig = {};
 
-    if (config.credentials) {
-      awsConfig.credentials = config.credentials;
+    if (config.region !== undefined && config.region !== null) {
+      awsConfig.region = config.region;
     }
 
-    if (config.options?.endpoint) {
+    if (config.credentials !== undefined && config.credentials !== null) {
+      const { accessKeyId, secretAccessKey } = config.credentials;
+      if (accessKeyId !== undefined && secretAccessKey !== undefined) {
+        awsConfig.credentials = { accessKeyId, secretAccessKey };
+      }
+    }
+
+    if (config.options?.endpoint !== undefined && config.options.endpoint !== null) {
       awsConfig.endpoint = String(config.options.endpoint);
     }
 

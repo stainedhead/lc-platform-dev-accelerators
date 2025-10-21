@@ -56,11 +56,7 @@ export interface ObjectStoreService {
    * Generate a presigned URL for temporary access
    * FR-036: Generate presigned URLs (default 1 hour expiration)
    */
-  generatePresignedUrl(
-    bucket: string,
-    key: string,
-    expires?: number
-  ): Promise<string>;
+  generatePresignedUrl(bucket: string, key: string, expires?: number): Promise<string>;
 
   /**
    * Copy an object between locations

@@ -6,12 +6,7 @@
  */
 
 import type { DataStoreService } from '../../core/services/DataStoreService';
-import type {
-  Connection,
-  ExecuteResult,
-  Migration,
-  Transaction,
-} from '../../core/types/datastore';
+import type { Connection, ExecuteResult, Migration, Transaction } from '../../core/types/datastore';
 import { ValidationError } from '../../core/types/common';
 
 export class MockDataStoreService implements DataStoreService {

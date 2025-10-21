@@ -6,19 +6,27 @@ import type { ProviderConfig } from '../core/types/common';
 import type { ObjectStoreService } from '../core/services/ObjectStoreService';
 import { BaseProviderFactory } from './ProviderFactory';
 import { MockObjectStoreService } from '../providers/mock/MockObjectStoreService';
-import { AwsObjectStoreService } from '../providers/aws/AwsObjectStoreService';
+import {
+  AwsObjectStoreService,
+  type AwsObjectStoreConfig,
+} from '../providers/aws/AwsObjectStoreService';
 
 export class ObjectStoreServiceFactory extends BaseProviderFactory<ObjectStoreService> {
   protected createAwsService(config: ProviderConfig): ObjectStoreService {
-    const awsConfig: any = {
-      region: config.region,
-    };
+    const awsConfig: AwsObjectStoreConfig = {};
 
-    if (config.credentials) {
-      awsConfig.credentials = config.credentials;
+    if (config.region !== undefined && config.region !== null) {
+      awsConfig.region = config.region;
     }
 
-    if (config.options?.endpoint) {
+    if (config.credentials !== undefined && config.credentials !== null) {
+      const { accessKeyId, secretAccessKey } = config.credentials;
+      if (accessKeyId !== undefined && secretAccessKey !== undefined) {
+        awsConfig.credentials = { accessKeyId, secretAccessKey };
+      }
+    }
+
+    if (config.options?.endpoint !== undefined && config.options.endpoint !== null) {
       awsConfig.endpoint = String(config.options.endpoint);
     }
 

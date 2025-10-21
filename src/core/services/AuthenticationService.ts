@@ -3,12 +3,7 @@
  * Provides cloud-agnostic OAuth2/OIDC authentication capabilities
  */
 
-import type {
-  TokenSet,
-  TokenClaims,
-  UserInfo,
-  AuthConfig,
-} from '../types/auth';
+import type { TokenSet, TokenClaims, UserInfo, AuthConfig } from '../types/auth';
 
 export interface AuthenticationService {
   /**
@@ -24,11 +19,7 @@ export interface AuthenticationService {
    * @param state Optional state parameter for CSRF protection
    * @returns Authorization URL
    */
-  getAuthorizationUrl(
-    redirectUri: string,
-    scopes?: string[],
-    state?: string
-  ): Promise<string>;
+  getAuthorizationUrl(redirectUri: string, scopes?: string[], state?: string): Promise<string>;
 
   /**
    * Exchange authorization code for tokens

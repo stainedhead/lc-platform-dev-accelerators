@@ -4,12 +4,7 @@
  */
 
 import type { AuthenticationService } from '../../core/services/AuthenticationService';
-import type {
-  TokenSet,
-  TokenClaims,
-  UserInfo,
-  AuthConfig,
-} from '../../core/types/auth';
+import type { TokenSet, TokenClaims, UserInfo, AuthConfig } from '../../core/types/auth';
 import { AuthenticationError } from '../../core/types/common';
 import { randomBytes } from 'crypto';
 
@@ -52,9 +47,7 @@ export class MockAuthenticationService implements AuthenticationService {
       response_type: 'code',
       client_id: this.config!.clientId,
       redirect_uri: redirectUri,
-      scope: (scopes ?? this.config!.scopes ?? ['openid', 'email', 'profile']).join(
-        ' '
-      ),
+      scope: (scopes ?? this.config!.scopes ?? ['openid', 'email', 'profile']).join(' '),
       ...(state && { state }),
     });
 

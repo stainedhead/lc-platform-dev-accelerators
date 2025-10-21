@@ -56,4 +56,26 @@ module.exports = {
     '*.js',
     '!.eslintrc.js',
   ],
+  overrides: [
+    {
+      // Mock implementations and test utilities can have async methods without await
+      files: ['**/mock/**/*.ts', '**/helpers/**/*.ts'],
+      rules: {
+        '@typescript-eslint/require-await': 'off',
+      },
+    },
+    {
+      // Tests can use console for debugging
+      files: ['**/*.test.ts'],
+      rules: {
+        'no-console': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'warn',
+        '@typescript-eslint/no-unsafe-assignment': 'warn',
+        '@typescript-eslint/no-unsafe-member-access': 'warn',
+        '@typescript-eslint/require-await': 'off',
+        '@typescript-eslint/await-thenable': 'warn',
+        'no-constant-condition': 'warn',
+      },
+    },
+  ],
 };

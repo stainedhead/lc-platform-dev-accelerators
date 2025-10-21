@@ -31,7 +31,7 @@ export const Protocol = {
   WEBHOOK: 'webhook' as const,
 };
 
-export type Protocol = typeof Protocol[keyof typeof Protocol];
+export type Protocol = (typeof Protocol)[keyof typeof Protocol];
 
 export interface EmailParams {
   to: string[];

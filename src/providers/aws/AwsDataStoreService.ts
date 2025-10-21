@@ -10,14 +10,10 @@
 
 import { Pool, type PoolClient, type QueryResult } from 'pg';
 import type { DataStoreService } from '../../core/services/DataStoreService';
-import type {
-  Connection,
-  ExecuteResult,
-  Migration,
-  Transaction,
-} from '../../core/types/datastore';
+import type { Connection, ExecuteResult, Migration, Transaction } from '../../core/types/datastore';
 import { ServiceUnavailableError, ValidationError } from '../../core/types/common';
 import { withRetry } from '../../utils/retry';
+import { getErrorMessage } from '../../utils/error';
 
 export interface AwsDataStoreConfig {
   host?: string;
@@ -42,7 +38,7 @@ export class AwsDataStoreService implements DataStoreService {
 
   async connect(connectionString?: string): Promise<void> {
     try {
-      if (connectionString) {
+      if (connectionString !== undefined && connectionString !== null && connectionString !== '') {
         // Use connection string
         this.pool = new Pool({
           connectionString,
@@ -65,8 +61,8 @@ export class AwsDataStoreService implements DataStoreService {
       // Test connection
       const client = await this.pool.connect();
       client.release();
-    } catch (error: any) {
-      throw new ServiceUnavailableError(`Failed to connect to database: ${error.message}`);
+    } catch (error: unknown) {
+      throw new ServiceUnavailableError(`Failed to connect to database: ${getErrorMessage(error)}`);
     }
   }
 
@@ -77,8 +73,8 @@ export class AwsDataStoreService implements DataStoreService {
       try {
         const result: QueryResult = await this.pool!.query(sql, params);
         return result.rows as T[];
-      } catch (error: any) {
-        throw new ServiceUnavailableError(`Query failed: ${error.message}`);
+      } catch (error: unknown) {
+        throw new ServiceUnavailableError(`Query failed: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -89,13 +85,23 @@ export class AwsDataStoreService implements DataStoreService {
 
       try {
         const result: QueryResult = await this.pool!.query(sql, params);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const insertId: string | undefined =
+          result.rows.length > 0 &&
+          result.rows[0] !== null &&
+          result.rows[0] !== undefined &&
+          typeof result.rows[0] === 'object' &&
+          'id' in result.rows[0]
+            ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+              String(result.rows[0].id)
+            : undefined;
 
         return {
           rowsAffected: result.rowCount ?? 0,
-          insertId: result.rows[0]?.id,
+          ...(insertId !== undefined && { insertId }),
         };
-      } catch (error: any) {
-        throw new ServiceUnavailableError(`Execute failed: ${error.message}`);
+      } catch (error: unknown) {
+        throw new ServiceUnavailableError(`Execute failed: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -109,16 +115,26 @@ export class AwsDataStoreService implements DataStoreService {
       await client.query('BEGIN');
 
       const tx: Transaction = {
-        query: async <R>(sql: string, params?: any[]): Promise<R[]> => {
+        query: async <R>(sql: string, params?: unknown[]): Promise<R[]> => {
           const result = await client.query(sql, params);
           return result.rows as R[];
         },
 
-        execute: async (sql: string, params?: any[]): Promise<ExecuteResult> => {
+        execute: async (sql: string, params?: unknown[]): Promise<ExecuteResult> => {
           const result = await client.query(sql, params);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          const insertId: string | undefined =
+            result.rows.length > 0 &&
+            result.rows[0] !== null &&
+            result.rows[0] !== undefined &&
+            typeof result.rows[0] === 'object' &&
+            'id' in result.rows[0]
+              ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+                String(result.rows[0].id)
+              : undefined;
           return {
             rowsAffected: result.rowCount ?? 0,
-            insertId: result.rows[0]?.id,
+            ...(insertId !== undefined && { insertId }),
           };
         },
 
@@ -135,7 +151,7 @@ export class AwsDataStoreService implements DataStoreService {
       await client.query('COMMIT');
 
       return result;
-    } catch (error: any) {
+    } catch (error: unknown) {
       await client.query('ROLLBACK');
       throw error;
     } finally {
@@ -179,10 +195,11 @@ export class AwsDataStoreService implements DataStoreService {
           );
         });
 
+        // eslint-disable-next-line no-console
         console.log(`Applied migration ${migration.version}: ${migration.description}`);
-      } catch (error: any) {
+      } catch (error: unknown) {
         throw new ValidationError(
-          `Migration ${migration.version} failed: ${error.message}`
+          `Migration ${migration.version} failed: ${getErrorMessage(error)}`
         );
       }
     }
@@ -194,30 +211,41 @@ export class AwsDataStoreService implements DataStoreService {
     let client: PoolClient | null = null;
 
     const connection: Connection = {
-      query: async <T>(sql: string, params?: any[]): Promise<T[]> => {
-        if (!client) {
+      query: async <T>(sql: string, params?: unknown[]): Promise<T[]> => {
+        if (client === null || client === undefined) {
           client = await this.pool!.connect();
         }
         const result = await client.query(sql, params);
         return result.rows as T[];
       },
 
-      execute: async (sql: string, params?: any[]): Promise<ExecuteResult> => {
-        if (!client) {
+      execute: async (sql: string, params?: unknown[]): Promise<ExecuteResult> => {
+        if (client === null || client === undefined) {
           client = await this.pool!.connect();
         }
         const result = await client.query(sql, params);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const insertId: string | undefined =
+          result.rows.length > 0 &&
+          result.rows[0] !== null &&
+          result.rows[0] !== undefined &&
+          typeof result.rows[0] === 'object' &&
+          'id' in result.rows[0]
+            ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+              String(result.rows[0].id)
+            : undefined;
         return {
           rowsAffected: result.rowCount ?? 0,
-          insertId: result.rows[0]?.id,
+          ...(insertId !== undefined && { insertId }),
         };
       },
 
-      close: async (): Promise<void> => {
-        if (client) {
+      close: (): Promise<void> => {
+        if (client !== null && client !== undefined) {
           client.release();
           client = null;
         }
+        return Promise.resolve();
       },
     };
 
@@ -225,7 +253,7 @@ export class AwsDataStoreService implements DataStoreService {
   }
 
   private ensureConnected(): void {
-    if (!this.pool) {
+    if (this.pool === null || this.pool === undefined) {
       throw new ServiceUnavailableError('Database not connected. Call connect() first.');
     }
   }

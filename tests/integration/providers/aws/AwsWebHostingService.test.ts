@@ -188,10 +188,10 @@ describe('AwsWebHostingService Integration (LocalStack)', () => {
       maxInstances: 2,
     });
 
-    await expect(service.deleteApplication(deployment.id)).resolves.not.toThrow();
+    expect(service.deleteApplication(deployment.id)).resolves.not.toThrow();
 
     // Verify deletion - should throw ResourceNotFoundError
-    await expect(service.getDeployment(deployment.id)).rejects.toThrow();
+    expect(service.getDeployment(deployment.id)).rejects.toThrow();
   });
 
   test('deployApplication with custom CPU and memory - should accept resource configuration', async () => {
@@ -274,9 +274,9 @@ describe('AwsWebHostingService Integration (LocalStack)', () => {
     deploymentIds.push(...deployments.map((d) => d.id));
 
     expect(deployments).toHaveLength(3);
-    expect(deployments[0]!.environment.APP_ID).toBe('1');
-    expect(deployments[1]!.environment.APP_ID).toBe('2');
-    expect(deployments[2]!.environment.APP_ID).toBe('3');
+    expect(deployments[0].environment.APP_ID).toBe('1');
+    expect(deployments[1].environment.APP_ID).toBe('2');
+    expect(deployments[2].environment.APP_ID).toBe('3');
 
     // All should have unique IDs
     const uniqueIds = new Set(deployments.map((d) => d.id));
@@ -284,7 +284,7 @@ describe('AwsWebHostingService Integration (LocalStack)', () => {
   });
 
   test('Error handling - should throw on invalid deployment ID', async () => {
-    await expect(service.getDeployment('nonexistent-id-12345')).rejects.toThrow();
+    expect(service.getDeployment('nonexistent-id-12345')).rejects.toThrow();
   });
 
   test('Error handling - should throw on invalid update', async () => {

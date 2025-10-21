@@ -53,9 +53,7 @@ export async function assertRejects(
         }
       } else {
         if (!expectedError.test(message)) {
-          throw new Error(
-            `Expected error message to match ${expectedError}, but got "${message}"`
-          );
+          throw new Error(`Expected error message to match ${expectedError}, but got "${message}"`);
         }
       }
     }

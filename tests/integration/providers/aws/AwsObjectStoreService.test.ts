@@ -44,7 +44,7 @@ describe('AwsObjectStoreService Integration (LocalStack)', () => {
   });
 
   test('createBucket - should create S3 bucket in LocalStack', async () => {
-    await expect(service.createBucket(TEST_BUCKET)).resolves.not.toThrow();
+    expect(service.createBucket(TEST_BUCKET)).resolves.not.toThrow();
   });
 
   test('putObject - should upload object to LocalStack S3', async () => {
@@ -69,7 +69,9 @@ describe('AwsObjectStoreService Integration (LocalStack)', () => {
     expect(result.bucket).toBe(TEST_BUCKET);
     expect(result.key).toBe('retrieve-test.txt');
     expect(result.contentType).toBe('text/plain');
-    expect(result.data.toString()).toBe('Test content for retrieval');
+    expect(Buffer.isBuffer(result.data) ? result.data.toString() : result.data).toBe(
+      'Test content for retrieval'
+    );
   });
 
   test('listObjects - should list objects in bucket', async () => {
@@ -90,7 +92,7 @@ describe('AwsObjectStoreService Integration (LocalStack)', () => {
   test('deleteObject - should delete object from LocalStack', async () => {
     await service.putObject(TEST_BUCKET, 'to-delete.txt', Buffer.from('delete me'));
 
-    await expect(service.deleteObject(TEST_BUCKET, 'to-delete.txt')).resolves.not.toThrow();
+    expect(service.deleteObject(TEST_BUCKET, 'to-delete.txt')).resolves.not.toThrow();
 
     // Verify deletion
     const objects = await service.listObjects(TEST_BUCKET, 'to-delete.txt');
@@ -118,9 +120,7 @@ describe('AwsObjectStoreService Integration (LocalStack)', () => {
 
     // Verify copy
     const copiedObject = await service.getObject(destBucket, 'copied.txt');
-    const copiedData = Buffer.isBuffer(copiedObject.data)
-      ? copiedObject.data.toString()
-      : 'stream';
+    const copiedData = Buffer.isBuffer(copiedObject.data) ? copiedObject.data.toString() : 'stream';
     expect(copiedData).toBe('Copy test data');
     expect(copiedObject.contentType).toBe('text/plain');
 

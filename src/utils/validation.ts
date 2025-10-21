@@ -30,16 +30,12 @@ export function notEmpty(value: string, fieldName: string): string {
 /**
  * Validate string matches a pattern
  */
-export function matchesPattern(
-  value: string,
-  pattern: RegExp,
-  fieldName: string
-): string {
+export function matchesPattern(value: string, pattern: RegExp, fieldName: string): string {
   if (!pattern.test(value)) {
-    throw new ValidationError(
-      `${fieldName} must match pattern ${pattern.toString()}`,
-      { value, pattern: pattern.toString() }
-    );
+    throw new ValidationError(`${fieldName} must match pattern ${pattern.toString()}`, {
+      value,
+      pattern: pattern.toString(),
+    });
   }
   return value;
 }
@@ -47,20 +43,16 @@ export function matchesPattern(
 /**
  * Validate number is within range
  */
-export function inRange(
-  value: number,
-  min: number,
-  max: number,
-  fieldName: string
-): number {
+export function inRange(value: number, min: number, max: number, fieldName: string): number {
   if (typeof value !== 'number' || isNaN(value)) {
     throw new ValidationError(`${fieldName} must be a number`);
   }
   if (value < min || value > max) {
-    throw new ValidationError(
-      `${fieldName} must be between ${min} and ${max}`,
-      { value, min, max }
-    );
+    throw new ValidationError(`${fieldName} must be between ${min} and ${max}`, {
+      value,
+      min,
+      max,
+    });
   }
   return value;
 }
@@ -70,10 +62,10 @@ export function inRange(
  */
 export function oneOf<T>(value: T, allowed: T[], fieldName: string): T {
   if (!allowed.includes(value)) {
-    throw new ValidationError(
-      `${fieldName} must be one of: ${allowed.join(', ')}`,
-      { value, allowed }
-    );
+    throw new ValidationError(`${fieldName} must be one of: ${allowed.join(', ')}`, {
+      value,
+      allowed,
+    });
   }
   return value;
 }
@@ -88,10 +80,10 @@ export function hasKeys<T extends Record<string, unknown>>(
 ): T {
   for (const key of requiredKeys) {
     if (!(key in obj)) {
-      throw new ValidationError(
-        `${objectName} must have key: ${String(key)}`,
-        { missingKey: key, requiredKeys }
-      );
+      throw new ValidationError(`${objectName} must have key: ${String(key)}`, {
+        missingKey: key,
+        requiredKeys,
+      });
     }
   }
   return obj;
@@ -131,6 +123,7 @@ export function isValidCron(expression: string): boolean {
  */
 export function sanitizeString(value: string): string {
   // Remove null bytes and control characters
+  // eslint-disable-next-line no-control-regex
   return value.replace(/[\x00-\x1F\x7F]/g, '');
 }
 
@@ -164,10 +157,10 @@ export function parseJson<T = unknown>(value: string, fieldName: string): T {
  */
 export function maxLength(value: string, max: number, fieldName: string): string {
   if (value.length > max) {
-    throw new ValidationError(
-      `${fieldName} must be at most ${max} characters`,
-      { length: value.length, maxLength: max }
-    );
+    throw new ValidationError(`${fieldName} must be at most ${max} characters`, {
+      length: value.length,
+      maxLength: max,
+    });
   }
   return value;
 }
@@ -177,10 +170,10 @@ export function maxLength(value: string, max: number, fieldName: string): string
  */
 export function minLength(value: string, min: number, fieldName: string): string {
   if (value.length < min) {
-    throw new ValidationError(
-      `${fieldName} must be at least ${min} characters`,
-      { length: value.length, minLength: min }
-    );
+    throw new ValidationError(`${fieldName} must be at least ${min} characters`, {
+      length: value.length,
+      minLength: min,
+    });
   }
   return value;
 }

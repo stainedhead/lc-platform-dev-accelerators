@@ -48,11 +48,7 @@ export interface NotificationService {
    * @param endpoint Destination endpoint (email address, phone number, URL)
    * @returns The created subscription
    */
-  subscribe(
-    topicArn: string,
-    protocol: Protocol,
-    endpoint: string
-  ): Promise<Subscription>;
+  subscribe(topicArn: string, protocol: Protocol, endpoint: string): Promise<Subscription>;
 
   /**
    * Unsubscribe from a topic

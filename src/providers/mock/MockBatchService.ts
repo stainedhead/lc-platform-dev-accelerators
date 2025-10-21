@@ -4,12 +4,7 @@
  */
 
 import type { BatchService } from '../../core/services/BatchService';
-import type {
-  Job,
-  JobParams,
-  ScheduledJob,
-  ScheduleJobParams,
-} from '../../core/types/job';
+import type { Job, JobParams, ScheduledJob, ScheduleJobParams } from '../../core/types/job';
 import { JobStatus } from '../../core/types/job';
 import { ResourceNotFoundError } from '../../core/types/common';
 
@@ -74,7 +69,7 @@ export class MockBatchService implements BatchService {
   async listJobs(status?: JobStatus): Promise<Job[]> {
     const allJobs = Array.from(this.jobs.values());
 
-    if (status) {
+    if (status !== null) {
       return allJobs.filter((job) => job.status === status);
     }
 
@@ -113,7 +108,9 @@ export class MockBatchService implements BatchService {
   // Helper methods
   private simulateJobExecution(jobId: string): void {
     const job = this.jobs.get(jobId);
-    if (!job) return;
+    if (!job) {
+      return;
+    }
 
     // Start job
     job.status = JobStatus.RUNNING;

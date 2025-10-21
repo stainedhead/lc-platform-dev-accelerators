@@ -23,10 +23,7 @@ interface CollectionData {
 export class MockDocumentStoreService implements DocumentStoreService {
   private collections = new Map<string, CollectionData>();
 
-  async createCollection(
-    name: string,
-    options?: CollectionOptions
-  ): Promise<Collection> {
+  async createCollection(name: string, options?: CollectionOptions): Promise<Collection> {
     if (this.collections.has(name)) {
       throw new Error(`Collection ${name} already exists`);
     }
@@ -70,10 +67,7 @@ export class MockDocumentStoreService implements DocumentStoreService {
     this.collections.delete(name);
   }
 
-  async insertDocument<T>(
-    collectionName: string,
-    document: T
-  ): Promise<Document<T>> {
+  async insertDocument<T>(collectionName: string, document: T): Promise<Document<T>> {
     const collData = this.collections.get(collectionName);
     if (!collData) {
       throw new ResourceNotFoundError('Collection', collectionName);
@@ -91,10 +85,7 @@ export class MockDocumentStoreService implements DocumentStoreService {
     return doc;
   }
 
-  async findById<T>(
-    collectionName: string,
-    id: string
-  ): Promise<Document<T> | null> {
+  async findById<T>(collectionName: string, id: string): Promise<Document<T> | null> {
     const collData = this.collections.get(collectionName);
     if (!collData) {
       throw new ResourceNotFoundError('Collection', collectionName);
@@ -104,11 +95,7 @@ export class MockDocumentStoreService implements DocumentStoreService {
     return doc ? (doc as Document<T>) : null;
   }
 
-  async find<T>(
-    collectionName: string,
-    query: Query,
-    limit?: number
-  ): Promise<Document<T>[]> {
+  async find<T>(collectionName: string, query: Query, limit?: number): Promise<Document<T>[]> {
     const collData = this.collections.get(collectionName);
     if (!collData) {
       throw new ResourceNotFoundError('Collection', collectionName);
@@ -201,49 +188,62 @@ export class MockDocumentStoreService implements DocumentStoreService {
   }
 
   private isQueryOperator(value: unknown): value is QueryOperator {
-    if (typeof value !== 'object' || value === null) return false;
+    if (typeof value !== 'object' || value === null) {
+      return false;
+    }
 
     const operators = ['$eq', '$ne', '$gt', '$gte', '$lt', '$lte', '$in', '$nin'];
     return operators.some((op) => op in value);
   }
 
   private evaluateOperator(value: unknown, operator: QueryOperator): boolean {
-    if (operator.$eq !== undefined && value !== operator.$eq) return false;
-    if (operator.$ne !== undefined && value === operator.$ne) return false;
+    if (operator.$eq !== undefined && value !== operator.$eq) {
+      return false;
+    }
+    if (operator.$ne !== undefined && value === operator.$ne) {
+      return false;
+    }
 
     // Numeric/date comparisons
     if (typeof value === 'number' || value instanceof Date) {
-      const numValue =
-        value instanceof Date ? value.getTime() : (value as number);
+      const numValue = value instanceof Date ? value.getTime() : value;
 
       if (operator.$gt !== undefined) {
-        const threshold =
-          operator.$gt instanceof Date ? operator.$gt.getTime() : operator.$gt;
-        if (numValue <= threshold) return false;
+        const threshold = operator.$gt instanceof Date ? operator.$gt.getTime() : operator.$gt;
+        if (numValue <= threshold) {
+          return false;
+        }
       }
 
       if (operator.$gte !== undefined) {
-        const threshold =
-          operator.$gte instanceof Date ? operator.$gte.getTime() : operator.$gte;
-        if (numValue < threshold) return false;
+        const threshold = operator.$gte instanceof Date ? operator.$gte.getTime() : operator.$gte;
+        if (numValue < threshold) {
+          return false;
+        }
       }
 
       if (operator.$lt !== undefined) {
-        const threshold =
-          operator.$lt instanceof Date ? operator.$lt.getTime() : operator.$lt;
-        if (numValue >= threshold) return false;
+        const threshold = operator.$lt instanceof Date ? operator.$lt.getTime() : operator.$lt;
+        if (numValue >= threshold) {
+          return false;
+        }
       }
 
       if (operator.$lte !== undefined) {
-        const threshold =
-          operator.$lte instanceof Date ? operator.$lte.getTime() : operator.$lte;
-        if (numValue > threshold) return false;
+        const threshold = operator.$lte instanceof Date ? operator.$lte.getTime() : operator.$lte;
+        if (numValue > threshold) {
+          return false;
+        }
       }
     }
 
     // Array operators
-    if (operator.$in !== undefined && !operator.$in.includes(value)) return false;
-    if (operator.$nin !== undefined && operator.$nin.includes(value)) return false;
+    if (operator.$in !== undefined && !operator.$in.includes(value)) {
+      return false;
+    }
+    if (operator.$nin !== undefined && operator.$nin.includes(value)) {
+      return false;
+    }
 
     return true;
   }

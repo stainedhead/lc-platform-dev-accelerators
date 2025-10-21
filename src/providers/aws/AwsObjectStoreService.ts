@@ -7,6 +7,7 @@
 
 import {
   S3Client,
+  type S3ClientConfig,
   CreateBucketCommand,
   PutObjectCommand,
   GetObjectCommand,
@@ -27,6 +28,7 @@ import type {
 } from '../../core/types/object';
 import { ResourceNotFoundError, ServiceUnavailableError } from '../../core/types/common';
 import { withRetry } from '../../utils/retry';
+import { getErrorMessage, getErrorName } from '../../utils/error';
 
 export interface AwsObjectStoreConfig {
   region?: string;
@@ -42,15 +44,15 @@ export class AwsObjectStoreService implements ObjectStoreService {
   private client: S3Client;
 
   constructor(config?: AwsObjectStoreConfig) {
-    const clientConfig: any = {
+    const clientConfig: S3ClientConfig = {
       region: config?.region ?? process.env.AWS_REGION ?? 'us-east-1',
     };
 
-    if (config?.endpoint) {
+    if (config?.endpoint !== undefined && config.endpoint !== null && config.endpoint !== '') {
       clientConfig.endpoint = config.endpoint;
     }
 
-    if (config?.credentials) {
+    if (config?.credentials !== undefined && config.credentials !== null) {
       clientConfig.credentials = config.credentials;
     }
 
@@ -81,11 +83,14 @@ export class AwsObjectStoreService implements ObjectStoreService {
           // Note: Would use PutBucketEncryptionCommand here
           // Skipping for MVP as it requires additional SDK import
         }
-      } catch (error: any) {
-        if (error.name === 'BucketAlreadyOwnedByYou' || error.name === 'BucketAlreadyExists') {
+      } catch (error: unknown) {
+        if (
+          getErrorName(error) === 'BucketAlreadyOwnedByYou' ||
+          getErrorName(error) === 'BucketAlreadyExists'
+        ) {
           throw new ServiceUnavailableError(`Bucket ${name} already exists`);
         }
-        throw new ServiceUnavailableError(`Failed to create bucket: ${error.message}`);
+        throw new ServiceUnavailableError(`Failed to create bucket: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -99,7 +104,7 @@ export class AwsObjectStoreService implements ObjectStoreService {
     return withRetry(async () => {
       try {
         // Convert ReadableStream to Buffer if needed
-        const body = Buffer.isBuffer(data) ? data : await this.streamToBuffer(data as ReadableStream);
+        const body = Buffer.isBuffer(data) ? data : await this.streamToBuffer(data);
 
         const params: PutObjectCommandInput = {
           Bucket: bucket,
@@ -118,11 +123,11 @@ export class AwsObjectStoreService implements ObjectStoreService {
         };
 
         await this.client.send(new PutObjectCommand(params));
-      } catch (error: any) {
-        if (error.name === 'NoSuchBucket') {
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'NoSuchBucket') {
           throw new ResourceNotFoundError('Bucket', bucket);
         }
-        throw new ServiceUnavailableError(`Failed to put object: ${error.message}`);
+        throw new ServiceUnavailableError(`Failed to put object: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -138,7 +143,11 @@ export class AwsObjectStoreService implements ObjectStoreService {
         );
 
         // Convert stream to buffer
-        const data = response.Body ? await this.streamToBuffer(response.Body as any) : Buffer.from('');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+        const data = response.Body
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-argument
+            await this.streamToBuffer(response.Body as any)
+          : Buffer.from('');
 
         const objectData: ObjectData = {
           bucket,
@@ -183,14 +192,14 @@ export class AwsObjectStoreService implements ObjectStoreService {
         objectData.metadata = metadata;
 
         return objectData;
-      } catch (error: any) {
-        if (error.name === 'NoSuchKey') {
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'NoSuchKey') {
           throw new ResourceNotFoundError('Object', `${bucket}/${key}`);
         }
-        if (error.name === 'NoSuchBucket') {
+        if (getErrorName(error) === 'NoSuchBucket') {
           throw new ResourceNotFoundError('Bucket', bucket);
         }
-        throw new ServiceUnavailableError(`Failed to get object: ${error.message}`);
+        throw new ServiceUnavailableError(`Failed to get object: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -213,14 +222,14 @@ export class AwsObjectStoreService implements ObjectStoreService {
             Key: key,
           })
         );
-      } catch (error: any) {
-        if (error.name === 'NoSuchKey') {
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'NoSuchKey') {
           throw new ResourceNotFoundError('Object', `${bucket}/${key}`);
         }
-        if (error.name === 'NoSuchBucket') {
+        if (getErrorName(error) === 'NoSuchBucket') {
           throw new ResourceNotFoundError('Bucket', bucket);
         }
-        throw new ServiceUnavailableError(`Failed to delete object: ${error.message}`);
+        throw new ServiceUnavailableError(`Failed to delete object: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -239,7 +248,9 @@ export class AwsObjectStoreService implements ObjectStoreService {
 
         if (response.Contents) {
           for (const item of response.Contents) {
-            if (!item.Key) continue;
+            if (!item.Key) {
+              continue;
+            }
 
             const objInfo: ObjectInfo = {
               bucket,
@@ -254,20 +265,16 @@ export class AwsObjectStoreService implements ObjectStoreService {
         }
 
         return objects;
-      } catch (error: any) {
-        if (error.name === 'NoSuchBucket') {
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'NoSuchBucket') {
           throw new ResourceNotFoundError('Bucket', bucket);
         }
-        throw new ServiceUnavailableError(`Failed to list objects: ${error.message}`);
+        throw new ServiceUnavailableError(`Failed to list objects: ${getErrorMessage(error)}`);
       }
     });
   }
 
-  async generatePresignedUrl(
-    bucket: string,
-    key: string,
-    expires: number = 3600
-  ): Promise<string> {
+  async generatePresignedUrl(bucket: string, key: string, expires: number = 3600): Promise<string> {
     try {
       const command = new GetObjectCommand({
         Bucket: bucket,
@@ -279,8 +286,10 @@ export class AwsObjectStoreService implements ObjectStoreService {
       });
 
       return url;
-    } catch (error: any) {
-      throw new ServiceUnavailableError(`Failed to generate presigned URL: ${error.message}`);
+    } catch (error: unknown) {
+      throw new ServiceUnavailableError(
+        `Failed to generate presigned URL: ${getErrorMessage(error)}`
+      );
     }
   }
 
@@ -294,14 +303,14 @@ export class AwsObjectStoreService implements ObjectStoreService {
             Key: destination.key,
           })
         );
-      } catch (error: any) {
-        if (error.name === 'NoSuchKey') {
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'NoSuchKey') {
           throw new ResourceNotFoundError('Object', `${source.bucket}/${source.key}`);
         }
-        if (error.name === 'NoSuchBucket') {
+        if (getErrorName(error) === 'NoSuchBucket') {
           throw new ResourceNotFoundError('Bucket', source.bucket);
         }
-        throw new ServiceUnavailableError(`Failed to copy object: ${error.message}`);
+        throw new ServiceUnavailableError(`Failed to copy object: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -312,9 +321,14 @@ export class AwsObjectStoreService implements ObjectStoreService {
       const reader = stream.getReader();
       const chunks: Uint8Array[] = [];
 
+      // eslint-disable-next-line no-constant-condition
       while (true) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { done, value } = await reader.read();
-        if (done) break;
+        if (done) {
+          break;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         chunks.push(value);
       }
 
@@ -324,6 +338,7 @@ export class AwsObjectStoreService implements ObjectStoreService {
     // Handle Node.js ReadableStream
     return new Promise((resolve, reject) => {
       const chunks: Buffer[] = [];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       stream.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
       stream.on('end', () => resolve(Buffer.concat(chunks)));
       stream.on('error', reject);

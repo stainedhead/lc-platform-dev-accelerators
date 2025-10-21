@@ -58,10 +58,7 @@ export class MockSecretsService implements SecretsService {
     return stored.value;
   }
 
-  async updateSecret(
-    secretName: string,
-    params: UpdateSecretParams
-  ): Promise<Secret> {
+  async updateSecret(secretName: string, params: UpdateSecretParams): Promise<Secret> {
     const stored = this.secrets.get(secretName);
     if (!stored) {
       throw new ResourceNotFoundError('Secret', secretName);
@@ -91,10 +88,7 @@ export class MockSecretsService implements SecretsService {
     return Array.from(this.secrets.values()).map((s) => s.metadata);
   }
 
-  async rotateSecret(
-    secretName: string,
-    config: RotationConfig
-  ): Promise<Secret> {
+  async rotateSecret(secretName: string, config: RotationConfig): Promise<Secret> {
     const stored = this.secrets.get(secretName);
     if (!stored) {
       throw new ResourceNotFoundError('Secret', secretName);

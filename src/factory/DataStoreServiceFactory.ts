@@ -6,30 +6,30 @@ import type { ProviderConfig } from '../core/types/common';
 import type { DataStoreService } from '../core/services/DataStoreService';
 import { BaseProviderFactory } from './ProviderFactory';
 import { MockDataStoreService } from '../providers/mock/MockDataStoreService';
-import { AwsDataStoreService } from '../providers/aws/AwsDataStoreService';
+import { AwsDataStoreService, type AwsDataStoreConfig } from '../providers/aws/AwsDataStoreService';
 
 export class DataStoreServiceFactory extends BaseProviderFactory<DataStoreService> {
   protected createAwsService(config: ProviderConfig): DataStoreService {
     const dbConfig = config.options ?? {};
-    const awsConfig: any = {};
+    const awsConfig: AwsDataStoreConfig = {};
 
-    if (dbConfig.dbHost) {
+    if (dbConfig.dbHost !== undefined && dbConfig.dbHost !== null) {
       awsConfig.host = String(dbConfig.dbHost);
     }
 
-    if (dbConfig.dbPort) {
+    if (dbConfig.dbPort !== undefined && dbConfig.dbPort !== null) {
       awsConfig.port = Number(dbConfig.dbPort);
     }
 
-    if (dbConfig.dbName) {
+    if (dbConfig.dbName !== undefined && dbConfig.dbName !== null) {
       awsConfig.database = String(dbConfig.dbName);
     }
 
-    if (dbConfig.dbUser) {
+    if (dbConfig.dbUser !== undefined && dbConfig.dbUser !== null) {
       awsConfig.user = String(dbConfig.dbUser);
     }
 
-    if (dbConfig.dbPassword) {
+    if (dbConfig.dbPassword !== undefined && dbConfig.dbPassword !== null) {
       awsConfig.password = String(dbConfig.dbPassword);
     }
 
