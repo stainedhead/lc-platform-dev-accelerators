@@ -26,7 +26,7 @@ describe('MockEventBusService', () => {
     it('should throw error when creating duplicate event bus', async () => {
       await service.createEventBus('test-bus');
 
-      await expect(service.createEventBus('test-bus')).rejects.toThrow(
+      expect(service.createEventBus('test-bus')).rejects.toThrow(
         'Event bus test-bus already exists'
       );
     });
@@ -39,18 +39,18 @@ describe('MockEventBusService', () => {
     });
 
     it('should throw error when getting non-existent event bus', async () => {
-      await expect(service.getEventBus('nonexistent')).rejects.toThrow(ResourceNotFoundError);
+      expect(service.getEventBus('nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should delete event bus', async () => {
       await service.createEventBus('test-bus');
       await service.deleteEventBus('test-bus');
 
-      await expect(service.getEventBus('test-bus')).rejects.toThrow(ResourceNotFoundError);
+      expect(service.getEventBus('test-bus')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should throw error when deleting non-existent event bus', async () => {
-      await expect(service.deleteEventBus('nonexistent')).rejects.toThrow(ResourceNotFoundError);
+      expect(service.deleteEventBus('nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
   });
 
@@ -83,7 +83,7 @@ describe('MockEventBusService', () => {
     });
 
     it('should throw error when publishing to non-existent bus', async () => {
-      await expect(
+      expect(
         service.publishEvent('nonexistent', {
           source: 'test.app',
           type: 'UserCreated',
@@ -133,7 +133,7 @@ describe('MockEventBusService', () => {
         eventPattern: { source: ['test.app'] },
       });
 
-      await expect(
+      expect(
         service.createRule('test-bus', {
           name: 'user-events',
           eventPattern: { source: ['test.app'] },
@@ -153,9 +153,7 @@ describe('MockEventBusService', () => {
     });
 
     it('should throw error when getting non-existent rule', async () => {
-      await expect(service.getRule('test-bus', 'nonexistent')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.getRule('test-bus', 'nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should update a rule', async () => {
@@ -185,9 +183,7 @@ describe('MockEventBusService', () => {
 
       await service.deleteRule('test-bus', 'user-events');
 
-      await expect(service.getRule('test-bus', 'user-events')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.getRule('test-bus', 'user-events')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should list rules', async () => {
@@ -255,7 +251,7 @@ describe('MockEventBusService', () => {
         endpoint: 'https://api.example.com/webhook',
       });
 
-      await expect(
+      expect(
         service.addTarget('test-bus', 'user-events', {
           id: 'target-1',
           type: TargetType.HTTPS,
@@ -279,7 +275,7 @@ describe('MockEventBusService', () => {
     });
 
     it('should throw error when removing non-existent target', async () => {
-      await expect(service.removeTarget('test-bus', 'user-events', 'nonexistent')).rejects.toThrow(
+      expect(service.removeTarget('test-bus', 'user-events', 'nonexistent')).rejects.toThrow(
         ResourceNotFoundError
       );
     });

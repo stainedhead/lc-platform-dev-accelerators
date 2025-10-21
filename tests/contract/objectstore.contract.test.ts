@@ -28,17 +28,15 @@ function testObjectStoreServiceContract(name: string, createService: () => Objec
     });
 
     test('createBucket - should create a new bucket', async () => {
-      expect(service.createBucket('new-bucket')).resolves.not.toThrow();
+      await service.createBucket('new-bucket');
     });
 
     test('createBucket - should create bucket with options', async () => {
-      await expect(
-        service.createBucket('encrypted-bucket', {
-          versioning: true,
-          encryption: true,
-          publicRead: false,
-        })
-      ).resolves.not.toThrow();
+      await service.createBucket('encrypted-bucket', {
+        versioning: true,
+        encryption: true,
+        publicRead: false,
+      });
     });
 
     test('createBucket - should throw error when bucket already exists', async () => {
@@ -52,15 +50,13 @@ function testObjectStoreServiceContract(name: string, createService: () => Objec
         metadata: { author: 'test' },
       };
 
-      await expect(
-        service.putObject(testBucket, 'test.txt', data, metadata)
-      ).resolves.not.toThrow();
+      await service.putObject(testBucket, 'test.txt', data, metadata);
     });
 
     test('putObject - should upload object without metadata', async () => {
       const data = Buffer.from('Simple content');
 
-      await expect(service.putObject(testBucket, 'simple.txt', data)).resolves.not.toThrow();
+      await service.putObject(testBucket, 'simple.txt', data);
     });
 
     test('putObject - should throw error for non-existent bucket', async () => {
@@ -110,7 +106,7 @@ function testObjectStoreServiceContract(name: string, createService: () => Objec
       const data = Buffer.from('To be deleted');
       await service.putObject(testBucket, 'delete-me.txt', data);
 
-      await expect(service.deleteObject(testBucket, 'delete-me.txt')).resolves.not.toThrow();
+      await service.deleteObject(testBucket, 'delete-me.txt');
 
       expect(service.getObject(testBucket, 'delete-me.txt')).rejects.toThrow(ResourceNotFoundError);
     });

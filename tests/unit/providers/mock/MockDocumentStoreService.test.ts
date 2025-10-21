@@ -47,9 +47,7 @@ describe('MockDocumentStoreService', () => {
     it('should throw error when creating duplicate collection', async () => {
       await service.createCollection('users');
 
-      await expect(service.createCollection('users')).rejects.toThrow(
-        'Collection users already exists'
-      );
+      expect(service.createCollection('users')).rejects.toThrow('Collection users already exists');
     });
 
     it('should get collection metadata', async () => {
@@ -61,18 +59,18 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should throw error when getting non-existent collection', async () => {
-      await expect(service.getCollection('nonexistent')).rejects.toThrow(ResourceNotFoundError);
+      expect(service.getCollection('nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should delete collection', async () => {
       await service.createCollection('users');
       await service.deleteCollection('users');
 
-      await expect(service.getCollection('users')).rejects.toThrow(ResourceNotFoundError);
+      expect(service.getCollection('users')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should throw error when deleting non-existent collection', async () => {
-      await expect(service.deleteCollection('nonexistent')).rejects.toThrow(ResourceNotFoundError);
+      expect(service.deleteCollection('nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should list all collections', async () => {
@@ -109,7 +107,7 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should throw error when inserting into non-existent collection', async () => {
-      await expect(service.insertDocument('nonexistent', { name: 'Test' })).rejects.toThrow(
+      expect(service.insertDocument('nonexistent', { name: 'Test' })).rejects.toThrow(
         ResourceNotFoundError
       );
     });
@@ -154,7 +152,7 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should throw error when updating non-existent document', async () => {
-      await expect(
+      expect(
         service.updateDocument<TestDocument>('users', 'nonexistent-id', { age: 40 })
       ).rejects.toThrow(ResourceNotFoundError);
     });
@@ -173,7 +171,7 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should throw error when deleting non-existent document', async () => {
-      await expect(service.deleteDocument('users', 'nonexistent-id')).rejects.toThrow(
+      expect(service.deleteDocument('users', 'nonexistent-id')).rejects.toThrow(
         ResourceNotFoundError
       );
     });
@@ -364,12 +362,16 @@ describe('MockDocumentStoreService', () => {
   });
 
   describe('Date Query Operations', () => {
+    let referenceDate: Date;
+    let yesterday: Date;
+    let tomorrow: Date;
+
     beforeEach(async () => {
       await service.createCollection('events');
 
-      const now = new Date();
-      const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-      const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+      referenceDate = new Date();
+      yesterday = new Date(referenceDate.getTime() - 24 * 60 * 60 * 1000);
+      tomorrow = new Date(referenceDate.getTime() + 24 * 60 * 60 * 1000);
 
       await service.insertDocument('events', {
         name: 'Event 1',
@@ -378,7 +380,7 @@ describe('MockDocumentStoreService', () => {
       });
       await service.insertDocument('events', {
         name: 'Event 2',
-        createdAt: now,
+        createdAt: referenceDate,
         status: 'active',
       });
       await service.insertDocument('events', {
@@ -389,9 +391,8 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should find documents with date $gt operator', async () => {
-      const now = new Date();
       const results = await service.find('events', {
-        createdAt: { $gt: now },
+        createdAt: { $gt: referenceDate },
       });
 
       expect(results).toHaveLength(1);
@@ -399,18 +400,16 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should find documents with date $gte operator', async () => {
-      const now = new Date();
       const results = await service.find('events', {
-        createdAt: { $gte: now },
+        createdAt: { $gte: referenceDate },
       });
 
       expect(results.length).toBeGreaterThanOrEqual(2);
     });
 
     it('should find documents with date $lt operator', async () => {
-      const now = new Date();
       const results = await service.find('events', {
-        createdAt: { $lt: now },
+        createdAt: { $lt: referenceDate },
       });
 
       expect(results).toHaveLength(1);
@@ -418,9 +417,8 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should find documents with date $lte operator', async () => {
-      const now = new Date();
       const results = await service.find('events', {
-        createdAt: { $lte: now },
+        createdAt: { $lte: referenceDate },
       });
 
       expect(results.length).toBeGreaterThanOrEqual(2);

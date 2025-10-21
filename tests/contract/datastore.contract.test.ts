@@ -38,7 +38,7 @@ function testDataStoreServiceContract(name: string, createService: () => DataSto
 
     test('connect - should establish database connection', async () => {
       const newService = createService();
-      expect(newService.connect()).resolves.not.toThrow();
+      await newService.connect();
     });
 
     test('execute - should insert data and return affected rows', async () => {

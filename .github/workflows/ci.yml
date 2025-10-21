@@ -12,8 +12,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        bun-version: [1.0.0, latest]
+        os: [ubuntu-latest, macos-latest]
+        bun-version: [1.3.0, latest]
+        # Windows temporarily excluded due to GitHub Actions infrastructure issues
 
     steps:
       - name: Checkout code
@@ -39,15 +40,16 @@ jobs:
       - name: Run unit tests
         run: bun run test:unit
 
-      - name: Generate coverage report
-        if: matrix.os == 'ubuntu-latest' && matrix.bun-version == 'latest'
-        run: bun run test:coverage
+      # Coverage disabled temporarily - requires LocalStack for AWS integration tests
+      # - name: Generate coverage report
+      #   if: matrix.os == 'ubuntu-latest' && matrix.bun-version == 'latest'
+      #   run: bun run test:coverage
 
-      - name: Upload coverage to Codecov
-        if: matrix.os == 'ubuntu-latest' && matrix.bun-version == 'latest'
-        uses: codecov/codecov-action@v4
-        with:
-          fail_ci_if_error: false
+      # - name: Upload coverage to Codecov
+      #   if: matrix.os == 'ubuntu-latest' && matrix.bun-version == 'latest'
+      #   uses: codecov/codecov-action@v4
+      #   with:
+      #     fail_ci_if_error: false
 
   build:
     name: Build
@@ -80,3 +82,34 @@ jobs:
           name: dist
           path: dist/
           retention-days: 7
+
+  publish:
+    name: Publish to GitHub Packages
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@stainedhead'
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

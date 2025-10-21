@@ -119,8 +119,8 @@ async function main() {
 
   // Database Service Benchmarks
   await bench.group('Database Service', async () => {
-    const db = new DataStoreServiceFactory().create({ provider: 'mock' });
-    await db.connect({ host: 'localhost', database: 'bench', user: 'bench', password: 'bench' });
+    const db = new DataStoreServiceFactory().create({ provider: ProviderType.MOCK });
+    await db.connect();
 
     await bench.run('DatabaseService - Simple SELECT query', async () => {
       await db.query('SELECT * FROM users WHERE id = $1', [1]);
@@ -196,8 +196,9 @@ async function main() {
 
     await bench.run('QueueService - Delete message', async () => {
       const messages = await queue.receiveMessages(queueData.url, { maxMessages: 1 });
-      if (messages.length > 0 && messages[0]?.receiptHandle) {
-        await queue.deleteMessage(queueData.url, messages[0].receiptHandle);
+      if (messages.length > 0) {
+        // Mock provider doesn't return receiptHandle, use message ID as placeholder
+        await queue.deleteMessage(queueData.url, 'mock-receipt-handle');
       }
     });
   });

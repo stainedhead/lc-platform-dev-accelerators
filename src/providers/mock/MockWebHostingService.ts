@@ -33,7 +33,7 @@ export class MockWebHostingService implements WebHostingService {
       id,
       name: params.name,
       url: `https://${params.name}.mock.lcplatform.com`,
-      status: DeploymentStatus.CREATING,
+      status: DeploymentStatus.RUNNING, // Mock immediately returns RUNNING state
       image: params.image,
       cpu: params.cpu ?? 1,
       memory: params.memory ?? 2048,
@@ -46,15 +46,6 @@ export class MockWebHostingService implements WebHostingService {
     };
 
     this.deployments.set(id, deployment);
-
-    // Simulate async deployment (transition to RUNNING after delay)
-    setTimeout(() => {
-      const current = this.deployments.get(id);
-      if (current) {
-        current.status = DeploymentStatus.RUNNING;
-        current.lastUpdated = new Date();
-      }
-    }, 100);
 
     return deployment;
   }
@@ -77,7 +68,6 @@ export class MockWebHostingService implements WebHostingService {
     }
 
     // Update deployment
-    deployment.status = DeploymentStatus.UPDATING;
     if (params.image) {
       deployment.image = params.image;
     }
@@ -90,13 +80,8 @@ export class MockWebHostingService implements WebHostingService {
     if (params.memory !== undefined) {
       deployment.memory = params.memory;
     }
+    deployment.status = DeploymentStatus.RUNNING; // Mock immediately returns RUNNING state
     deployment.lastUpdated = new Date();
-
-    // Simulate async update (transition to RUNNING after delay)
-    setTimeout(() => {
-      deployment.status = DeploymentStatus.RUNNING;
-      deployment.lastUpdated = new Date();
-    }, 100);
 
     return { ...deployment };
   }
@@ -107,12 +92,8 @@ export class MockWebHostingService implements WebHostingService {
       throw new ResourceNotFoundError('Deployment', deploymentId);
     }
 
-    deployment.status = DeploymentStatus.DELETING;
-
-    // Simulate async deletion
-    setTimeout(() => {
-      this.deployments.delete(deploymentId);
-    }, 50);
+    // Mock immediately deletes the deployment
+    this.deployments.delete(deploymentId);
   }
 
   async getApplicationUrl(deploymentId: string): Promise<string> {
@@ -124,6 +105,13 @@ export class MockWebHostingService implements WebHostingService {
     const deployment = this.deployments.get(deploymentId);
     if (!deployment) {
       throw new ResourceNotFoundError('Deployment', deploymentId);
+    }
+
+    // Validate minInstances <= maxInstances
+    const newMin = params.minInstances ?? deployment.minInstances;
+    const newMax = params.maxInstances ?? deployment.maxInstances;
+    if (newMin > newMax) {
+      throw new ValidationError('minInstances must be less than or equal to maxInstances');
     }
 
     if (params.minInstances !== undefined) {

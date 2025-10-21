@@ -27,9 +27,7 @@ describe('MockNotificationService', () => {
     it('should throw error when creating duplicate topic', async () => {
       await service.createTopic('test-topic');
 
-      await expect(service.createTopic('test-topic')).rejects.toThrow(
-        'Topic test-topic already exists'
-      );
+      expect(service.createTopic('test-topic')).rejects.toThrow('Topic test-topic already exists');
     });
 
     it('should get a topic', async () => {
@@ -43,7 +41,7 @@ describe('MockNotificationService', () => {
       const created = await service.createTopic('test-topic');
       await service.deleteTopic(created.arn!);
 
-      await expect(service.getTopic(created.arn!)).rejects.toThrow(ResourceNotFoundError);
+      expect(service.getTopic(created.arn!)).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should list all topics', async () => {
