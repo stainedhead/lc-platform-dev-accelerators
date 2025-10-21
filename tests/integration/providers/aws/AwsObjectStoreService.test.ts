@@ -45,7 +45,7 @@ describe('AwsObjectStoreService Integration (LocalStack)', () => {
   });
 
   test('createBucket - should create S3 bucket in LocalStack', async () => {
-    expect(service.createBucket(TEST_BUCKET)).resolves.not.toThrow();
+    await expect(service.createBucket(TEST_BUCKET)).resolves.not.toThrow();
   });
 
   test('putObject - should upload object to LocalStack S3', async () => {
@@ -93,7 +93,7 @@ describe('AwsObjectStoreService Integration (LocalStack)', () => {
   test('deleteObject - should delete object from LocalStack', async () => {
     await service.putObject(TEST_BUCKET, 'to-delete.txt', Buffer.from('delete me'));
 
-    expect(service.deleteObject(TEST_BUCKET, 'to-delete.txt')).resolves.not.toThrow();
+    await expect(service.deleteObject(TEST_BUCKET, 'to-delete.txt')).resolves.not.toThrow();
 
     // Verify deletion
     const objects = await service.listObjects(TEST_BUCKET, 'to-delete.txt');
