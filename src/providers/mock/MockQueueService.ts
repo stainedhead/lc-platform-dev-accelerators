@@ -58,9 +58,7 @@ export class MockQueueService implements QueueService {
 
     return {
       ...queueData.queue,
-      messageCount: queueData.messages.filter((m) =>
-        queueData.visibleMessages.has(m.id)
-      ).length,
+      messageCount: queueData.messages.filter((m) => queueData.visibleMessages.has(m.id)).length,
     };
   }
 
@@ -105,10 +103,7 @@ export class MockQueueService implements QueueService {
     return messageId;
   }
 
-  async receiveMessages(
-    queueUrl: string,
-    params?: ReceiveMessageParams
-  ): Promise<Message[]> {
+  async receiveMessages(queueUrl: string, params?: ReceiveMessageParams): Promise<Message[]> {
     const queueData = this.queues.get(queueUrl);
     if (!queueData) {
       throw new ResourceNotFoundError('Queue', queueUrl);
@@ -118,9 +113,7 @@ export class MockQueueService implements QueueService {
     const visibilityTimeout = params?.visibilityTimeout ?? 30;
 
     // Get visible messages
-    const availableMessages = queueData.messages.filter((m) =>
-      queueData.visibleMessages.has(m.id)
-    );
+    const availableMessages = queueData.messages.filter((m) => queueData.visibleMessages.has(m.id));
 
     const messagesToReturn = availableMessages.slice(0, maxMessages);
 

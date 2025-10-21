@@ -47,10 +47,7 @@ export interface QueueService {
    * @param params Optional parameters for message retrieval
    * @returns Array of received messages
    */
-  receiveMessages(
-    queueUrl: string,
-    params?: ReceiveMessageParams
-  ): Promise<Message[]>;
+  receiveMessages(queueUrl: string, params?: ReceiveMessageParams): Promise<Message[]>;
 
   /**
    * Delete a message from the queue after processing

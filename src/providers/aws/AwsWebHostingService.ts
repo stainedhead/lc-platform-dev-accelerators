@@ -7,6 +7,7 @@
 
 import {
   AppRunnerClient,
+  type AppRunnerClientConfig,
   CreateServiceCommand,
   DescribeServiceCommand,
   UpdateServiceCommand,
@@ -22,8 +23,13 @@ import type {
   ScaleParams,
 } from '../../core/types/deployment';
 import { DeploymentStatus } from '../../core/types/deployment';
-import { ResourceNotFoundError, ServiceUnavailableError, ValidationError } from '../../core/types/common';
+import {
+  ResourceNotFoundError,
+  ServiceUnavailableError,
+  ValidationError,
+} from '../../core/types/common';
 import { withRetry } from '../../utils/retry';
+import { getErrorMessage, getErrorName } from '../../utils/error';
 
 export interface AwsWebHostingConfig {
   region?: string;
@@ -38,15 +44,15 @@ export class AwsWebHostingService implements WebHostingService {
   private client: AppRunnerClient;
 
   constructor(config?: AwsWebHostingConfig) {
-    const clientConfig: any = {
+    const clientConfig: AppRunnerClientConfig = {
       region: config?.region ?? process.env.AWS_REGION ?? 'us-east-1',
     };
 
-    if (config?.endpoint) {
+    if (config?.endpoint !== undefined && config.endpoint !== null && config.endpoint !== '') {
       clientConfig.endpoint = config.endpoint;
     }
 
-    if (config?.credentials) {
+    if (config?.credentials !== undefined && config.credentials !== null) {
       clientConfig.credentials = config.credentials;
     }
 
@@ -94,11 +100,13 @@ export class AwsWebHostingService implements WebHostingService {
         }
 
         return this.mapToDeployment(response.Service, params.minInstances, params.maxInstances);
-      } catch (error: any) {
-        if (error.name === 'InvalidRequestException') {
-          throw new ValidationError(`Invalid deployment parameters: ${error.message}`);
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'InvalidRequestException') {
+          throw new ValidationError(`Invalid deployment parameters: ${getErrorMessage(error)}`);
         }
-        throw new ServiceUnavailableError(`Failed to deploy application: ${error.message}`);
+        throw new ServiceUnavailableError(
+          `Failed to deploy application: ${getErrorMessage(error)}`
+        );
       }
     });
   }
@@ -117,11 +125,11 @@ export class AwsWebHostingService implements WebHostingService {
         }
 
         return this.mapToDeployment(response.Service);
-      } catch (error: any) {
-        if (error.name === 'ResourceNotFoundException') {
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'ResourceNotFoundException') {
           throw new ResourceNotFoundError('Deployment', deploymentId);
         }
-        throw new ServiceUnavailableError(`Failed to get deployment: ${error.message}`);
+        throw new ServiceUnavailableError(`Failed to get deployment: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -133,9 +141,11 @@ export class AwsWebHostingService implements WebHostingService {
     return withRetry(async () => {
       try {
         // Build update configuration
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const updateConfig: any = {};
 
         if (params.image) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           updateConfig.SourceConfiguration = {
             ImageRepository: {
               ImageIdentifier: params.image,
@@ -153,16 +163,20 @@ export class AwsWebHostingService implements WebHostingService {
             {}
           );
 
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           if (!updateConfig.SourceConfiguration) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             updateConfig.SourceConfiguration = { ImageRepository: {} };
           }
 
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           updateConfig.SourceConfiguration.ImageRepository.ImageConfiguration = {
             RuntimeEnvironmentVariables: envVars,
           };
         }
 
         if (params.cpu || params.memory) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           updateConfig.InstanceConfiguration = {
             Cpu: params.cpu ? `${params.cpu} vCPU` : undefined,
             Memory: params.memory ? `${params.memory} MB` : undefined,
@@ -170,6 +184,7 @@ export class AwsWebHostingService implements WebHostingService {
         }
 
         const response = await this.client.send(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           new UpdateServiceCommand({
             ServiceArn: deploymentId,
             ...updateConfig,
@@ -181,14 +196,16 @@ export class AwsWebHostingService implements WebHostingService {
         }
 
         return this.mapToDeployment(response.Service);
-      } catch (error: any) {
-        if (error.name === 'ResourceNotFoundException') {
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'ResourceNotFoundException') {
           throw new ResourceNotFoundError('Deployment', deploymentId);
         }
-        if (error.name === 'InvalidRequestException') {
-          throw new ValidationError(`Invalid update parameters: ${error.message}`);
+        if (getErrorName(error) === 'InvalidRequestException') {
+          throw new ValidationError(`Invalid update parameters: ${getErrorMessage(error)}`);
         }
-        throw new ServiceUnavailableError(`Failed to update application: ${error.message}`);
+        throw new ServiceUnavailableError(
+          `Failed to update application: ${getErrorMessage(error)}`
+        );
       }
     });
   }
@@ -201,11 +218,13 @@ export class AwsWebHostingService implements WebHostingService {
             ServiceArn: deploymentId,
           })
         );
-      } catch (error: any) {
-        if (error.name === 'ResourceNotFoundException') {
+      } catch (error: unknown) {
+        if (getErrorName(error) === 'ResourceNotFoundException') {
           throw new ResourceNotFoundError('Deployment', deploymentId);
         }
-        throw new ServiceUnavailableError(`Failed to delete application: ${error.message}`);
+        throw new ServiceUnavailableError(
+          `Failed to delete application: ${getErrorMessage(error)}`
+        );
       }
     });
   }
@@ -238,11 +257,11 @@ export class AwsWebHostingService implements WebHostingService {
         // In production, would create/update auto-scaling configuration:
         // 1. CreateAutoScalingConfigurationCommand with min/max instances
         // 2. UpdateServiceCommand to apply the new configuration
-      } catch (error: any) {
+      } catch (error: unknown) {
         if (error instanceof ResourceNotFoundError) {
           throw error;
         }
-        throw new ServiceUnavailableError(`Failed to scale application: ${error.message}`);
+        throw new ServiceUnavailableError(`Failed to scale application: ${getErrorMessage(error)}`);
       }
     });
   }
@@ -257,8 +276,7 @@ export class AwsWebHostingService implements WebHostingService {
     // Extract environment variables
     const environment: Record<string, string> = {};
     const runtimeEnvVars =
-      service.SourceConfiguration?.ImageRepository?.ImageConfiguration
-        ?.RuntimeEnvironmentVariables;
+      service.SourceConfiguration?.ImageRepository?.ImageConfiguration?.RuntimeEnvironmentVariables;
     if (runtimeEnvVars) {
       Object.assign(environment, runtimeEnvVars);
     }
@@ -274,8 +292,7 @@ export class AwsWebHostingService implements WebHostingService {
       name: service.ServiceName ?? '',
       url: service.ServiceUrl ?? `https://${service.ServiceName}.apprunner.aws`,
       status,
-      image:
-        service.SourceConfiguration?.ImageRepository?.ImageIdentifier ?? 'unknown',
+      image: service.SourceConfiguration?.ImageRepository?.ImageIdentifier ?? 'unknown',
       cpu,
       memory,
       minInstances: minInstances ?? 1,

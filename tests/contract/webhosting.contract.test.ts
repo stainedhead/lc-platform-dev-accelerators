@@ -9,7 +9,11 @@
 
 import { describe, test, expect, beforeEach } from 'bun:test';
 import type { WebHostingService } from '../../src/core/services/WebHostingService';
-import type { DeployApplicationParams, UpdateApplicationParams, ScaleParams } from '../../src/core/types/deployment';
+import type {
+  DeployApplicationParams,
+  UpdateApplicationParams,
+  ScaleParams,
+} from '../../src/core/types/deployment';
 import { DeploymentStatus } from '../../src/core/types/deployment';
 import { MockWebHostingService } from '../../src/providers/mock/MockWebHostingService';
 import { ResourceNotFoundError, ValidationError } from '../../src/core/types/common';
@@ -18,10 +22,7 @@ import { ResourceNotFoundError, ValidationError } from '../../src/core/types/com
  * Contract test suite that verifies provider implementations
  * follow the WebHostingService contract.
  */
-function testWebHostingServiceContract(
-  name: string,
-  createService: () => WebHostingService
-) {
+function testWebHostingServiceContract(name: string, createService: () => WebHostingService) {
   describe(`WebHostingService Contract: ${name}`, () => {
     let service: WebHostingService;
 
@@ -91,9 +92,7 @@ function testWebHostingServiceContract(
     });
 
     test('getDeployment - should throw ResourceNotFoundError for non-existent ID', async () => {
-      await expect(service.getDeployment('non-existent-id')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.getDeployment('non-existent-id')).rejects.toThrow(ResourceNotFoundError);
     });
 
     test('updateApplication - should update deployment with new image', async () => {
@@ -138,9 +137,9 @@ function testWebHostingServiceContract(
         image: 'nginx:latest',
       };
 
-      await expect(
-        service.updateApplication('non-existent-id', updateParams)
-      ).rejects.toThrow(ResourceNotFoundError);
+      await expect(service.updateApplication('non-existent-id', updateParams)).rejects.toThrow(
+        ResourceNotFoundError
+      );
     });
 
     test('deleteApplication - should delete deployment', async () => {
@@ -152,15 +151,11 @@ function testWebHostingServiceContract(
       const deployed = await service.deployApplication(params);
       await service.deleteApplication(deployed.id);
 
-      await expect(service.getDeployment(deployed.id)).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.getDeployment(deployed.id)).rejects.toThrow(ResourceNotFoundError);
     });
 
     test('deleteApplication - should throw ResourceNotFoundError for non-existent ID', async () => {
-      await expect(service.deleteApplication('non-existent-id')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.deleteApplication('non-existent-id')).rejects.toThrow(ResourceNotFoundError);
     });
 
     test('getApplicationUrl - should return application URL', async () => {
@@ -178,9 +173,7 @@ function testWebHostingServiceContract(
     });
 
     test('getApplicationUrl - should throw ResourceNotFoundError for non-existent ID', async () => {
-      await expect(service.getApplicationUrl('non-existent-id')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.getApplicationUrl('non-existent-id')).rejects.toThrow(ResourceNotFoundError);
     });
 
     test('scaleApplication - should update instance counts', async () => {
@@ -211,9 +204,9 @@ function testWebHostingServiceContract(
         maxInstances: 5,
       };
 
-      await expect(
-        service.scaleApplication('non-existent-id', scaleParams)
-      ).rejects.toThrow(ResourceNotFoundError);
+      await expect(service.scaleApplication('non-existent-id', scaleParams)).rejects.toThrow(
+        ResourceNotFoundError
+      );
     });
 
     test('scaleApplication - should validate minInstances <= maxInstances', async () => {
@@ -229,9 +222,9 @@ function testWebHostingServiceContract(
         maxInstances: 5,
       };
 
-      await expect(
-        service.scaleApplication(deployed.id, scaleParams)
-      ).rejects.toThrow(ValidationError);
+      await expect(service.scaleApplication(deployed.id, scaleParams)).rejects.toThrow(
+        ValidationError
+      );
     });
   });
 }

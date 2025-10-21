@@ -126,11 +126,7 @@ export class MockEventBusService implements EventBusService {
     return rule;
   }
 
-  async updateRule(
-    busName: string,
-    ruleName: string,
-    params: RuleParams
-  ): Promise<Rule> {
+  async updateRule(busName: string, ruleName: string, params: RuleParams): Promise<Rule> {
     const busData = this.buses.get(busName);
     if (!busData) {
       throw new ResourceNotFoundError('EventBus', busName);
@@ -184,11 +180,7 @@ export class MockEventBusService implements EventBusService {
     rule.targets.push(target);
   }
 
-  async removeTarget(
-    busName: string,
-    ruleName: string,
-    targetId: string
-  ): Promise<void> {
+  async removeTarget(busName: string, ruleName: string, targetId: string): Promise<void> {
     const busData = this.buses.get(busName);
     if (!busData) {
       throw new ResourceNotFoundError('EventBus', busName);
@@ -241,10 +233,7 @@ export class MockEventBusService implements EventBusService {
     return true;
   }
 
-  private async simulateDelivery(
-    _event: Event,
-    _targets: Target[]
-  ): Promise<void> {
+  private async simulateDelivery(_event: Event, _targets: Target[]): Promise<void> {
     // In mock, we just simulate a small delay for delivery
     await new Promise((resolve) => setTimeout(resolve, 10));
   }

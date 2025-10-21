@@ -68,10 +68,7 @@ export class MockNotificationService implements NotificationService {
     this.topics.delete(topicArn);
   }
 
-  async publishToTopic(
-    topicArn: string,
-    message: NotificationMessage
-  ): Promise<string> {
+  async publishToTopic(topicArn: string, message: NotificationMessage): Promise<string> {
     const topicData = this.topics.get(topicArn);
     if (!topicData) {
       throw new ResourceNotFoundError('Topic', topicArn);
@@ -90,11 +87,7 @@ export class MockNotificationService implements NotificationService {
     return messageId;
   }
 
-  async subscribe(
-    topicArn: string,
-    protocol: Protocol,
-    endpoint: string
-  ): Promise<Subscription> {
+  async subscribe(topicArn: string, protocol: Protocol, endpoint: string): Promise<Subscription> {
     const topicData = this.topics.get(topicArn);
     if (!topicData) {
       throw new ResourceNotFoundError('Topic', topicArn);
@@ -133,9 +126,7 @@ export class MockNotificationService implements NotificationService {
     for (const topicData of this.topics.values()) {
       if (topicData.subscriptions.has(subscriptionId)) {
         topicData.subscriptions.delete(subscriptionId);
-        topicData.topic.subscriptions = Array.from(
-          topicData.subscriptions.values()
-        );
+        topicData.topic.subscriptions = Array.from(topicData.subscriptions.values());
         return;
       }
     }

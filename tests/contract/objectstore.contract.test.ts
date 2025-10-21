@@ -17,10 +17,7 @@ import { ResourceNotFoundError, ValidationError } from '../../src/core/types/com
  * Contract test suite that verifies provider implementations
  * follow the ObjectStoreService contract.
  */
-function testObjectStoreServiceContract(
-  name: string,
-  createService: () => ObjectStoreService
-) {
+function testObjectStoreServiceContract(name: string, createService: () => ObjectStoreService) {
   describe(`ObjectStoreService Contract: ${name}`, () => {
     let service: ObjectStoreService;
     const testBucket = 'test-bucket';
@@ -31,7 +28,7 @@ function testObjectStoreServiceContract(
     });
 
     test('createBucket - should create a new bucket', async () => {
-      await expect(service.createBucket('new-bucket')).resolves.not.toThrow();
+      expect(service.createBucket('new-bucket')).resolves.not.toThrow();
     });
 
     test('createBucket - should create bucket with options', async () => {
@@ -45,7 +42,7 @@ function testObjectStoreServiceContract(
     });
 
     test('createBucket - should throw error when bucket already exists', async () => {
-      await expect(service.createBucket(testBucket)).rejects.toThrow(ValidationError);
+      expect(service.createBucket(testBucket)).rejects.toThrow(ValidationError);
     });
 
     test('putObject - should upload object with Buffer data', async () => {
@@ -63,17 +60,15 @@ function testObjectStoreServiceContract(
     test('putObject - should upload object without metadata', async () => {
       const data = Buffer.from('Simple content');
 
-      await expect(
-        service.putObject(testBucket, 'simple.txt', data)
-      ).resolves.not.toThrow();
+      await expect(service.putObject(testBucket, 'simple.txt', data)).resolves.not.toThrow();
     });
 
     test('putObject - should throw error for non-existent bucket', async () => {
       const data = Buffer.from('test');
 
-      await expect(
-        service.putObject('nonexistent-bucket', 'test.txt', data)
-      ).rejects.toThrow(ResourceNotFoundError);
+      await expect(service.putObject('nonexistent-bucket', 'test.txt', data)).rejects.toThrow(
+        ResourceNotFoundError
+      );
     });
 
     test('getObject - should retrieve uploaded object', async () => {
@@ -100,34 +95,30 @@ function testObjectStoreServiceContract(
     });
 
     test('getObject - should throw error for non-existent object', async () => {
-      await expect(service.getObject(testBucket, 'nonexistent.txt')).rejects.toThrow(
+      expect(service.getObject(testBucket, 'nonexistent.txt')).rejects.toThrow(
         ResourceNotFoundError
       );
     });
 
     test('getObject - should throw error for non-existent bucket', async () => {
-      await expect(
-        service.getObject('nonexistent-bucket', 'test.txt')
-      ).rejects.toThrow(ResourceNotFoundError);
+      await expect(service.getObject('nonexistent-bucket', 'test.txt')).rejects.toThrow(
+        ResourceNotFoundError
+      );
     });
 
     test('deleteObject - should delete existing object', async () => {
       const data = Buffer.from('To be deleted');
       await service.putObject(testBucket, 'delete-me.txt', data);
 
-      await expect(
-        service.deleteObject(testBucket, 'delete-me.txt')
-      ).resolves.not.toThrow();
+      await expect(service.deleteObject(testBucket, 'delete-me.txt')).resolves.not.toThrow();
 
-      await expect(service.getObject(testBucket, 'delete-me.txt')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.getObject(testBucket, 'delete-me.txt')).rejects.toThrow(ResourceNotFoundError);
     });
 
     test('deleteObject - should throw error for non-existent object', async () => {
-      await expect(
-        service.deleteObject(testBucket, 'nonexistent.txt')
-      ).rejects.toThrow(ResourceNotFoundError);
+      await expect(service.deleteObject(testBucket, 'nonexistent.txt')).rejects.toThrow(
+        ResourceNotFoundError
+      );
     });
 
     test('listObjects - should list all objects in bucket', async () => {
@@ -138,11 +129,7 @@ function testObjectStoreServiceContract(
       const objects = await service.listObjects(testBucket);
 
       expect(objects).toHaveLength(3);
-      expect(objects.map((o) => o.key).sort()).toEqual([
-        'file1.txt',
-        'file2.txt',
-        'file3.txt',
-      ]);
+      expect(objects.map((o) => o.key).sort()).toEqual(['file1.txt', 'file2.txt', 'file3.txt']);
 
       objects.forEach((obj) => {
         expect(obj.bucket).toBe(testBucket);
@@ -171,9 +158,7 @@ function testObjectStoreServiceContract(
     });
 
     test('listObjects - should throw error for non-existent bucket', async () => {
-      await expect(service.listObjects('nonexistent-bucket')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.listObjects('nonexistent-bucket')).rejects.toThrow(ResourceNotFoundError);
     });
 
     test('generatePresignedUrl - should generate URL with default expiration', async () => {
@@ -249,9 +234,7 @@ function testObjectStoreServiceContract(
       const source: ObjectLocation = { bucket: testBucket, key: 'nonexistent.txt' };
       const destination: ObjectLocation = { bucket: 'dest-bucket', key: 'dest.txt' };
 
-      await expect(service.copyObject(source, destination)).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.copyObject(source, destination)).rejects.toThrow(ResourceNotFoundError);
     });
 
     test('putObject/getObject - should preserve binary data integrity', async () => {

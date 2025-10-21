@@ -82,17 +82,19 @@ export async function retryWithBackoff<T>(
   }
 
   // All retries exhausted
-  throw lastError || new ServiceUnavailableError('Unknown service', {
-    maxRetries: opts.maxRetries,
-  });
+  throw (
+    lastError ||
+    new ServiceUnavailableError('Unknown service', {
+      maxRetries: opts.maxRetries,
+    })
+  );
 }
 
 /**
  * Calculate exponential backoff delay
  */
 function calculateBackoff(attempt: number, options: Required<RetryOptions>): number {
-  const delay =
-    options.baseDelayMs * Math.pow(options.exponentialBase, attempt);
+  const delay = options.baseDelayMs * Math.pow(options.exponentialBase, attempt);
   return Math.min(delay, options.maxDelayMs);
 }
 

@@ -111,11 +111,7 @@ export class TtlCache<V> {
    * Get or compute value
    * If cache miss, compute value and store it
    */
-  public async getOrCompute(
-    key: string,
-    compute: () => Promise<V>,
-    ttlMs?: number
-  ): Promise<V> {
+  public async getOrCompute(key: string, compute: () => Promise<V>, ttlMs?: number): Promise<V> {
     const cached = this.get(key);
     if (cached !== undefined) {
       return cached;

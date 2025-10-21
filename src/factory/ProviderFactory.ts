@@ -27,17 +27,16 @@ export abstract class BaseProviderFactory<T> implements ServiceFactory<T> {
 
   public create(config: ProviderConfig): T {
     switch (config.provider) {
-      case 'aws':
+      case ProviderType.AWS:
         return this.createAwsService(config);
-      case 'azure':
+      case ProviderType.AZURE:
         return this.createAzureService(config);
-      case 'mock':
+      case ProviderType.MOCK:
         return this.createMockService(config);
       default:
-        throw new ValidationError(
-          `Unknown provider: ${String(config.provider)}`,
-          { provider: config.provider }
-        );
+        throw new ValidationError(`Unknown provider: ${String(config.provider)}`, {
+          provider: config.provider,
+        });
     }
   }
 }
@@ -46,15 +45,11 @@ export abstract class BaseProviderFactory<T> implements ServiceFactory<T> {
  * Helper function to validate provider configuration
  */
 export function validateProviderConfig(config: ProviderConfig): void {
-  if (!config.provider) {
+  if (config.provider === undefined || config.provider === null) {
     throw new ValidationError('Provider type is required');
   }
 
-  const validProviders: ProviderType[] = [
-    ProviderType.AWS,
-    ProviderType.AZURE,
-    ProviderType.MOCK,
-  ];
+  const validProviders: ProviderType[] = [ProviderType.AWS, ProviderType.AZURE, ProviderType.MOCK];
   if (!validProviders.includes(config.provider)) {
     throw new ValidationError(`Invalid provider: ${config.provider}`, {
       validProviders,
@@ -62,7 +57,10 @@ export function validateProviderConfig(config: ProviderConfig): void {
   }
 
   // For AWS and Azure, region is recommended (but not required for workload identity)
-  if ((config.provider === 'aws' || config.provider === 'azure') && !config.region) {
+  if (
+    (config.provider === ProviderType.AWS || config.provider === ProviderType.AZURE) &&
+    (config.region === undefined || config.region === null || config.region === '')
+  ) {
     console.warn(
       `Warning: No region specified for provider ${config.provider}. Using provider defaults.`
     );

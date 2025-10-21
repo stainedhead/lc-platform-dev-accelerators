@@ -3,12 +3,7 @@
  * Provides cloud-agnostic NoSQL document database capabilities
  */
 
-import type {
-  Document,
-  Collection,
-  CollectionOptions,
-  Query,
-} from '../types/document';
+import type { Document, Collection, CollectionOptions, Query } from '../types/document';
 
 export interface DocumentStoreService {
   /**
@@ -55,11 +50,7 @@ export interface DocumentStoreService {
    * @param limit Optional limit on number of results
    * @returns Array of matching documents
    */
-  find<T>(
-    collectionName: string,
-    query: Query,
-    limit?: number
-  ): Promise<Document<T>[]>;
+  find<T>(collectionName: string, query: Query, limit?: number): Promise<Document<T>[]>;
 
   /**
    * Update a document by ID
@@ -68,11 +59,7 @@ export interface DocumentStoreService {
    * @param update Partial document with fields to update
    * @returns The updated document
    */
-  updateDocument<T>(
-    collectionName: string,
-    id: string,
-    update: Partial<T>
-  ): Promise<Document<T>>;
+  updateDocument<T>(collectionName: string, id: string, update: Partial<T>): Promise<Document<T>>;
 
   /**
    * Delete a document by ID

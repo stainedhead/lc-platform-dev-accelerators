@@ -63,7 +63,7 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
 
   test('connect - should establish PostgreSQL connection', async () => {
     const newService = new AwsDataStoreService(PG_CONFIG);
-    await expect(newService.connect()).resolves.not.toThrow();
+    expect(newService.connect()).resolves.not.toThrow();
   });
 
   test('execute - should insert data and return affected rows', async () => {
@@ -78,10 +78,11 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
   });
 
   test('query - should retrieve inserted data', async () => {
-    await service.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['Bob Integration', 'bob@integration.com', 25]
-    );
+    await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'Bob Integration',
+      'bob@integration.com',
+      25,
+    ]);
 
     const users = await service.query<{ name: string; email: string; age: number }>(
       'SELECT name, email, age FROM users WHERE email = $1',
@@ -95,18 +96,21 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
   });
 
   test('query - should support complex WHERE clauses', async () => {
-    await service.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['Charlie', 'charlie@test.com', 35]
-    );
-    await service.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['David', 'david@test.com', 40]
-    );
-    await service.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['Eve', 'eve@test.com', 28]
-    );
+    await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'Charlie',
+      'charlie@test.com',
+      35,
+    ]);
+    await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'David',
+      'david@test.com',
+      40,
+    ]);
+    await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'Eve',
+      'eve@test.com',
+      28,
+    ]);
 
     const users = await service.query<{ name: string; age: number }>(
       'SELECT name, age FROM users WHERE age >= $1 AND age < $2 ORDER BY age',
@@ -121,54 +125,54 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
   });
 
   test('execute - should update data and return affected rows', async () => {
-    await service.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['Frank', 'frank@test.com', 28]
-    );
+    await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'Frank',
+      'frank@test.com',
+      28,
+    ]);
 
-    const updateResult = await service.execute(
-      'UPDATE users SET age = $1 WHERE email = $2',
-      [29, 'frank@test.com']
-    );
+    const updateResult = await service.execute('UPDATE users SET age = $1 WHERE email = $2', [
+      29,
+      'frank@test.com',
+    ]);
 
     expect(updateResult.rowsAffected).toBe(1);
 
-    const users = await service.query<{ age: number }>(
-      'SELECT age FROM users WHERE email = $1',
-      ['frank@test.com']
-    );
+    const users = await service.query<{ age: number }>('SELECT age FROM users WHERE email = $1', [
+      'frank@test.com',
+    ]);
     expect(users[0]!.age).toBe(29);
   });
 
   test('execute - should delete data and return affected rows', async () => {
-    await service.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['Grace', 'grace@test.com', 45]
-    );
+    await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'Grace',
+      'grace@test.com',
+      45,
+    ]);
 
-    const deleteResult = await service.execute(
-      'DELETE FROM users WHERE email = $1',
-      ['grace@test.com']
-    );
+    const deleteResult = await service.execute('DELETE FROM users WHERE email = $1', [
+      'grace@test.com',
+    ]);
 
     expect(deleteResult.rowsAffected).toBe(1);
 
-    const users = await service.query('SELECT * FROM users WHERE email = $1', [
-      'grace@test.com',
-    ]);
+    const users = await service.query('SELECT * FROM users WHERE email = $1', ['grace@test.com']);
     expect(users).toHaveLength(0);
   });
 
   test('transaction - should commit changes when transaction succeeds', async () => {
     const result = await service.transaction(async (tx) => {
-      await tx.execute(
-        'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-        ['Henry', 'henry@test.com', 32]
-      );
-      await tx.execute(
-        'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-        ['Iris', 'iris@test.com', 38]
-      );
+      await tx.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+        'Henry',
+        'henry@test.com',
+        32,
+      ]);
+      await tx.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+        'Iris',
+        'iris@test.com',
+        38,
+      ]);
       return { success: true };
     });
 
@@ -184,31 +188,30 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
   test('transaction - should rollback changes when transaction fails', async () => {
     await expect(
       service.transaction(async (tx) => {
-        await tx.execute(
-          'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-          ['Jack', 'jack@test.com', 29]
-        );
+        await tx.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+          'Jack',
+          'jack@test.com',
+          29,
+        ]);
         throw new Error('Intentional rollback');
       })
     ).rejects.toThrow('Intentional rollback');
 
-    const users = await service.query('SELECT * FROM users WHERE email = $1', [
-      'jack@test.com',
-    ]);
+    const users = await service.query('SELECT * FROM users WHERE email = $1', ['jack@test.com']);
     expect(users).toHaveLength(0);
   });
 
   test('transaction - should support nested queries within transaction', async () => {
     const userId = await service.transaction(async (tx) => {
-      await tx.execute(
-        'INSERT INTO users (name, email, age) VALUES ($1, $2, $3) RETURNING id',
-        ['Karen', 'karen@test.com', 42]
-      );
+      await tx.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3) RETURNING id', [
+        'Karen',
+        'karen@test.com',
+        42,
+      ]);
 
-      const users = await tx.query<{ id: number }>(
-        'SELECT id FROM users WHERE email = $1',
-        ['karen@test.com']
-      );
+      const users = await tx.query<{ id: number }>('SELECT id FROM users WHERE email = $1', [
+        'karen@test.com',
+      ]);
 
       return users[0]!.id;
     });
@@ -217,10 +220,9 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
     expect(typeof userId).toBe('number');
 
     // Verify data persisted after transaction
-    const users = await service.query<{ name: string }>(
-      'SELECT name FROM users WHERE id = $1',
-      [userId]
-    );
+    const users = await service.query<{ name: string }>('SELECT name FROM users WHERE id = $1', [
+      userId,
+    ]);
     expect(users[0]!.name).toBe('Karen');
   });
 
@@ -303,15 +305,15 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
 
     expect(conn).toBeDefined();
 
-    await conn.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['Leo', 'leo@test.com', 31]
-    );
+    await conn.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'Leo',
+      'leo@test.com',
+      31,
+    ]);
 
-    const users = await conn.query<{ name: string }>(
-      'SELECT name FROM users WHERE email = $1',
-      ['leo@test.com']
-    );
+    const users = await conn.query<{ name: string }>('SELECT name FROM users WHERE email = $1', [
+      'leo@test.com',
+    ]);
 
     expect(users).toHaveLength(1);
     expect(users[0]!.name).toBe('Leo');
@@ -325,10 +327,11 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
     // Execute 10 concurrent queries
     for (let i = 0; i < 10; i++) {
       promises.push(
-        service.execute(
-          'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-          [`User${i}`, `user${i}@test.com`, 20 + i]
-        )
+        service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+          `User${i}`,
+          `user${i}@test.com`,
+          20 + i,
+        ])
       );
     }
 
@@ -341,10 +344,11 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
   test('Large result sets - should handle queries returning many rows', async () => {
     // Insert 1000 rows
     for (let i = 0; i < 1000; i++) {
-      await service.execute(
-        'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-        [`Bulk${i}`, `bulk${i}@test.com`, (i % 50) + 20]
-      );
+      await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+        `Bulk${i}`,
+        `bulk${i}@test.com`,
+        (i % 50) + 20,
+      ]);
     }
 
     const allUsers = await service.query('SELECT * FROM users');
@@ -352,10 +356,11 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
   });
 
   test('NULL handling - should properly handle NULL values', async () => {
-    await service.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['NoAge', 'noage@test.com', null]
-    );
+    await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'NoAge',
+      'noage@test.com',
+      null,
+    ]);
 
     const users = await service.query<{ name: string; age: number | null }>(
       'SELECT name, age FROM users WHERE email = $1',
@@ -367,17 +372,19 @@ describe('AwsDataStoreService Integration (PostgreSQL)', () => {
   });
 
   test('Error handling - should throw on constraint violation', async () => {
-    await service.execute(
-      'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-      ['Duplicate', 'duplicate@test.com', 25]
-    );
+    await service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+      'Duplicate',
+      'duplicate@test.com',
+      25,
+    ]);
 
     // Attempt duplicate email (UNIQUE constraint)
     await expect(
-      service.execute(
-        'INSERT INTO users (name, email, age) VALUES ($1, $2, $3)',
-        ['Duplicate2', 'duplicate@test.com', 30]
-      )
+      service.execute('INSERT INTO users (name, email, age) VALUES ($1, $2, $3)', [
+        'Duplicate2',
+        'duplicate@test.com',
+        30,
+      ])
     ).rejects.toThrow();
   });
 });

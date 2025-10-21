@@ -3,13 +3,7 @@
  * Provides cloud-agnostic batch job processing capabilities
  */
 
-import type {
-  Job,
-  JobParams,
-  ScheduledJob,
-  ScheduleJobParams,
-  JobStatus,
-} from '../types/job';
+import type { Job, JobParams, ScheduledJob, ScheduleJobParams, JobStatus } from '../types/job';
 
 export interface BatchService {
   /**

@@ -34,10 +34,7 @@ export interface ConfigurationService {
    * @param params New content and optional label
    * @returns The updated configuration
    */
-  updateConfiguration(
-    name: string,
-    params: UpdateConfigurationParams
-  ): Promise<Configuration>;
+  updateConfiguration(name: string, params: UpdateConfigurationParams): Promise<Configuration>;
 
   /**
    * Delete a configuration
@@ -59,10 +56,7 @@ export interface ConfigurationService {
    * @param schema JSON schema or validator function
    * @returns Validation result with any errors
    */
-  validateConfiguration(
-    content: string,
-    schema: object
-  ): Promise<ValidationResult>;
+  validateConfiguration(content: string, schema: object): Promise<ValidationResult>;
 
   /**
    * Create a configuration profile for deployment

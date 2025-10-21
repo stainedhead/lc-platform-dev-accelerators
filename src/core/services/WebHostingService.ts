@@ -32,10 +32,7 @@ export interface WebHostingService {
    * Update a running application (rolling update)
    * FR-003: Update application with zero downtime
    */
-  updateApplication(
-    deploymentId: string,
-    params: UpdateApplicationParams
-  ): Promise<Deployment>;
+  updateApplication(deploymentId: string, params: UpdateApplicationParams): Promise<Deployment>;
 
   /**
    * Delete an application deployment

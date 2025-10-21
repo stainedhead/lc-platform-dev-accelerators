@@ -30,9 +30,7 @@ export class MockConfigurationService implements ConfigurationService {
   private profiles = new Map<string, ConfigurationProfile>();
   private deployments = new Map<string, string>();
 
-  async createConfiguration(
-    params: CreateConfigurationParams
-  ): Promise<Configuration> {
+  async createConfiguration(params: CreateConfigurationParams): Promise<Configuration> {
     const now = new Date();
     const label = params.label ?? 'latest';
 
@@ -57,9 +55,7 @@ export class MockConfigurationService implements ConfigurationService {
   async getConfiguration(name: string, label?: string): Promise<Configuration> {
     const targetLabel = label ?? 'latest';
 
-    const config = this.configurations.find(
-      (c) => c.name === name && c.label === targetLabel
-    );
+    const config = this.configurations.find((c) => c.name === name && c.label === targetLabel);
 
     if (!config) {
       throw new ResourceNotFoundError('Configuration', `${name}:${targetLabel}`);
@@ -74,9 +70,7 @@ export class MockConfigurationService implements ConfigurationService {
   ): Promise<Configuration> {
     const label = params.label ?? 'latest';
 
-    const config = this.configurations.find(
-      (c) => c.name === name && c.label === label
-    );
+    const config = this.configurations.find((c) => c.name === name && c.label === label);
 
     if (!config) {
       throw new ResourceNotFoundError('Configuration', `${name}:${label}`);
@@ -100,9 +94,7 @@ export class MockConfigurationService implements ConfigurationService {
   async deleteConfiguration(name: string, label?: string): Promise<void> {
     if (label) {
       // Delete specific version
-      const index = this.configurations.findIndex(
-        (c) => c.name === name && c.label === label
-      );
+      const index = this.configurations.findIndex((c) => c.name === name && c.label === label);
       if (index === -1) {
         throw new ResourceNotFoundError('Configuration', `${name}:${label}`);
       }
@@ -128,10 +120,7 @@ export class MockConfigurationService implements ConfigurationService {
     return configs.map((c) => this.toConfiguration(c));
   }
 
-  async validateConfiguration(
-    content: string,
-    _schema: object
-  ): Promise<ValidationResult> {
+  async validateConfiguration(content: string, _schema: object): Promise<ValidationResult> {
     try {
       // Simple validation: try to parse as JSON
       JSON.parse(content);
@@ -156,10 +145,7 @@ export class MockConfigurationService implements ConfigurationService {
     }
   }
 
-  async createProfile(
-    name: string,
-    retrievalRole?: string
-  ): Promise<ConfigurationProfile> {
+  async createProfile(name: string, retrievalRole?: string): Promise<ConfigurationProfile> {
     const profile: ConfigurationProfile = {
       name,
       id: randomBytes(8).toString('hex'),
@@ -184,10 +170,7 @@ export class MockConfigurationService implements ConfigurationService {
     );
 
     if (!config) {
-      throw new ResourceNotFoundError(
-        'Configuration',
-        `${params.configurationName}:${label}`
-      );
+      throw new ResourceNotFoundError('Configuration', `${params.configurationName}:${label}`);
     }
 
     this.deployments.set(deploymentId, params.configurationName);

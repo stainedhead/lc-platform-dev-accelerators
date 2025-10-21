@@ -8,12 +8,7 @@
  * Constitution Principle I: Provider Independence
  */
 
-import type {
-  Connection,
-  ExecuteResult,
-  Migration,
-  Transaction,
-} from '../types/datastore';
+import type { Connection, ExecuteResult, Migration, Transaction } from '../types/datastore';
 
 export interface DataStoreService {
   /**

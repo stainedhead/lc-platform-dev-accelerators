@@ -3,13 +3,7 @@
  * Provides cloud-agnostic event-driven architecture capabilities
  */
 
-import type {
-  Event,
-  EventBus,
-  Rule,
-  RuleParams,
-  Target,
-} from '../types/event';
+import type { Event, EventBus, Rule, RuleParams, Target } from '../types/event';
 
 export interface EventBusService {
   /**

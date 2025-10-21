@@ -57,12 +57,7 @@ export class ResourceNotFoundError extends LCPlatformError {
 
 export class ServiceUnavailableError extends LCPlatformError {
   constructor(service: string, details?: Record<string, unknown>) {
-    super(
-      `Service temporarily unavailable: ${service}`,
-      'SERVICE_UNAVAILABLE',
-      true,
-      details
-    );
+    super(`Service temporarily unavailable: ${service}`, 'SERVICE_UNAVAILABLE', true, details);
     this.name = 'ServiceUnavailableError';
     Object.setPrototypeOf(this, ServiceUnavailableError.prototype);
   }
@@ -70,12 +65,7 @@ export class ServiceUnavailableError extends LCPlatformError {
 
 export class QuotaExceededError extends LCPlatformError {
   constructor(resource: string, limit: number, details?: Record<string, unknown>) {
-    super(
-      `Quota exceeded for ${resource}: limit ${limit}`,
-      'QUOTA_EXCEEDED',
-      false,
-      details
-    );
+    super(`Quota exceeded for ${resource}: limit ${limit}`, 'QUOTA_EXCEEDED', false, details);
     this.name = 'QuotaExceededError';
     Object.setPrototypeOf(this, QuotaExceededError.prototype);
   }

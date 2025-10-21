@@ -114,11 +114,7 @@ export class MockObjectStoreService implements ObjectStoreService {
     return objects;
   }
 
-  async generatePresignedUrl(
-    bucket: string,
-    key: string,
-    expires = 3600
-  ): Promise<string> {
+  async generatePresignedUrl(bucket: string, key: string, expires = 3600): Promise<string> {
     this.getBucket(bucket); // Verify bucket exists
     return `https://mock.lcplatform.com/${bucket}/${key}?expires=${expires}`;
   }
@@ -150,11 +146,14 @@ export class MockObjectStoreService implements ObjectStoreService {
     const reader = stream.getReader();
     const chunks: Uint8Array[] = [];
 
+    // eslint-disable-next-line no-constant-condition
     while (true) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const { done, value } = await reader.read();
       if (done) {
         break;
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       chunks.push(value);
     }
 
