@@ -34,7 +34,7 @@ describe('MockQueueService', () => {
 
     test('should throw error when creating duplicate queue', async () => {
       await service.createQueue('duplicate-queue');
-      await expect(service.createQueue('duplicate-queue')).rejects.toThrow('already exists');
+      expect(service.createQueue('duplicate-queue')).rejects.toThrow('already exists');
     });
   });
 
@@ -49,7 +49,7 @@ describe('MockQueueService', () => {
     });
 
     test('should throw error for non-existent queue', async () => {
-      await expect(service.getQueue('mock://queue/non-existent')).rejects.toThrow('Queue');
+      expect(service.getQueue('mock://queue/non-existent')).rejects.toThrow('Queue');
     });
   });
 
@@ -185,11 +185,11 @@ describe('MockQueueService', () => {
       const queue = await service.createQueue('temp-queue');
       await service.deleteQueue(queue.url);
 
-      await expect(service.getQueue(queue.url)).rejects.toThrow('Queue');
+      expect(service.getQueue(queue.url)).rejects.toThrow('Queue');
     });
 
     test('should throw error when deleting non-existent queue', async () => {
-      await expect(service.deleteQueue('mock://queue/non-existent')).rejects.toThrow('Queue');
+      expect(service.deleteQueue('mock://queue/non-existent')).rejects.toThrow('Queue');
     });
   });
 
@@ -210,7 +210,7 @@ describe('MockQueueService', () => {
     });
 
     test('should throw error when purging non-existent queue', async () => {
-      await expect(service.purgeQueue('mock://queue/non-existent')).rejects.toThrow('Queue');
+      expect(service.purgeQueue('mock://queue/non-existent')).rejects.toThrow('Queue');
     });
   });
 
@@ -240,7 +240,7 @@ describe('MockQueueService', () => {
       // Delete queue
       await service.deleteQueue(queue.url);
 
-      await expect(service.getQueue(queue.url)).rejects.toThrow();
+      expect(service.getQueue(queue.url)).rejects.toThrow();
     });
   });
 });

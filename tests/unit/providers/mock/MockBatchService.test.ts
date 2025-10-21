@@ -75,7 +75,7 @@ describe('MockBatchService', () => {
     });
 
     test('should throw error for non-existent job', async () => {
-      await expect(service.getJob('non-existent-id')).rejects.toThrow('Job');
+      expect(service.getJob('non-existent-id')).rejects.toThrow('Job');
     });
   });
 
@@ -94,7 +94,7 @@ describe('MockBatchService', () => {
     });
 
     test('should throw error when cancelling non-existent job', async () => {
-      await expect(service.cancelJob('non-existent')).rejects.toThrow('Job');
+      expect(service.cancelJob('non-existent')).rejects.toThrow('Job');
     });
   });
 
@@ -163,7 +163,7 @@ describe('MockBatchService', () => {
     });
 
     test('should throw error when deleting non-existent schedule', async () => {
-      await expect(service.deleteScheduledJob('non-existent')).rejects.toThrow('ScheduledJob');
+      expect(service.deleteScheduledJob('non-existent')).rejects.toThrow('ScheduledJob');
     });
   });
 

@@ -26,7 +26,7 @@ describe('MockObjectStoreService', () => {
 
     it('should throw error if bucket already exists', async () => {
       await service.createBucket(testBucket);
-      await expect(service.createBucket(testBucket)).rejects.toThrow(ValidationError);
+      expect(service.createBucket(testBucket)).rejects.toThrow(ValidationError);
     });
   });
 
@@ -61,9 +61,7 @@ describe('MockObjectStoreService', () => {
     });
 
     it('should throw error if object not found', async () => {
-      await expect(service.getObject(testBucket, 'missing.txt')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      expect(service.getObject(testBucket, 'missing.txt')).rejects.toThrow(ResourceNotFoundError);
     });
   });
 
@@ -75,11 +73,11 @@ describe('MockObjectStoreService', () => {
 
     it('should delete an object', async () => {
       await service.deleteObject(testBucket, 'delete-me.txt');
-      await expect(service.getObject(testBucket, 'delete-me.txt')).rejects.toThrow();
+      expect(service.getObject(testBucket, 'delete-me.txt')).rejects.toThrow();
     });
 
     it('should throw error if object does not exist', async () => {
-      await expect(service.deleteObject(testBucket, 'missing.txt')).rejects.toThrow(
+      expect(service.deleteObject(testBucket, 'missing.txt')).rejects.toThrow(
         ResourceNotFoundError
       );
     });
