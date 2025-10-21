@@ -94,9 +94,11 @@ jobs:
         ports:
           - 4566:4566
         env:
-          SERVICES: s3,rds,dynamodb,sqs,sns,secretsmanager,events,appconfig,batch,apprunner
+          SERVICES: s3,dynamodb,sqs,sns,secretsmanager,events
           DEBUG: 0
           EAGER_SERVICE_LOADING: 1
+          AWS_REGION: us-east-1
+          LOCALSTACK_HOST: localhost:4566
         options: >-
           --health-cmd "curl -f http://localhost:4566/_localstack/health || exit 1"
           --health-interval 10s
@@ -139,21 +141,19 @@ jobs:
           echo "Health status:"
           curl -s http://localhost:4566/_localstack/health | jq . || curl -s http://localhost:4566/_localstack/health
 
-      - name: Run integration tests
-        run: bun run test:integration
+      - name: Run integration tests (LocalStack-supported services only)
+        run: ./scripts/run-localstack-tests.sh
         env:
           AWS_ENDPOINT_URL: http://localhost:4566
           AWS_ACCESS_KEY_ID: test
           AWS_SECRET_ACCESS_KEY: test
           AWS_REGION: us-east-1
 
-      - name: Run contract tests
+      - name: Run contract tests (Mock providers)
         run: bun run test:contract
         env:
-          AWS_ENDPOINT_URL: http://localhost:4566
-          AWS_ACCESS_KEY_ID: test
-          AWS_SECRET_ACCESS_KEY: test
-          AWS_REGION: us-east-1
+          # Contract tests use Mock provider, not LocalStack
+          SKIP_AWS_TESTS: true
 
   publish:
     name: Publish to GitHub Packages
