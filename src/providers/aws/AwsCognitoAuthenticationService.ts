@@ -64,8 +64,7 @@ export class AwsCognitoAuthenticationService implements AuthenticationService {
     this.ensureConfigured();
 
     throw new ServiceUnavailableError(
-      `Cognito token refresh not yet implemented. ` +
-        `Refresh token: ${refreshToken}`
+      `Cognito token refresh not yet implemented. ` + `Refresh token: ${refreshToken}`
     );
   }
 
@@ -85,8 +84,7 @@ export class AwsCognitoAuthenticationService implements AuthenticationService {
 
     // Note: In production, would call Cognito userInfo endpoint
     throw new ServiceUnavailableError(
-      `Cognito getUserInfo not yet implemented. ` +
-        `Token: ${accessToken.substring(0, 20)}...`
+      `Cognito getUserInfo not yet implemented. ` + `Token: ${accessToken.substring(0, 20)}...`
     );
   }
 
@@ -95,8 +93,7 @@ export class AwsCognitoAuthenticationService implements AuthenticationService {
 
     // Note: In production, would call Cognito revoke endpoint
     throw new ServiceUnavailableError(
-      `Cognito token revocation not yet implemented. ` +
-        `Token: ${token.substring(0, 20)}...`
+      `Cognito token revocation not yet implemented. ` + `Token: ${token.substring(0, 20)}...`
     );
   }
 

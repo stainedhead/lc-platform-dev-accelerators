@@ -70,9 +70,7 @@ export class AwsNotificationService implements NotificationService {
 
       return topic;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to create topic: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to create topic: ${(error as Error).message}`);
     }
   }
 
@@ -95,11 +93,7 @@ export class AwsNotificationService implements NotificationService {
       for (const awsSub of subscriptionsResponse.Subscriptions || []) {
         if (awsSub.SubscriptionArn && awsSub.Protocol && awsSub.Endpoint) {
           subscriptions.push(
-            this.convertAwsSubscription(
-              awsSub.SubscriptionArn,
-              awsSub.Protocol,
-              awsSub.Endpoint
-            )
+            this.convertAwsSubscription(awsSub.SubscriptionArn, awsSub.Protocol, awsSub.Endpoint)
           );
         }
       }
@@ -116,9 +110,7 @@ export class AwsNotificationService implements NotificationService {
       if ((error as Error).name === 'NotFoundException') {
         throw new ResourceNotFoundError('Topic', topicArn);
       }
-      throw new ServiceUnavailableError(
-        `Failed to get topic: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to get topic: ${(error as Error).message}`);
     }
   }
 
@@ -133,9 +125,7 @@ export class AwsNotificationService implements NotificationService {
       if ((error as Error).name === 'NotFoundException') {
         throw new ResourceNotFoundError('Topic', topicArn);
       }
-      throw new ServiceUnavailableError(
-        `Failed to delete topic: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to delete topic: ${(error as Error).message}`);
     }
   }
 
@@ -170,9 +160,7 @@ export class AwsNotificationService implements NotificationService {
 
       return response.MessageId || 'unknown';
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to publish message: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to publish message: ${(error as Error).message}`);
     }
   }
 
@@ -196,9 +184,7 @@ export class AwsNotificationService implements NotificationService {
 
       return subscription;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to subscribe: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to subscribe: ${(error as Error).message}`);
     }
   }
 
@@ -213,9 +199,7 @@ export class AwsNotificationService implements NotificationService {
       if ((error as Error).name === 'NotFoundException') {
         throw new ResourceNotFoundError('Subscription', subscriptionId);
       }
-      throw new ServiceUnavailableError(
-        `Failed to unsubscribe: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to unsubscribe: ${(error as Error).message}`);
     }
   }
 
@@ -247,7 +231,9 @@ export class AwsNotificationService implements NotificationService {
       const topics: Topic[] = [];
 
       for (const awsTopic of response.Topics || []) {
-        if (!awsTopic.TopicArn) continue;
+        if (!awsTopic.TopicArn) {
+          continue;
+        }
 
         const topic: Topic = {
           name: awsTopic.TopicArn.split(':').pop() || '',
@@ -261,9 +247,7 @@ export class AwsNotificationService implements NotificationService {
 
       return topics;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to list topics: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to list topics: ${(error as Error).message}`);
     }
   }
 
@@ -279,11 +263,7 @@ export class AwsNotificationService implements NotificationService {
       for (const awsSub of response.Subscriptions || []) {
         if (awsSub.SubscriptionArn && awsSub.Protocol && awsSub.Endpoint) {
           subscriptions.push(
-            this.convertAwsSubscription(
-              awsSub.SubscriptionArn,
-              awsSub.Protocol,
-              awsSub.Endpoint
-            )
+            this.convertAwsSubscription(awsSub.SubscriptionArn, awsSub.Protocol, awsSub.Endpoint)
           );
         }
       }
@@ -318,9 +298,7 @@ export class AwsNotificationService implements NotificationService {
 
       return messageId;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to send email: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to send email: ${(error as Error).message}`);
     }
   }
 
@@ -350,9 +328,7 @@ export class AwsNotificationService implements NotificationService {
 
       return response.MessageId || 'unknown';
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to send SMS: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to send SMS: ${(error as Error).message}`);
     }
   }
 

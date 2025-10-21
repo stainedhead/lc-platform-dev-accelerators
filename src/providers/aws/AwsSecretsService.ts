@@ -75,9 +75,7 @@ export class AwsSecretsService implements SecretsService {
 
       return secret;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to create secret: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to create secret: ${(error as Error).message}`);
     }
   }
 
@@ -108,9 +106,7 @@ export class AwsSecretsService implements SecretsService {
       if ((error as Error).name === 'ResourceNotFoundException') {
         throw new ResourceNotFoundError('Secret', secretName);
       }
-      throw new ServiceUnavailableError(
-        `Failed to get secret value: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to get secret value: ${(error as Error).message}`);
     }
   }
 
@@ -136,9 +132,7 @@ export class AwsSecretsService implements SecretsService {
       const secret: Secret = {
         name: describeResponse.Name || secretName,
         version: response.VersionId || '1',
-        created: describeResponse.CreatedDate
-          ? new Date(describeResponse.CreatedDate)
-          : new Date(),
+        created: describeResponse.CreatedDate ? new Date(describeResponse.CreatedDate) : new Date(),
         lastModified: describeResponse.LastChangedDate
           ? new Date(describeResponse.LastChangedDate)
           : new Date(),
@@ -158,9 +152,7 @@ export class AwsSecretsService implements SecretsService {
       if ((error as Error).name === 'ResourceNotFoundException') {
         throw new ResourceNotFoundError('Secret', secretName);
       }
-      throw new ServiceUnavailableError(
-        `Failed to update secret: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to update secret: ${(error as Error).message}`);
     }
   }
 
@@ -177,9 +169,7 @@ export class AwsSecretsService implements SecretsService {
       if ((error as Error).name === 'ResourceNotFoundException') {
         throw new ResourceNotFoundError('Secret', secretName);
       }
-      throw new ServiceUnavailableError(
-        `Failed to delete secret: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to delete secret: ${(error as Error).message}`);
     }
   }
 
@@ -211,9 +201,7 @@ export class AwsSecretsService implements SecretsService {
         return secret;
       });
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to list secrets: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to list secrets: ${(error as Error).message}`);
     }
   }
 
@@ -240,7 +228,9 @@ export class AwsSecretsService implements SecretsService {
 
       const secret: Secret = {
         name: response.Name || secretName,
-        version: response.VersionIdsToStages ? Object.keys(response.VersionIdsToStages)[0] || '' : '',
+        version: response.VersionIdsToStages
+          ? Object.keys(response.VersionIdsToStages)[0] || ''
+          : '',
         created: response.CreatedDate ? new Date(response.CreatedDate) : new Date(),
         lastModified: response.LastChangedDate ? new Date(response.LastChangedDate) : new Date(),
         rotationEnabled: response.RotationEnabled ?? false,
@@ -259,9 +249,7 @@ export class AwsSecretsService implements SecretsService {
       if ((error as Error).name === 'ResourceNotFoundException') {
         throw new ResourceNotFoundError('Secret', secretName);
       }
-      throw new ServiceUnavailableError(
-        `Failed to rotate secret: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to rotate secret: ${(error as Error).message}`);
     }
   }
 

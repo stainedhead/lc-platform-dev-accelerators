@@ -75,11 +75,7 @@ describe('MockNotificationService', () => {
     });
 
     it('should subscribe to a topic with email (pending confirmation)', async () => {
-      const subscription = await service.subscribe(
-        topicArn,
-        Protocol.EMAIL,
-        'test@example.com'
-      );
+      const subscription = await service.subscribe(topicArn, Protocol.EMAIL, 'test@example.com');
 
       expect(subscription.protocol).toBe(Protocol.EMAIL);
       expect(subscription.endpoint).toBe('test@example.com');
@@ -87,11 +83,7 @@ describe('MockNotificationService', () => {
     });
 
     it('should confirm a subscription', async () => {
-      const subscription = await service.subscribe(
-        topicArn,
-        Protocol.EMAIL,
-        'test@example.com'
-      );
+      const subscription = await service.subscribe(topicArn, Protocol.EMAIL, 'test@example.com');
 
       await service.confirmSubscription(subscription.id, 'mock-token');
 

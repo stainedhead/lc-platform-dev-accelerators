@@ -39,24 +39,18 @@ describe('MockEventBusService', () => {
     });
 
     it('should throw error when getting non-existent event bus', async () => {
-      await expect(service.getEventBus('nonexistent')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      await expect(service.getEventBus('nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should delete event bus', async () => {
       await service.createEventBus('test-bus');
       await service.deleteEventBus('test-bus');
 
-      await expect(service.getEventBus('test-bus')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      await expect(service.getEventBus('test-bus')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should throw error when deleting non-existent event bus', async () => {
-      await expect(service.deleteEventBus('nonexistent')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      await expect(service.deleteEventBus('nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
   });
 
@@ -285,9 +279,9 @@ describe('MockEventBusService', () => {
     });
 
     it('should throw error when removing non-existent target', async () => {
-      await expect(
-        service.removeTarget('test-bus', 'user-events', 'nonexistent')
-      ).rejects.toThrow(ResourceNotFoundError);
+      await expect(service.removeTarget('test-bus', 'user-events', 'nonexistent')).rejects.toThrow(
+        ResourceNotFoundError
+      );
     });
   });
 

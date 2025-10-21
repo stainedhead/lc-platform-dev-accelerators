@@ -94,9 +94,7 @@ export class AwsQueueService implements QueueService {
 
       return await this.getQueue(response.QueueUrl);
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to create queue: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to create queue: ${(error as Error).message}`);
     }
   }
 
@@ -128,9 +126,7 @@ export class AwsQueueService implements QueueService {
       if (error instanceof ResourceNotFoundError) {
         throw error;
       }
-      throw new ServiceUnavailableError(
-        `Failed to get queue: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to get queue: ${(error as Error).message}`);
     }
   }
 
@@ -142,9 +138,7 @@ export class AwsQueueService implements QueueService {
 
       await this.sqsClient.send(command);
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to delete queue: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to delete queue: ${(error as Error).message}`);
     }
   }
 
@@ -182,9 +176,7 @@ export class AwsQueueService implements QueueService {
 
       return response.MessageId;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to send message: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to send message: ${(error as Error).message}`);
     }
   }
 
@@ -229,9 +221,7 @@ export class AwsQueueService implements QueueService {
         };
       });
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to receive messages: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to receive messages: ${(error as Error).message}`);
     }
   }
 
@@ -244,9 +234,7 @@ export class AwsQueueService implements QueueService {
 
       await this.sqsClient.send(command);
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to delete message: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to delete message: ${(error as Error).message}`);
     }
   }
 
@@ -258,9 +246,7 @@ export class AwsQueueService implements QueueService {
 
       return response.QueueUrls || [];
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to list queues: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to list queues: ${(error as Error).message}`);
     }
   }
 
@@ -272,9 +258,7 @@ export class AwsQueueService implements QueueService {
 
       await this.sqsClient.send(command);
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to purge queue: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to purge queue: ${(error as Error).message}`);
     }
   }
 

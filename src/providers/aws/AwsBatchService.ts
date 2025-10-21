@@ -159,9 +159,7 @@ export class AwsBatchService implements BatchService {
       if (error instanceof ResourceNotFoundError) {
         throw error;
       }
-      throw new ServiceUnavailableError(
-        `Failed to get job details: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to get job details: ${(error as Error).message}`);
     }
   }
 
@@ -174,9 +172,7 @@ export class AwsBatchService implements BatchService {
 
       await this.batchClient.send(command);
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to cancel job: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to cancel job: ${(error as Error).message}`);
     }
   }
 
@@ -184,7 +180,7 @@ export class AwsBatchService implements BatchService {
     try {
       const command = new ListJobsCommand({
         jobQueue: this.jobQueue,
-        jobStatus: status ? this.mapToAwsJobStatus(status) : undefined,
+        jobStatus: status !== undefined ? this.mapToAwsJobStatus(status) : undefined,
         maxResults: 100,
       });
 
@@ -201,9 +197,7 @@ export class AwsBatchService implements BatchService {
 
       return jobs;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to list jobs: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to list jobs: ${(error as Error).message}`);
     }
   }
 
@@ -249,9 +243,7 @@ export class AwsBatchService implements BatchService {
         nextRun: this.calculateNextRun(params.schedule),
       };
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to schedule job: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to schedule job: ${(error as Error).message}`);
     }
   }
 
@@ -363,10 +355,7 @@ export class AwsBatchService implements BatchService {
     return result;
   }
 
-  private extractResourceRequirement(
-    requirements: unknown[] | undefined,
-    type: string
-  ): number {
+  private extractResourceRequirement(requirements: unknown[] | undefined, type: string): number {
     if (!requirements) {
       return type === 'VCPU' ? 1 : 2048;
     }

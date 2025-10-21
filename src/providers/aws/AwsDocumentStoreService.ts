@@ -7,12 +7,7 @@
  */
 
 import type { DocumentStoreService } from '../../core/services/DocumentStoreService';
-import type {
-  Document,
-  Collection,
-  CollectionOptions,
-  Query,
-} from '../../core/types/document';
+import type { Document, Collection, CollectionOptions, Query } from '../../core/types/document';
 import type { ProviderConfig } from '../../core/types/common';
 import { ResourceNotFoundError, ServiceUnavailableError } from '../../core/types/common';
 
@@ -34,7 +29,10 @@ interface Database {
 interface MongoCollection {
   insertOne(doc: unknown): Promise<{ insertedId: string }>;
   findOne(filter: unknown): Promise<unknown>;
-  find(filter: unknown, options?: { limit?: number }): {
+  find(
+    filter: unknown,
+    options?: { limit?: number }
+  ): {
     toArray(): Promise<unknown[]>;
   };
   updateOne(filter: unknown, update: unknown): Promise<{ modifiedCount: number }>;
@@ -79,7 +77,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
       // Note: this.connectionString is used in the commented production code above
       throw new Error(
         'MongoDB driver not available. Install with: bun add mongodb\n' +
-        `This service requires DocumentDB connection to ${this.connectionString.split('@')[1]?.split('?')[0] || 'database'}.`
+          `This service requires DocumentDB connection to ${this.connectionString.split('@')[1]?.split('?')[0] || 'database'}.`
       );
     } catch (error) {
       throw new ServiceUnavailableError(
@@ -106,10 +104,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
 
       // Set TTL if specified
       if (options?.ttl) {
-        await mongoCollection.createIndex(
-          { createdAt: 1 },
-          { expireAfterSeconds: options.ttl }
-        );
+        await mongoCollection.createIndex({ createdAt: 1 }, { expireAfterSeconds: options.ttl });
       }
 
       const collection: Collection = {
@@ -124,9 +119,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
 
       return collection;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to create collection: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to create collection: ${(error as Error).message}`);
     }
   }
 
@@ -165,9 +158,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
       if (error instanceof ResourceNotFoundError) {
         throw error;
       }
-      throw new ServiceUnavailableError(
-        `Failed to get collection: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to get collection: ${(error as Error).message}`);
     }
   }
 
@@ -183,9 +174,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
       if (error instanceof ResourceNotFoundError) {
         throw error;
       }
-      throw new ServiceUnavailableError(
-        `Failed to delete collection: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to delete collection: ${(error as Error).message}`);
     }
   }
 
@@ -203,9 +192,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
 
       return doc;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to insert document: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to insert document: ${(error as Error).message}`);
     }
   }
 
@@ -218,9 +205,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
 
       return doc ? (doc as Document<T>) : null;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to find document: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to find document: ${(error as Error).message}`);
     }
   }
 
@@ -242,9 +227,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
 
       return docs as Document<T>[];
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to find documents: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to find documents: ${(error as Error).message}`);
     }
   }
 
@@ -257,10 +240,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
       const db = await this.connect();
       const collection = db.collection(collectionName);
 
-      const result = await collection.updateOne(
-        { _id: id },
-        { $set: update }
-      );
+      const result = await collection.updateOne({ _id: id }, { $set: update });
 
       if (result.modifiedCount === 0) {
         throw new ResourceNotFoundError('Document', id);
@@ -278,9 +258,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
       if (error instanceof ResourceNotFoundError) {
         throw error;
       }
-      throw new ServiceUnavailableError(
-        `Failed to update document: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to update document: ${(error as Error).message}`);
     }
   }
 
@@ -298,9 +276,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
       if (error instanceof ResourceNotFoundError) {
         throw error;
       }
-      throw new ServiceUnavailableError(
-        `Failed to delete document: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to delete document: ${(error as Error).message}`);
     }
   }
 
@@ -311,9 +287,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
 
       return collections.map((c) => c.name);
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to list collections: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to list collections: ${(error as Error).message}`);
     }
   }
 
@@ -325,9 +299,7 @@ export class AwsDocumentStoreService implements DocumentStoreService {
       const mongoQuery = query ? this.convertQueryToMongo(query) : {};
       return await collection.countDocuments(mongoQuery);
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to count documents: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to count documents: ${(error as Error).message}`);
     }
   }
 

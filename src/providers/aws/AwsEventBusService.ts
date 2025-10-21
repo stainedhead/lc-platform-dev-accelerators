@@ -73,9 +73,7 @@ export class AwsEventBusService implements EventBusService {
 
       return bus;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to create event bus: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to create event bus: ${(error as Error).message}`);
     }
   }
 
@@ -101,9 +99,7 @@ export class AwsEventBusService implements EventBusService {
       if ((error as Error).name === 'ResourceNotFoundException') {
         throw new ResourceNotFoundError('EventBus', name);
       }
-      throw new ServiceUnavailableError(
-        `Failed to get event bus: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to get event bus: ${(error as Error).message}`);
     }
   }
 
@@ -118,9 +114,7 @@ export class AwsEventBusService implements EventBusService {
       if ((error as Error).name === 'ResourceNotFoundException') {
         throw new ResourceNotFoundError('EventBus', name);
       }
-      throw new ServiceUnavailableError(
-        `Failed to delete event bus: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to delete event bus: ${(error as Error).message}`);
     }
   }
 
@@ -144,16 +138,12 @@ export class AwsEventBusService implements EventBusService {
 
       if (response.FailedEntryCount && response.FailedEntryCount > 0) {
         const error = response.Entries?.[0];
-        throw new Error(
-          `Failed to publish event: ${error?.ErrorCode || 'Unknown error'}`
-        );
+        throw new Error(`Failed to publish event: ${error?.ErrorCode || 'Unknown error'}`);
       }
 
       return response.Entries?.[0]?.EventId || 'unknown';
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to publish event: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to publish event: ${(error as Error).message}`);
     }
   }
 
@@ -184,9 +174,7 @@ export class AwsEventBusService implements EventBusService {
 
       return rule;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to create rule: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to create rule: ${(error as Error).message}`);
     }
   }
 
@@ -235,9 +223,7 @@ export class AwsEventBusService implements EventBusService {
       if ((error as Error).name === 'ResourceNotFoundException') {
         throw new ResourceNotFoundError('Rule', ruleName);
       }
-      throw new ServiceUnavailableError(
-        `Failed to get rule: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to get rule: ${(error as Error).message}`);
     }
   }
 
@@ -258,9 +244,7 @@ export class AwsEventBusService implements EventBusService {
       // Get updated rule with targets
       return await this.getRule(busName, ruleName);
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to update rule: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to update rule: ${(error as Error).message}`);
     }
   }
 
@@ -295,9 +279,7 @@ export class AwsEventBusService implements EventBusService {
       if ((error as Error).name === 'ResourceNotFoundException') {
         throw new ResourceNotFoundError('Rule', ruleName);
       }
-      throw new ServiceUnavailableError(
-        `Failed to delete rule: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to delete rule: ${(error as Error).message}`);
     }
   }
 
@@ -315,14 +297,10 @@ export class AwsEventBusService implements EventBusService {
 
       if (response.FailedEntryCount && response.FailedEntryCount > 0) {
         const error = response.FailedEntries?.[0];
-        throw new Error(
-          `Failed to add target: ${error?.ErrorCode || 'Unknown error'}`
-        );
+        throw new Error(`Failed to add target: ${error?.ErrorCode || 'Unknown error'}`);
       }
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to add target: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to add target: ${(error as Error).message}`);
     }
   }
 
@@ -338,14 +316,10 @@ export class AwsEventBusService implements EventBusService {
 
       if (response.FailedEntryCount && response.FailedEntryCount > 0) {
         const error = response.FailedEntries?.[0];
-        throw new Error(
-          `Failed to remove target: ${error?.ErrorCode || 'Unknown error'}`
-        );
+        throw new Error(`Failed to remove target: ${error?.ErrorCode || 'Unknown error'}`);
       }
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to remove target: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to remove target: ${(error as Error).message}`);
     }
   }
 
@@ -360,7 +334,9 @@ export class AwsEventBusService implements EventBusService {
       const rules: Rule[] = [];
 
       for (const awsRule of response.Rules || []) {
-        if (!awsRule.Name) continue;
+        if (!awsRule.Name) {
+          continue;
+        }
 
         const eventPattern = awsRule.EventPattern
           ? this.parseEventPattern(awsRule.EventPattern)
@@ -382,9 +358,7 @@ export class AwsEventBusService implements EventBusService {
 
       return rules;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to list rules: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to list rules: ${(error as Error).message}`);
     }
   }
 
