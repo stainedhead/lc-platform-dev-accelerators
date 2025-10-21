@@ -69,7 +69,7 @@ export class MockBatchService implements BatchService {
   async listJobs(status?: JobStatus): Promise<Job[]> {
     const allJobs = Array.from(this.jobs.values());
 
-    if (status !== null) {
+    if (status !== undefined) {
       return allJobs.filter((job) => job.status === status);
     }
 

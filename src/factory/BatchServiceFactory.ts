@@ -7,10 +7,11 @@ import type { BatchService } from '../core/services/BatchService';
 import type { ProviderConfig } from '../core/types/common';
 import { BaseProviderFactory } from './ProviderFactory';
 import { MockBatchService } from '../providers/mock/MockBatchService';
+import { AwsBatchService } from '../providers/aws/AwsBatchService';
 
 export class BatchServiceFactory extends BaseProviderFactory<BatchService> {
-  protected createAwsService(_config: ProviderConfig): BatchService {
-    throw new Error('AWS BatchService not yet implemented');
+  protected createAwsService(config: ProviderConfig): BatchService {
+    return new AwsBatchService(config);
   }
 
   protected createAzureService(_config: ProviderConfig): BatchService {

@@ -26,7 +26,7 @@ export interface IndexDefinition {
 }
 
 export interface Query {
-  [field: string]: QueryOperator;
+  [field: string]: QueryOperator | unknown;
 }
 
 export interface QueryOperator {
