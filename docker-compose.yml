@@ -1,0 +1,69 @@
+# LocalStack Configuration for Integration Testing
+#
+# Provides local AWS service emulation for integration tests
+# Usage: docker-compose up -d
+#
+# Services configured:
+# - S3 (ObjectStoreService)
+# - SQS (QueueService)
+# - SNS (NotificationService)
+# - EventBridge (EventBusService)
+# - Secrets Manager (SecretsService)
+# - AppConfig (ConfigurationService)
+# - Batch (BatchService)
+# - App Runner (WebHostingService)
+
+version: '3.8'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: lcplatform-localstack
+    ports:
+      - "4566:4566"            # LocalStack Gateway
+      - "4510-4559:4510-4559"  # External services port range
+    environment:
+      - SERVICES=s3,sqs,sns,events,secretsmanager,appconfig,batch,apprunner
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - DEFAULT_REGION=us-east-1
+      - PERSISTENCE=0  # Disable persistence for clean test runs
+    volumes:
+      - "${TMPDIR:-/tmp}/localstack:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - lcplatform-test
+
+  # PostgreSQL for DataStoreService integration testing
+  postgres:
+    image: postgres:16-alpine
+    container_name: lcplatform-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=testuser
+      - POSTGRES_PASSWORD=testpassword
+      - POSTGRES_DB=testdb
+    networks:
+      - lcplatform-test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U testuser"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Azurite for Azure integration testing (future use)
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    container_name: lcplatform-azurite
+    ports:
+      - "10000:10000"  # Blob service
+      - "10001:10001"  # Queue service
+      - "10002:10002"  # Table service
+    command: azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0 --tableHost 0.0.0.0
+    networks:
+      - lcplatform-test
+
+networks:
+  lcplatform-test:
+    driver: bridge
