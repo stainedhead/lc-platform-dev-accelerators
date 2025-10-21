@@ -189,6 +189,14 @@ jobs:
           name: dist
           path: dist/
 
+      - name: Bump version (main branch)
+        if: github.ref == 'refs/heads/main'
+        run: npm version patch --no-git-tag-version
+
+      - name: Bump version (develop branch)
+        if: github.ref == 'refs/heads/develop'
+        run: npm version prerelease --preid=dev --no-git-tag-version
+
       - name: Publish package
         run: npm publish
         env:
