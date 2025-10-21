@@ -10,8 +10,8 @@
 import { describe, test, expect, beforeAll, afterAll } from 'bun:test';
 import { AwsObjectStoreService } from '../../../../src/providers/aws/AwsObjectStoreService';
 
-// LocalStack S3 endpoint
-const LOCALSTACK_ENDPOINT = 'http://localhost:4566';
+// LocalStack S3 endpoint - use environment variable if available
+const LOCALSTACK_ENDPOINT = process.env.AWS_ENDPOINT_URL ?? 'http://localhost:4566';
 const TEST_BUCKET = 'test-integration-bucket';
 
 describe('AwsObjectStoreService Integration (LocalStack)', () => {
@@ -20,12 +20,13 @@ describe('AwsObjectStoreService Integration (LocalStack)', () => {
   beforeAll(() => {
     // Configure service to use LocalStack
     service = new AwsObjectStoreService({
-      region: 'us-east-1',
+      region: process.env.AWS_REGION ?? 'us-east-1',
       endpoint: LOCALSTACK_ENDPOINT,
       credentials: {
-        accessKeyId: 'test',
-        secretAccessKey: 'test',
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? 'test',
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? 'test',
       },
+      forcePathStyle: true, // Required for LocalStack compatibility
     });
   });
 

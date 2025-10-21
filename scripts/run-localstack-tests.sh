@@ -26,13 +26,20 @@ run_test() {
 # Run tests for LocalStack-supported services
 # Note: AppRunner, RDS, Batch, AppConfig require LocalStack Pro or are not fully emulated
 
-# Core supported services
+# Currently available integration tests:
+# - AwsObjectStoreService (S3) - ✅ Supported
+# - AwsDataStoreService (PostgreSQL/RDS) - ❌ Requires RDS (not in LocalStack free)
+# - AwsWebHostingService (App Runner) - ❌ Requires Pro
+
+# Core supported services (only test files that exist)
 run_test "tests/integration/providers/aws/AwsObjectStoreService.test.ts" "S3 ObjectStore"
-run_test "tests/integration/providers/aws/AwsQueueService.test.ts" "SQS Queue"
-run_test "tests/integration/providers/aws/AwsNotificationService.test.ts" "SNS Notification"
-run_test "tests/integration/providers/aws/AwsEventBusService.test.ts" "EventBridge"
-run_test "tests/integration/providers/aws/AwsSecretsService.test.ts" "Secrets Manager"
-run_test "tests/integration/providers/aws/AwsDocumentStoreService.test.ts" "DynamoDB DocumentStore"
+
+# TODO: Add these tests when implemented:
+# run_test "tests/integration/providers/aws/AwsQueueService.test.ts" "SQS Queue"
+# run_test "tests/integration/providers/aws/AwsNotificationService.test.ts" "SNS Notification"
+# run_test "tests/integration/providers/aws/AwsEventBusService.test.ts" "EventBridge"
+# run_test "tests/integration/providers/aws/AwsSecretsService.test.ts" "Secrets Manager"
+# run_test "tests/integration/providers/aws/AwsDocumentStoreService.test.ts" "DynamoDB DocumentStore"
 
 # Report results
 echo "================================"
