@@ -38,6 +38,8 @@ export interface AwsObjectStoreConfig {
     secretAccessKey: string;
   };
   forcePathStyle?: boolean; // For LocalStack
+  requestChecksumCalculation?: 'WHEN_SUPPORTED' | 'WHEN_REQUIRED'; // For LocalStack checksum issues
+  responseChecksumValidation?: 'WHEN_SUPPORTED' | 'WHEN_REQUIRED'; // For LocalStack checksum issues
 }
 
 export class AwsObjectStoreService implements ObjectStoreService {
@@ -58,6 +60,14 @@ export class AwsObjectStoreService implements ObjectStoreService {
 
     if (config?.forcePathStyle !== undefined) {
       clientConfig.forcePathStyle = config.forcePathStyle;
+    }
+
+    if (config?.requestChecksumCalculation !== undefined) {
+      clientConfig.requestChecksumCalculation = config.requestChecksumCalculation;
+    }
+
+    if (config?.responseChecksumValidation !== undefined) {
+      clientConfig.responseChecksumValidation = config.responseChecksumValidation;
     }
 
     this.client = new S3Client(clientConfig);

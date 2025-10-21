@@ -27,6 +27,9 @@ describe('AwsObjectStoreService Integration (LocalStack)', () => {
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? 'test',
       },
       forcePathStyle: true, // Required for LocalStack compatibility
+      // Disable checksum validation for LocalStack (checksums don't match)
+      requestChecksumCalculation: 'WHEN_REQUIRED' as const,
+      responseChecksumValidation: 'WHEN_REQUIRED' as const,
     });
   });
 
