@@ -210,9 +210,7 @@ export class AwsConfigurationService implements ConfigurationService {
       if (error instanceof ResourceNotFoundError) {
         throw error;
       }
-      throw new ServiceUnavailableError(
-        `Failed to get configuration: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to get configuration: ${(error as Error).message}`);
     }
   }
 
@@ -357,8 +355,7 @@ export class AwsConfigurationService implements ConfigurationService {
 
       // Simple validation: check if all required fields from schema are present
       // In production, use a library like ajv for JSON Schema validation
-      const errors: Array<{ path: string; message: string; expected: string; actual: string }> =
-        [];
+      const errors: Array<{ path: string; message: string; expected: string; actual: string }> = [];
 
       const schemaObj = schema as { required?: string[] };
       if (schemaObj.required) {
@@ -422,9 +419,7 @@ export class AwsConfigurationService implements ConfigurationService {
 
       return profile;
     } catch (error) {
-      throw new ServiceUnavailableError(
-        `Failed to create profile: ${(error as Error).message}`
-      );
+      throw new ServiceUnavailableError(`Failed to create profile: ${(error as Error).message}`);
     }
   }
 
@@ -454,9 +449,7 @@ export class AwsConfigurationService implements ConfigurationService {
       });
 
       const profilesResponse = await this.client.send(listProfilesCommand);
-      const profile = profilesResponse.Items?.find(
-        (p) => p.Name === params.configurationName
-      );
+      const profile = profilesResponse.Items?.find((p) => p.Name === params.configurationName);
 
       if (!profile?.Id) {
         throw new ResourceNotFoundError('Configuration', params.configurationName);
@@ -468,7 +461,8 @@ export class AwsConfigurationService implements ConfigurationService {
         EnvironmentId: environmentId,
         ConfigurationProfileId: profile.Id,
         ConfigurationVersion: '1',
-        DeploymentStrategyId: params.deploymentStrategy || 'AppConfig.Linear50PercentEvery30Seconds',
+        DeploymentStrategyId:
+          params.deploymentStrategy || 'AppConfig.Linear50PercentEvery30Seconds',
       });
 
       const deployResponse = await this.client.send(deployCommand);

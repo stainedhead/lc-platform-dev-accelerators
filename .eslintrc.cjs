@@ -65,6 +65,19 @@ module.exports = {
       },
     },
     {
+      // AWS implementations: allow nullable checks for optional AWS SDK responses
+      files: ['**/aws/**/*.ts'],
+      rules: {
+        '@typescript-eslint/strict-boolean-expressions': 'off',
+        '@typescript-eslint/prefer-nullish-coalescing': 'off',
+        '@typescript-eslint/require-await': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'warn',
+        '@typescript-eslint/no-unsafe-assignment': 'warn',
+        '@typescript-eslint/no-unsafe-return': 'warn',
+        '@typescript-eslint/no-base-to-string': 'warn',
+      },
+    },
+    {
       // Tests can use console for debugging
       files: ['**/*.test.ts'],
       rules: {
@@ -75,6 +88,13 @@ module.exports = {
         '@typescript-eslint/require-await': 'off',
         '@typescript-eslint/await-thenable': 'warn',
         'no-constant-condition': 'warn',
+      },
+    },
+    {
+      // Benchmarks can use console
+      files: ['benchmarks/**/*.ts'],
+      rules: {
+        'no-console': 'off',
       },
     },
   ],

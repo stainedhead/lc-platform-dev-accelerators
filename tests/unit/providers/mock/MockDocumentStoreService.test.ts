@@ -61,24 +61,18 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should throw error when getting non-existent collection', async () => {
-      await expect(service.getCollection('nonexistent')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      await expect(service.getCollection('nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should delete collection', async () => {
       await service.createCollection('users');
       await service.deleteCollection('users');
 
-      await expect(service.getCollection('users')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      await expect(service.getCollection('users')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should throw error when deleting non-existent collection', async () => {
-      await expect(service.deleteCollection('nonexistent')).rejects.toThrow(
-        ResourceNotFoundError
-      );
+      await expect(service.deleteCollection('nonexistent')).rejects.toThrow(ResourceNotFoundError);
     });
 
     it('should list all collections', async () => {
@@ -115,9 +109,9 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should throw error when inserting into non-existent collection', async () => {
-      await expect(
-        service.insertDocument('nonexistent', { name: 'Test' })
-      ).rejects.toThrow(ResourceNotFoundError);
+      await expect(service.insertDocument('nonexistent', { name: 'Test' })).rejects.toThrow(
+        ResourceNotFoundError
+      );
     });
 
     it('should find document by ID', async () => {
@@ -147,11 +141,10 @@ describe('MockDocumentStoreService', () => {
         status: 'active',
       });
 
-      const updated = await service.updateDocument<TestDocument>(
-        'users',
-        inserted._id,
-        { age: 36, email: 'bob@example.com' }
-      );
+      const updated = await service.updateDocument<TestDocument>('users', inserted._id, {
+        age: 36,
+        email: 'bob@example.com',
+      });
 
       const updatedDoc = updated as unknown as TestDocument & { _id: string };
       expect(updated._id).toBe(inserted._id);
@@ -186,8 +179,16 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should update document count', async () => {
-      await service.insertDocument<TestDocument>('users', { name: 'User 1', age: 20, status: 'active' });
-      await service.insertDocument<TestDocument>('users', { name: 'User 2', age: 25, status: 'active' });
+      await service.insertDocument<TestDocument>('users', {
+        name: 'User 1',
+        age: 20,
+        status: 'active',
+      });
+      await service.insertDocument<TestDocument>('users', {
+        name: 'User 2',
+        age: 25,
+        status: 'active',
+      });
 
       const collection = await service.getCollection('users');
       expect(collection.documentCount).toBe(2);
@@ -264,9 +265,7 @@ describe('MockDocumentStoreService', () => {
       });
 
       expect(results).toHaveLength(2);
-      expect(
-        results.every((doc) => typeof doc.age === 'number' && doc.age > 30)
-      ).toBe(true);
+      expect(results.every((doc) => typeof doc.age === 'number' && doc.age > 30)).toBe(true);
     });
 
     it('should find documents with $gte operator', async () => {
@@ -275,9 +274,7 @@ describe('MockDocumentStoreService', () => {
       });
 
       expect(results).toHaveLength(3);
-      expect(
-        results.every((doc) => typeof doc.age === 'number' && doc.age >= 30)
-      ).toBe(true);
+      expect(results.every((doc) => typeof doc.age === 'number' && doc.age >= 30)).toBe(true);
     });
 
     it('should find documents with $lt operator', async () => {
@@ -286,9 +283,7 @@ describe('MockDocumentStoreService', () => {
       });
 
       expect(results).toHaveLength(2);
-      expect(
-        results.every((doc) => typeof doc.age === 'number' && doc.age < 35)
-      ).toBe(true);
+      expect(results.every((doc) => typeof doc.age === 'number' && doc.age < 35)).toBe(true);
     });
 
     it('should find documents with $lte operator', async () => {
@@ -297,9 +292,7 @@ describe('MockDocumentStoreService', () => {
       });
 
       expect(results).toHaveLength(3);
-      expect(
-        results.every((doc) => typeof doc.age === 'number' && doc.age <= 35)
-      ).toBe(true);
+      expect(results.every((doc) => typeof doc.age === 'number' && doc.age <= 35)).toBe(true);
     });
 
     it('should find documents with $in operator', async () => {
@@ -321,11 +314,7 @@ describe('MockDocumentStoreService', () => {
     });
 
     it('should find documents with limit', async () => {
-      const results = await service.find<TestDocument>(
-        'users',
-        { status: 'active' },
-        2
-      );
+      const results = await service.find<TestDocument>('users', { status: 'active' }, 2);
 
       expect(results).toHaveLength(2);
     });
@@ -339,8 +328,7 @@ describe('MockDocumentStoreService', () => {
       expect(results).toHaveLength(2);
       expect(
         results.every(
-          (doc) =>
-            doc.status === 'active' && typeof doc.age === 'number' && doc.age >= 30
+          (doc) => doc.status === 'active' && typeof doc.age === 'number' && doc.age >= 30
         )
       ).toBe(true);
     });

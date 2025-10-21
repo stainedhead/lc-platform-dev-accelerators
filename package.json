@@ -18,6 +18,9 @@
     "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\"",
     "typecheck": "tsc --noEmit",
+    "docs": "typedoc",
+    "docs:watch": "typedoc --watch",
+    "bench": "bun run benchmarks/index.ts",
     "prepublishOnly": "bun run build && bun run test"
   },
   "keywords": [
@@ -34,11 +37,17 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_ORG/LCPlatform-DevAccelerator.git"
+    "url": "https://github.com/stainedhead/lc-platform-dev-accelerators.git"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "@aws-sdk/client-apprunner": "^3.0.0",
     "@aws-sdk/client-appconfig": "^3.0.0",
@@ -63,6 +72,8 @@
     "eslint": "^8.0.0",
     "eslint-config-prettier": "^9.0.0",
     "prettier": "^3.0.0",
+    "typedoc": "^0.28.14",
+    "typedoc-plugin-markdown": "^4.9.0",
     "typescript": "^5.9.3"
   },
   "engines": {

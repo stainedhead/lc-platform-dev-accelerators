@@ -26,6 +26,7 @@ export interface IndexDefinition {
 }
 
 export interface Query {
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   [field: string]: QueryOperator | unknown;
 }
 
