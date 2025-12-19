@@ -8,9 +8,9 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.1-success.svg)](https://github.com/stainedhead/lc-platform-dev-accelerators/packages)
 
-## 🎉 Status: Full Platform Complete
+## 🎉 Status: MVP Complete (User Story 1)
 
-**12 Control Plane services + 9 Data Plane clients** • **725+ tests passing** • **Automated publishing** • **Production ready**
+**47/47 tasks completed** • **85%+ test coverage** • **Production ready**
 
 ## Overview
 
@@ -24,115 +24,47 @@ Built on **Hexagonal Architecture** principles, this library abstracts cloud ser
 - ✅ **Avoid vendor lock-in** and maintain architectural flexibility
 - ✅ **Production-ready** with 85%+ test coverage and zero TypeScript errors
 
-## Architecture
-
-### Hexagonal Architecture (Ports and Adapters)
-
-lc-platform-dev-accelerators is built on **Hexagonal Architecture** principles, ensuring complete cloud provider independence. Your application code depends only on abstract interfaces (ports), while cloud-specific implementations (adapters) are pluggable and interchangeable.
-
-**ASCII Diagram:**
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                     Application Layer                        │
-│  (Your code using LCPlatform - knows only about interfaces) │
-└────────────────────────┬────────────────────────────────────┘
-                         │
-         ┌───────────────▼────────────────┐
-         │        LCPlatform              │
-         │  (Main entry point & config)   │
-         └───────────────┬────────────────┘
-                         │
-         ┌───────────────▼────────────────┐
-         │         Factories              │
-         │  (Runtime provider selection)  │
-         └───────────────┬────────────────┘
-                         │
-        ┌────────────────┼────────────────┐
-        │                │                │
-┌───────▼──────┐  ┌──────────▼───────────┐  ┌─────▼───────┐
-│ Core Domain  │  │    AWS Layer         │  │ Mock Layer  │
-│              │  │                      │  │             │
-│ 11 Services: │  │  AWS Adapters:       │  │ Adapters:   │
-│ - WebHosting │  │  - AppRunner         │  │ - InMemory  │
-│ - DataStore  │  │  - PostgreSQL        │  │ - InMemory  │
-│ - ObjectStore│  │  - S3                │  │ - InMemory  │
-│ - Batch      │  │  - Batch+EventBridge │  │ - InMemory  │
-│ - Queue      │  │  - SQS               │  │ - InMemory  │
-│ - Secrets    │  │  - Secrets Manager   │  │ - InMemory  │
-│ - Config     │  │  - AppConfig         │  │ - InMemory  │
-│ - DocStore   │  │  - DocumentDB        │  │ - InMemory  │
-│ - EventBus   │  │  - EventBridge       │  │ - InMemory  │
-│ - Notify     │  │  - SNS               │  │ - InMemory  │
-│ - Auth       │  │  - Cognito           │  │ - InMemory  │
-└──────────────┘  └──────────────────────┘  └─────────────┘
-```
-
-**Mermaid Diagram:**
-
-```mermaid
-graph TB
-    App[Application Layer<br/>Your code using LCPlatform<br/>knows only about interfaces]
-
-    App --> Platform[LCPlatform<br/>Main entry point & config]
-    Platform --> Factory[Factories<br/>Runtime provider selection]
-
-    Factory --> Core[Core Domain<br/>11 Service Interfaces]
-    Factory --> AWS[AWS Layer<br/>AWS Adapters]
-    Factory --> Mock[Mock Layer<br/>In-Memory Adapters]
-
-    Core -.defines.-> Interfaces[Service Interfaces:<br/>WebHosting, DataStore, ObjectStore<br/>Batch, Queue, Secrets, Config<br/>DocStore, EventBus, Notify, Auth]
-
-    AWS -.implements.-> Interfaces
-    Mock -.implements.-> Interfaces
-
-    AWS --> AWSServices[AWS Services:<br/>AppRunner, PostgreSQL, S3<br/>Batch+EventBridge, SQS<br/>Secrets Manager, AppConfig<br/>DocumentDB, EventBridge<br/>SNS, Cognito]
-
-    Mock --> InMemory[In-Memory:<br/>All services use<br/>in-memory storage]
-
-    style App fill:#e1f5ff
-    style Platform fill:#fff4e1
-    style Factory fill:#fff4e1
-    style Core fill:#e8f5e9
-    style AWS fill:#fff3e0
-    style Mock fill:#f3e5f5
-    style Interfaces fill:#e8f5e9
-```
-
-**Key Principles:**
-
-1. **Dependency Inversion**: Application depends on abstractions (service interfaces), not implementations
-2. **Provider Independence**: Switch between AWS, Mock, or future providers (Azure, GCP) via configuration
-3. **Testability**: Use Mock provider for local development and testing without cloud credentials
-4. **Extensibility**: Add new providers by implementing the same service interfaces
-5. **Type Safety**: TypeScript ensures compile-time verification of provider compatibility
-
 ## Key Features
 
 ### 🌐 Multi-Cloud Support
 
-**All User Stories (1-7)** - ✅ Complete with AWS and Mock providers:
+**Control Plane Services** - ✅ Complete with AWS and Mock providers:
 
 | Service | AWS | Mock | Status | Interface |
 |---------|-----|------|--------|-----------|
 | Web Hosting | App Runner | In-Memory | ✅ Complete | `WebHostingService` |
 | Function Hosting | Lambda | In-Memory | ✅ Complete | `FunctionHostingService` |
+| Batch Jobs | AWS Batch | In-Memory | ✅ Complete | `BatchService` |
 | Data Store | PostgreSQL | In-Memory SQL | ✅ Complete | `DataStoreService` |
+| Document Store | DocumentDB | In-Memory NoSQL | ✅ Complete | `DocumentStoreService` |
 | Object Storage | S3 | In-Memory | ✅ Complete | `ObjectStoreService` |
-| Batch Service | AWS Batch + EventBridge | In-Memory | ✅ Complete | `BatchService` |
 | Queue Service | SQS | In-Memory | ✅ Complete | `QueueService` |
+| Event Bus | EventBridge | In-Memory | ✅ Complete | `EventBusService` |
 | Secrets Service | Secrets Manager | In-Memory | ✅ Complete | `SecretsService` |
 | Configuration Service | AppConfig | In-Memory | ✅ Complete | `ConfigurationService` |
-| Document Store | DynamoDB | In-Memory | ✅ Complete | `DocumentStoreService` |
-| Event Bus | EventBridge | In-Memory | ✅ Complete | `EventBusService` |
 | Notification Service | SNS | In-Memory | ✅ Complete | `NotificationService` |
 | Authentication Service | Cognito | In-Memory | ✅ Complete | `AuthenticationService` |
 
-**Planned (Future)**:
+**Data Plane Clients** - ✅ Complete with AWS and Mock providers:
 
-| Service | Azure | GCP | Status |
-|---------|-------|-----|--------|
-| All Services | Azure implementations | GCP implementations | 📋 Planned |
+| Client | AWS | Mock | Status | Interface |
+|--------|-----|------|--------|-----------|  
+| Queue Client | SQS | In-Memory | ✅ Complete | `QueueClient` |
+| Object Client | S3 | In-Memory | ✅ Complete | `ObjectClient` |
+| Secrets Client | Secrets Manager | In-Memory | ✅ Complete | `SecretsClient` |
+| Config Client | AppConfig | In-Memory | ✅ Complete | `ConfigClient` |
+| Event Publisher | EventBridge | In-Memory | ✅ Complete | `EventPublisher` |
+| Notification Client | SNS | In-Memory | ✅ Complete | `NotificationClient` |
+| Document Client | DocumentDB | In-Memory | ✅ Complete | `DocumentClient` |
+| Data Client | PostgreSQL | In-Memory | ✅ Complete | `DataClient` |
+| Auth Client | Cognito | In-Memory | ✅ Complete | `AuthClient` |
+
+**Planned (Future Releases)**:
+
+| Provider | Status |
+|----------|--------|
+| Azure Support | 📋 Planned |
+| GCP Support | 📋 Planned |
 
 ### 🎯 Clean Architecture
 
@@ -141,6 +73,280 @@ graph TB
 - **Dependency Inversion**: Applications depend on abstractions, not concrete implementations
 
 ### 🧪 Testing Made Easy
+
+Mock provider enables local development and testing without cloud resources:
+
+```typescript
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Development/Testing - No cloud credentials needed
+const platform = new LCPlatform({ provider: ProviderType.MOCK });
+const storage = platform.getObjectStore();
+await storage.putObject('bucket', 'test.txt', Buffer.from('Hello World'));
+
+// Production - Same code, different provider
+const prodPlatform = new LCPlatform({ provider: ProviderType.AWS, region: 'us-east-1' });
+```
+
+## Installation
+
+### From GitHub Packages
+
+```bash
+bun add @stainedhead/lc-platform-dev-accelerators
+```
+
+**Note**: Configure Bun to use GitHub Packages for the `@lcplatform` scope. Add to your `bunfig.toml`:
+
+```toml
+[install.scopes]
+"@lcplatform" = { url = "https://npm.pkg.github.com" }
+```
+
+## Quick Start
+
+### Basic Usage (MVP - User Story 1)
+
+```typescript
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Initialize with AWS provider
+const platform = new LCPlatform({
+  provider: ProviderType.AWS,
+  region: 'us-east-1',
+  options: {
+    // Database configuration for DataStoreService
+    dbHost: process.env.DB_HOST,
+    dbPort: 5432,
+    dbName: process.env.DB_NAME,
+    dbUser: process.env.DB_USER,
+    dbPassword: process.env.DB_PASSWORD,
+  },
+});
+
+// 1. Upload application assets
+const storage = platform.getObjectStore();
+await storage.createBucket('my-app-assets');
+await storage.putObject('my-app-assets', 'config.json', configBuffer);
+
+// 2. Setup database
+const db = platform.getDataStore();
+await db.connect();
+await db.execute('CREATE TABLE users (id SERIAL PRIMARY KEY, name VARCHAR(100))');
+await db.execute('INSERT INTO users (name) VALUES ($1)', ['Alice']);
+
+// 3. Deploy web application
+const hosting = platform.getWebHosting();
+const deployment = await hosting.deployApplication({
+  name: 'my-app',
+  image: 'myorg/app:v1.0.0',
+  port: 3000,
+  environment: {
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
+});
+
+// 4. Setup message queue
+const queue = platform.getQueue();
+await queue.createQueue('task-queue');
+await queue.sendMessage('task-queue', { action: 'welcome', userId: 'user123' });
+
+console.log(`Application deployed: ${deployment.url}`);
+```
+
+### Runtime Usage (Data Plane)
+
+For applications that need to interact with cloud services at runtime, use the `LCAppRuntime` class:
+
+```typescript
+import { LCAppRuntime, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Initialize runtime for your running application
+const runtime = new LCAppRuntime({
+  provider: ProviderType.AWS,
+  region: 'us-east-1',
+});
+
+// Queue operations
+const queue = runtime.getQueueClient();
+await queue.sendMessage('task-queue', { action: 'process', data: {} });
+const messages = await queue.receiveMessages('task-queue');
+
+// Object storage operations  
+const storage = runtime.getObjectClient();
+await storage.putObject('assets', 'file.txt', Buffer.from('content'));
+const file = await storage.getObject('assets', 'file.txt');
+
+// Secrets management
+const secrets = runtime.getSecretsClient();
+const apiKey = await secrets.getSecret('api-key');
+
+// Configuration management
+const config = runtime.getConfigClient();
+const setting = await config.getConfiguration('feature-flags', 'enable-new-ui');
+
+// Event publishing
+const events = runtime.getEventPublisher();
+await events.publishEvent('user-service', 'user.created', { userId: '123' });
+
+// Notifications
+const notifications = runtime.getNotificationClient();
+await notifications.sendNotification('alerts', 'System maintenance scheduled', {
+  email: ['admin@company.com'],
+  sms: ['+1234567890'],
+});
+```
+
+### Switching Providers (Zero Code Changes!)
+
+```typescript
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Development: Use mock provider (no cloud needed)
+const devPlatform = new LCPlatform({ provider: ProviderType.MOCK });
+
+// Production: Use AWS (same application code works!)
+const prodPlatform = new LCPlatform({
+  provider: ProviderType.AWS,
+  region: 'us-east-1',
+});
+
+// Future: Azure and GCP support (planned for future releases)
+// const azurePlatform = new LCPlatform({ provider: ProviderType.AZURE, region: 'eastus' });
+// const gcpPlatform = new LCPlatform({ provider: ProviderType.GCP, region: 'us-central1' });
+```
+
+### Environment-Based Configuration
+
+```typescript
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+const platform = new LCPlatform({
+  provider: process.env.LC_PLATFORM_PROVIDER as ProviderType || ProviderType.MOCK,
+  region: process.env.LC_PLATFORM_REGION || 'us-east-1',
+});
+
+// Works in development (MOCK), staging (AWS), production (AWS)
+const storage = platform.getObjectStore();
+await storage.putObject('my-bucket', 'data.json', jsonBuffer);
+```
+
+## Architecture
+
+### Dual-Plane Hexagonal Architecture
+
+lc-platform-dev-accelerators is built on **Hexagonal Architecture** principles with a **dual-plane design**, ensuring complete cloud provider independence. The platform separates infrastructure management (Control Plane) from application runtime operations (Data Plane).
+
+### Control Plane Architecture
+
+The **Control Plane** is designed for platform operators and developers managing infrastructure through the `LCPlatform` class.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                Infrastructure Layer (Control Plane)             │
+│              Platform Operators & Developers                    │  
+│                  const platform = new LCPlatform()             │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+┌───────▼──────┐  ┌──────▼──────────────┐  ┌─────▼──────┐
+│ Core Domain  │  │    AWS Provider     │  │Mock Provider│
+│              │  │                     │  │             │
+│ 12 Services: │  │  AWS Adapters:      │  │ Adapters:   │
+│ WebHosting   │  │  - App Runner       │  │ - InMemory  │
+│ FunctionHost │  │  - Lambda           │  │ - InMemory  │
+│ Batch        │  │  - AWS Batch        │  │ - InMemory  │
+│ DataStore    │  │  - RDS PostgreSQL   │  │ - InMemory  │
+│ DocumentStore│  │  - DocumentDB       │  │ - InMemory  │
+│ ObjectStore  │  │  - S3               │  │ - InMemory  │
+│ Queue        │  │  - SQS              │  │ - InMemory  │
+│ EventBus     │  │  - EventBridge      │  │ - InMemory  │
+│ Secrets      │  │  - Secrets Manager  │  │ - InMemory  │
+│ Config       │  │  - AppConfig        │  │ - InMemory  │
+│ Notification │  │  - SNS              │  │ - InMemory  │
+│ Auth         │  │  - Cognito          │  │ - InMemory  │
+└──────────────┘  └─────────────────────┘  └────────────┘
+```
+
+**Use Cases:**
+- Infrastructure provisioning and management
+- Application deployment and lifecycle management  
+- Cross-service orchestration and configuration
+- Development platform creation
+
+**Example:**
+```typescript
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Platform operator deploying applications
+const platform = new LCPlatform({ provider: ProviderType.AWS });
+const hosting = platform.getWebHosting();
+const database = platform.getDataStore();
+
+// Deploy application with database
+await hosting.deployApplication({ name: 'api', image: 'myapp:v1' });
+await database.execute('CREATE TABLE users (id SERIAL, name VARCHAR(100))');
+```
+
+### Data Plane Architecture
+
+The **Data Plane** is designed for application runtime environments through the `LCAppRuntime` class.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                  Application Layer (Data Plane)                │
+│              Running Applications & Services                     │
+│                    const runtime = new LCAppRuntime()          │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+┌───────▼──────┐  ┌──────▼──────────────┐  ┌─────▼──────┐
+│ Core Domain  │  │    AWS Provider     │  │Mock Provider│
+│              │  │                     │  │             │
+│  9 Clients:  │  │  AWS Clients:       │  │ Clients:    │
+│ Queue        │  │  - SQS Client       │  │ - InMemory  │
+│ Object       │  │  - S3 Client        │  │ - InMemory  │
+│ Secrets      │  │  - Secrets Client   │  │ - InMemory  │
+│ Config       │  │  - AppConfig Client │  │ - InMemory  │
+│ EventPublish │  │  - EventBridge Cli  │  │ - InMemory  │
+│ Notification │  │  - SNS Client       │  │ - InMemory  │
+│ Document     │  │  - DocumentDB Cli   │  │ - InMemory  │
+│ Data         │  │  - RDS Client       │  │ - InMemory  │
+│ Auth         │  │  - Cognito Client   │  │ - InMemory  │
+└──────────────┘  └─────────────────────┘  └────────────┘
+```
+
+**Use Cases:**
+- Runtime data operations and transactions
+- Event publishing and message processing
+- Configuration and secrets retrieval
+- Authentication and authorization
+
+**Example:**
+```typescript
+import { LCAppRuntime, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Application runtime operations
+const runtime = new LCAppRuntime({ provider: ProviderType.AWS });
+const queue = runtime.getQueueClient();
+const storage = runtime.getObjectClient();
+
+// Process business logic
+const message = await queue.receiveMessage('tasks');
+const data = await storage.getObject('uploads', message.fileId);
+await processData(data);
+```
+
+### Key Principles
+
+1. **Dual-Plane Separation**: Clear separation between infrastructure management (Control Plane) and application runtime (Data Plane)
+2. **Dependency Inversion**: Applications depend on abstractions (service interfaces), not implementations
+3. **Provider Independence**: Switch between AWS, Mock, or future providers (Azure, GCP) via configuration
+4. **Testability**: Use Mock provider for local development and testing without cloud credentials
+5. **Extensibility**: Add new providers by implementing the same service interfaces
+6. **Type Safety**: TypeScript ensures compile-time verification of provider compatibility
 
 Mock provider enables local development and testing without cloud resources:
 
