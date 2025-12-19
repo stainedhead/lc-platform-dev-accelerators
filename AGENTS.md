@@ -274,6 +274,38 @@ When making documentation changes, **ALWAYS follow this order**:
 
 **Remember**: The root `/README.md` is what users see when they visit the GitHub repository. Always prioritize keeping this file current and comprehensive.
 
+### README Synchronization Workflow
+
+**CRITICAL**: Keep both README files synchronized using TypeDoc as the synchronization mechanism:
+
+- **Source of Truth**: `/README.md` (root) - Edit this file only
+- **Generated Copy**: `/docs/README.md` - Never edit manually
+- **Sync Command**: `bun run docs` - Regenerates docs/README.md from root README.md
+- **Automation**: TypeDoc uses `"readme": "README.md"` in typedoc.json configuration
+
+**Synchronization Steps**:
+1. Make all documentation changes to `/README.md` (root)
+2. Run `bun run docs` to regenerate TypeDoc documentation
+3. Verify `/docs/README.md` reflects the changes from root README.md
+4. Commit both files together to maintain synchronization
+
+**Pre-commit Workflow** (recommended):
+```bash
+# 1. Update root README.md with your changes
+# 2. Regenerate TypeDoc documentation
+bun run docs
+# 3. Stage both README files
+git add README.md docs/README.md
+# 4. Commit with descriptive message
+git commit -m "docs: update README with [your changes]"
+```
+
+**Configuration Details**:
+- TypeDoc configuration in `typedoc.json` specifies `"readme": "README.md"`
+- Documentation output directory: `"out": "docs"`
+- The generated `/docs/README.md` includes additional TypeDoc navigation elements
+- Both files should be committed together to maintain synchronization
+
 ## Quality Standards
 
 ### Test-Driven Development (TDD)
