@@ -317,42 +317,201 @@ interface Deployment {
 }
 ```
 
+## Architecture
+
+The lc-platform-dev-accelerators library implements a **dual-plane architecture** using Hexagonal (Ports and Adapters) pattern to achieve complete cloud provider independence.
+
+### Control Plane Architecture
+
+The **Control Plane** is designed for platform operators and infrastructure management through the `LCPlatform` class.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Application Layer (Control Plane)            │
+│          Platform Operators & Infrastructure Management         │
+│                     const platform = new LCPlatform({})        │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │        LCPlatform              │
+         │   (Main Control Plane API)     │
+         │   - getWebHosting()            │
+         │   - getFunctionHosting()       │
+         │   - getBatch()                 │
+         │   - getDataStore()             │
+         │   - getObjectStore()           │
+         │   + 7 more services...         │
+         └───────────────┬────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │      Service Factories         │
+         │   (Runtime Provider Selection) │
+         └───────────────┬────────────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+┌───────▼──────┐  ┌──────▼──────────────┐  ┌─────▼──────┐
+│ Core Domain  │  │    AWS Provider     │  │Mock Provider│
+│              │  │                     │  │             │
+│ 12 Services: │  │  AWS Adapters:      │  │ Adapters:   │
+│ WebHosting   │  │  - App Runner       │  │ - InMemory  │
+│ FunctionHost │  │  - Lambda           │  │ - InMemory  │
+│ Batch        │  │  - AWS Batch        │  │ - InMemory  │
+│ DataStore    │  │  - RDS PostgreSQL   │  │ - InMemory  │
+│ DocumentStore│  │  - DocumentDB       │  │ - InMemory  │
+│ ObjectStore  │  │  - S3               │  │ - InMemory  │
+│ Queue        │  │  - SQS              │  │ - InMemory  │
+│ EventBus     │  │  - EventBridge      │  │ - InMemory  │
+│ Secrets      │  │  - Secrets Manager  │  │ - InMemory  │
+│ Config       │  │  - AppConfig        │  │ - InMemory  │
+│ Notification │  │  - SNS              │  │ - InMemory  │
+│ Auth         │  │  - Cognito          │  │ - InMemory  │
+└──────────────┘  └─────────────────────┘  └────────────┘
+```
+
+**Use Cases:**
+- Infrastructure provisioning and management
+- Application deployment and lifecycle management  
+- Cross-service orchestration and configuration
+- Development platform creation
+
+**Example:**
+```typescript
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Platform operator deploying applications
+const platform = new LCPlatform({ provider: ProviderType.AWS });
+const hosting = platform.getWebHosting();
+const database = platform.getDataStore();
+
+// Deploy application with database
+await hosting.deployApplication({ name: 'api', image: 'myapp:v1' });
+await database.execute('CREATE TABLE users (id SERIAL, name VARCHAR(100))');
+```
+
+### Data Plane Architecture
+
+The **Data Plane** is designed for application runtime environments through the `LCAppRuntime` class.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                  Application Layer (Data Plane)                │
+│              Running Applications & Services                     │
+│                    const runtime = new LCAppRuntime()          │
+└────────────────────────┬────────────────────────────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │      LCAppRuntime              │
+         │   (Lightweight Runtime API)    │
+         │   - getQueueClient()           │
+         │   - getObjectClient()          │
+         │   - getSecretsClient()         │
+         │   - getConfigClient()          │
+         │   - getEventPublisher()        │
+         │   + 4 more clients...          │
+         └───────────────┬────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │      Client Factories          │
+         │  (Auto Provider Detection)     │
+         └───────────────┬────────────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+┌───────▼──────┐  ┌──────▼──────────────┐  ┌─────▼──────┐
+│ Core Domain  │  │   AWS Clients       │  │Mock Clients│
+│              │  │                     │  │            │
+│ 9 Clients:   │  │  Lightweight AWS:   │  │ Adapters:  │
+│ QueueClient  │  │  - SQS Client       │  │ - InMemory │
+│ ObjectClient │  │  - S3 Client        │  │ - InMemory │
+│ SecretsClient│  │  - Secrets Client   │  │ - InMemory │
+│ ConfigClient │  │  - AppConfig Client │  │ - InMemory │
+│ EventPublisher│ │  - EventBridge      │  │ - InMemory │
+│ Notification │  │  - SNS Client       │  │ - InMemory │
+│ DocumentClient│ │  - DocumentDB       │  │ - InMemory │
+│ DataClient   │  │  - PostgreSQL       │  │ - InMemory │
+│ AuthClient   │  │  - Cognito Client   │  │ - InMemory │
+└──────────────┘  └─────────────────────┘  └────────────┘
+```
+
+**Use Cases:**
+- Application runtime service access
+- Lightweight cloud service operations
+- Event-driven processing
+- Microservice communication
+
+**Example:**
+```typescript
+import { LCAppRuntime } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Application runtime accessing services
+const runtime = new LCAppRuntime(); // Auto-detects provider
+const queue = runtime.getQueueClient();
+const secrets = runtime.getSecretsClient();
+
+// Process messages and access secrets
+const messages = await queue.receiveMessages('task-queue');
+const apiKey = await secrets.getSecret('api-key');
+```
+
+### Key Architectural Benefits
+
+#### 1. **Separation of Concerns**
+- **Control Plane**: Infrastructure management and deployment
+- **Data Plane**: Runtime service access and operations
+
+#### 2. **Provider Independence** 
+- No cloud-specific types in interfaces
+- Switch providers via configuration, not code changes
+- Same application code works across AWS, Azure, GCP
+
+#### 3. **Testability**
+- Mock providers for local development
+- No cloud credentials needed for testing
+- Fast test execution without network calls
+
+#### 4. **Performance Optimization**
+- Control Plane: Rich features, full service management
+- Data Plane: Lightweight clients, minimal overhead
+
 ## Available Services
 
-### ✅ MVP Complete (User Story 1)
+All services are **✅ Complete** with AWS and Mock provider implementations.
 
-Three services fully implemented with AWS and Mock providers:
+### Control Plane Services (via LCPlatform)
 
-1. **WebHostingService** - Deploy containerized web applications
-   - Deploy/update/delete applications
-   - Auto-scaling (min/max instances)
-   - Rolling updates with zero downtime
-   - AWS: App Runner
+#### Infrastructure & Compute
+- **WebHostingService** - Deploy containerized web applications (AWS: App Runner)
+- **FunctionHostingService** - Deploy serverless functions (AWS: Lambda)  
+- **BatchService** - Execute batch jobs and scheduled tasks (AWS: Batch)
 
-2. **DataStoreService** - Relational database (SQL) operations
-   - Connection pooling
-   - Prepared statements
-   - Transaction support
-   - Database migrations
-   - AWS: PostgreSQL via node-postgres
+#### Data & Storage
+- **DataStoreService** - SQL database operations (AWS: PostgreSQL)
+- **DocumentStoreService** - NoSQL document database (AWS: DocumentDB)
+- **ObjectStoreService** - Binary object storage (AWS: S3)
 
-3. **ObjectStoreService** - Store and retrieve binary objects/files
-   - Create buckets
-   - Upload/download objects
-   - Presigned URLs
-   - Metadata and tagging
-   - AWS: S3
+#### Messaging & Events
+- **QueueService** - Message queue processing (AWS: SQS)
+- **EventBusService** - Event-driven architecture (AWS: EventBridge)
+- **NotificationService** - Multi-channel notifications (AWS: SNS)
 
-### 📋 Planned (User Stories 2-7)
+#### Security & Configuration
+- **SecretsService** - Secure secret storage (AWS: Secrets Manager)
+- **ConfigurationService** - Application configuration (AWS: AppConfig)
+- **AuthenticationService** - OAuth2 authentication (AWS: Cognito)
 
-- **BatchService** - Execute batch jobs and scheduled tasks
-- **QueueService** - Message queue for asynchronous processing
-- **SecretsService** - Securely store and retrieve sensitive data
-- **ConfigurationService** - Manage application configuration
-- **DocumentStoreService** - NoSQL document database operations
-- **EventBusService** - Event-driven architecture support
-- **NotificationService** - Send notifications via email/SMS/push
-- **AuthenticationService** - OAuth2 authentication with external providers
+### Data Plane Clients (via LCAppRuntime)
+
+#### Runtime Service Access
+- **QueueClient** - Lightweight message operations
+- **ObjectClient** - Streamlined object storage access
+- **SecretsClient** - Secure secrets retrieval
+- **ConfigClient** - Configuration value access
+- **EventPublisher** - Event publishing capabilities
+- **NotificationClient** - Send notifications
+- **DocumentClient** - NoSQL document operations  
+- **DataClient** - SQL database operations
+- **AuthClient** - Authentication token management
 
 See [documentation/product-details.md](_media/product-details.md) for complete API reference.
 
