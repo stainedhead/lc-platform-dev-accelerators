@@ -33,26 +33,43 @@ Built on **Hexagonal Architecture** principles, this library abstracts cloud ser
 
 ### 🌐 Multi-Cloud Support
 
-**MVP (User Story 1)** - ✅ Complete with AWS and Mock providers:
+**Control Plane Services** - ✅ Complete with AWS and Mock providers:
 
 | Service | AWS | Mock | Status | Interface |
 |---------|-----|------|--------|-----------|
 | Web Hosting | App Runner | In-Memory | ✅ Complete | `WebHostingService` |
+| Function Hosting | Lambda | In-Memory | ✅ Complete | `FunctionHostingService` |
+| Batch Jobs | AWS Batch | In-Memory | ✅ Complete | `BatchService` |
 | Data Store | PostgreSQL | In-Memory SQL | ✅ Complete | `DataStoreService` |
+| Document Store | DocumentDB | In-Memory NoSQL | ✅ Complete | `DocumentStoreService` |
 | Object Storage | S3 | In-Memory | ✅ Complete | `ObjectStoreService` |
+| Queue Service | SQS | In-Memory | ✅ Complete | `QueueService` |
+| Event Bus | EventBridge | In-Memory | ✅ Complete | `EventBusService` |
+| Secrets Service | Secrets Manager | In-Memory | ✅ Complete | `SecretsService` |
+| Configuration Service | AppConfig | In-Memory | ✅ Complete | `ConfigurationService` |
+| Notification Service | SNS | In-Memory | ✅ Complete | `NotificationService` |
+| Authentication Service | Cognito | In-Memory | ✅ Complete | `AuthenticationService` |
 
-**Planned (User Stories 2-7)**:
+**Data Plane Clients** - ✅ Complete with AWS and Mock providers:
 
-| Service | AWS | Azure | Status |
-|---------|-----|-------|--------|
-| Batch Service | AWS Batch | Container Instances | 📋 Planned |
-| Queue Service | SQS | Storage Queues | 📋 Planned |
-| Secrets Service | Secrets Manager | Key Vault | 📋 Planned |
-| Configuration Service | AppConfig | App Configuration | 📋 Planned |
-| Document Store | DocumentDB | Cosmos DB | 📋 Planned |
-| Event Bus | EventBridge | Event Grid | 📋 Planned |
-| Notification Service | SNS | Notification Hubs | 📋 Planned |
-| Authentication Service | Cognito | Azure AD B2C | 📋 Planned |
+| Client | AWS | Mock | Status | Interface |
+|--------|-----|------|--------|-----------|  
+| Queue Client | SQS | In-Memory | ✅ Complete | `QueueClient` |
+| Object Client | S3 | In-Memory | ✅ Complete | `ObjectClient` |
+| Secrets Client | Secrets Manager | In-Memory | ✅ Complete | `SecretsClient` |
+| Config Client | AppConfig | In-Memory | ✅ Complete | `ConfigClient` |
+| Event Publisher | EventBridge | In-Memory | ✅ Complete | `EventPublisher` |
+| Notification Client | SNS | In-Memory | ✅ Complete | `NotificationClient` |
+| Document Client | DocumentDB | In-Memory | ✅ Complete | `DocumentClient` |
+| Data Client | PostgreSQL | In-Memory | ✅ Complete | `DataClient` |
+| Auth Client | Cognito | In-Memory | ✅ Complete | `AuthClient` |
+
+**Planned (Future Releases)**:
+
+| Provider | Status |
+|----------|--------|
+| Azure Support | 📋 Planned |
+| GCP Support | 📋 Planned |
 
 ### 🎯 Clean Architecture
 
@@ -140,6 +157,77 @@ const deployment = await hosting.deployApplication({
 console.log(`Application deployed at: ${deployment.url}`);
 ```
 
+### Function Hosting Service
+
+Deploy and manage serverless functions across cloud providers:
+
+```typescript
+import { LCPlatform, LCAppRuntime } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Control Plane: Deploy functions
+const platform = new LCPlatform({ provider: ProviderType.AWS });
+const functions = platform.getFunctionHosting();
+
+// Deploy a function
+const deployment = await functions.deployFunction({
+  name: 'my-processor',
+  code: functionCode,
+  runtime: 'nodejs18',
+  handler: 'index.handler',
+  environment: {
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
+  timeout: 30,
+  memorySize: 256,
+});
+
+// Invoke function
+const result = await functions.invokeFunction('my-processor', { 
+  message: 'Hello World' 
+});
+console.log('Function result:', result.payload);
+```
+
+### Data Plane Clients (Application Runtime)
+
+Use lightweight clients within your applications for cloud service access:
+
+```typescript
+import { LCAppRuntime } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Initialize runtime (automatically detects provider from environment)
+const runtime = new LCAppRuntime();
+
+// Queue operations
+const queue = runtime.getQueueClient();
+await queue.sendMessage('task-queue', { action: 'process', data: {} });
+const messages = await queue.receiveMessages('task-queue');
+
+// Object storage operations  
+const storage = runtime.getObjectClient();
+await storage.putObject('assets', 'file.txt', Buffer.from('content'));
+const file = await storage.getObject('assets', 'file.txt');
+
+// Secrets management
+const secrets = runtime.getSecretsClient();
+const apiKey = await secrets.getSecret('api-key');
+
+// Configuration management
+const config = runtime.getConfigClient();
+const setting = await config.getConfiguration('feature-flags', 'enable-new-ui');
+
+// Event publishing
+const events = runtime.getEventPublisher();
+await events.publishEvent('user-service', 'user.created', { userId: '123' });
+
+// Notifications
+const notifications = runtime.getNotificationClient();
+await notifications.sendNotification('alerts', 'System maintenance scheduled', {
+  email: ['admin@company.com'],
+  sms: ['+1234567890'],
+});
+```
+
 ### Switching Providers (Zero Code Changes!)
 
 ```typescript
@@ -154,8 +242,9 @@ const prodPlatform = new LCPlatform({
   region: 'us-east-1',
 });
 
-// Future: Azure support (coming in User Story 2+)
+// Future: Azure and GCP support (planned for future releases)
 // const azurePlatform = new LCPlatform({ provider: ProviderType.AZURE, region: 'eastus' });
+// const gcpPlatform = new LCPlatform({ provider: ProviderType.GCP, region: 'us-central1' });
 ```
 
 ### Environment-Based Configuration

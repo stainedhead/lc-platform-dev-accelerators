@@ -228,7 +228,8 @@ This project **strictly follows TDD practices**:
 
 ### Code Quality & Linting
 
-- **Linting runs during local test phase** for all changes
+- **Auto-format code first** (`bun run format`) before any linting checks
+- **Linting runs during local test phase** for all changes  
 - **Critical and High severity linting errors** must be corrected immediately
 - **No commits allowed** with critical/high linting violations
 - Use ESLint with TypeScript-specific rules
@@ -257,6 +258,7 @@ The CI/CD pipeline runs on every push and pull request:
 2. **Test Stage**
    - Run unit tests with coverage
    - Enforce 80% coverage threshold
+   - Auto-format code (`bun run format`) before linting
    - Run linting (ESLint)
    - Run formatter check (Prettier)
 
@@ -281,6 +283,30 @@ bun run lint:fix       # Auto-fix linting issues
 bun run format         # Format code with Prettier
 bun run format:check   # Check formatting without changes
 bun run typecheck      # Type-check without building
+```
+
+### Pre-Checkin Verification Steps
+
+Before committing code, follow this mandatory sequence to ensure quality:
+
+```bash
+# 1. Format code first (fixes most linting issues automatically)
+bun run format
+
+# 2. Add all changes to staging
+git add -A
+
+# 3. Run linting checks (should pass after formatting)
+bun run lint
+
+# 4. Run tests to verify functionality
+bun test
+
+# 5. Commit with descriptive message
+git commit -m "descriptive commit message"
+
+# 6. Push to remote repository
+git push origin main
 ```
 
 **Note**: This project uses **Bun runtime**, not Node.js. Bun provides native TypeScript support and a built-in test runner that's significantly faster than Jest/Vitest.

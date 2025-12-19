@@ -1,6 +1,6 @@
 # lc-platform-dev-accelerators - Product Details
 
-**Status**: All 11 Services Complete (User Stories 1-7)
+**Status**: All 12 Control Plane Services + 9 Data Plane Clients Complete
 
 ## Table of Contents
 1. [Service Specifications](#service-specifications)
@@ -820,7 +820,31 @@ Multi-channel notifications (email, SMS, push).
 
 ---
 
-### 11. AuthenticationService
+### 11. FunctionHostingService
+
+Deploy and manage serverless functions with event triggers and execution monitoring.
+
+**AWS Implementation**: Lambda | **Mock**: In-memory
+
+**Key Methods**:
+- `deployFunction(params: DeployFunctionParams): Promise<FunctionDeployment>` - Deploy serverless function
+- `updateFunction(name: string, params: UpdateFunctionParams): Promise<FunctionDeployment>` - Update function code/config
+- `invokeFunction(name: string, payload: any): Promise<InvocationResult>` - Synchronous function invocation
+- `invokeFunctionAsync(name: string, payload: any): Promise<string>` - Asynchronous function invocation
+- `getFunctionStatus(name: string): Promise<FunctionInfo>` - Get function details and status
+- `deleteFunction(name: string): Promise<void>` - Delete function
+- `listFunctions(): Promise<FunctionInfo[]>` - List all functions
+
+**Use Cases**:
+- Serverless application backends
+- Event-driven processing
+- Scheduled tasks and cron jobs
+- Microservice implementations
+- API endpoint handlers
+
+---
+
+### 12. AuthenticationService
 
 OAuth2/OIDC authentication with external providers.
 
@@ -835,9 +859,50 @@ OAuth2/OIDC authentication with external providers.
 
 ---
 
+## Data Plane Clients
+
+Lightweight runtime clients for use within applications, providing streamlined access to cloud services without the overhead of full service implementations.
+
+### LCAppRuntime
+
+The `LCAppRuntime` class provides access to all Data Plane clients through a simplified interface.
+
+```typescript
+import { LCAppRuntime } from '@stainedhead/lc-platform-dev-accelerators';
+
+const runtime = new LCAppRuntime();
+
+// Access clients
+const queue = runtime.getQueueClient();
+const storage = runtime.getObjectClient();
+const secrets = runtime.getSecretsClient();
+```
+
+### Available Clients
+
+1. **QueueClient** - Lightweight message queue operations
+2. **ObjectClient** - Streamlined object storage access  
+3. **SecretsClient** - Secure secrets retrieval
+4. **ConfigClient** - Configuration value access
+5. **EventPublisher** - Event publishing for event-driven architectures
+6. **NotificationClient** - Multi-channel notification sending
+7. **DocumentClient** - NoSQL document operations
+8. **DataClient** - SQL database operations with connection pooling
+9. **AuthClient** - Authentication token operations
+
+### Key Benefits
+
+- **Lightweight**: Minimal overhead compared to full services
+- **Auto-configuration**: Automatically detects provider from environment
+- **Connection pooling**: Efficient resource management
+- **Type-safe**: Full TypeScript support with interfaces
+- **Mock support**: Test without cloud resources
+
+---
+
 ## Performance Benchmarks
 
-Results from benchmarking suite (23 operations across 11 services):
+Results from benchmarking suite (30+ operations across 12 services + 9 clients):
 
 | Operation | Ops/Second | Avg Latency |
 |-----------|------------|-------------|

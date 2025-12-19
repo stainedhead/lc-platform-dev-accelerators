@@ -12,6 +12,47 @@
 
 ## Architecture Overview
 
+### Control Plane / Data Plane Separation
+
+lc-platform-dev-accelerators provides **two entry points** for different use cases:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    Control Plane Application                     │
+│              (Infrastructure Management / DevOps)                │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                         LCPlatform                               │
+│   12 Services: WebHosting, FunctionHosting, DataStore,           │
+│   ObjectStore, Batch, Queue, Secrets, Configuration,             │
+│   DocumentStore, EventBus, Notification, Authentication          │
+│         (Full CRUD - Create, Configure, Delete, List)            │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                     Cloud Infrastructure                         │
+│        Lambda, S3, SQS, Secrets Manager, DynamoDB, etc.          │
+└─────────────────────────────────────────────────────────────────┘
+                              ▲
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│                        LCAppRuntime                              │
+│     9 Clients: QueueClient, ObjectClient, SecretsClient,         │
+│     ConfigClient, EventPublisher, NotificationClient,            │
+│     DocumentClient, DataClient, AuthClient                       │
+│              (Runtime Operations Only - No CRUD)                 │
+└─────────────────────────────────────────────────────────────────┘
+                              ▲
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│                      Hosted Application                          │
+│           (Lambda Function, Batch Job, Web App)                  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
 ### Hexagonal Architecture (Ports and Adapters)
 
 lc-platform-dev-accelerators follows hexagonal architecture principles to achieve complete provider independence.
@@ -19,13 +60,8 @@ lc-platform-dev-accelerators follows hexagonal architecture principles to achiev
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                     Application Layer                        │
-│  (Your code using LCPlatform - knows only about interfaces) │
+│     LCPlatform (Control) / LCAppRuntime (Data Plane)        │
 └────────────────────────┬────────────────────────────────────┘
-                         │
-         ┌───────────────▼────────────────┐
-         │        LCPlatform              │
-         │  (Main entry point & config)   │
-         └───────────────┬────────────────┘
                          │
          ┌───────────────▼────────────────┐
          │         Factories              │
@@ -37,10 +73,8 @@ lc-platform-dev-accelerators follows hexagonal architecture principles to achiev
 ┌───────▼──────┐  ┌──────▼──────┐  ┌─────▼───────┐
 │ Core Domain  │  │  AWS Layer  │  │ Mock Layer  │
 │              │  │             │  │             │
-│ Interfaces:  │  │ Adapters:   │  │ Adapters:   │
-│ - WebHosting │  │ - AppRunner │  │ - InMemory  │
-│ - DataStore  │  │ - Postgres  │  │ - InMemory  │
-│ - ObjectStore│  │ - S3        │  │ - InMemory  │
+│ 12 Services  │  │ 12 Services │  │ 12 Services │
+│ 9 Clients    │  │ 9 Clients   │  │ 9 Clients   │
 └──────────────┘  └─────────────┘  └─────────────┘
 ```
 
@@ -48,8 +82,9 @@ lc-platform-dev-accelerators follows hexagonal architecture principles to achiev
 
 1. **Dependency Inversion**: Application depends on abstractions (interfaces), not implementations
 2. **Provider Independence**: No cloud-specific types in core domain
-3. **Testability**: Mock adapter enables testing without cloud resources
-4. **Configurability**: Provider selection at runtime via configuration
+3. **Control/Data Separation**: Infrastructure management vs runtime operations
+4. **Testability**: Mock adapter enables testing without cloud resources
+5. **Configurability**: Provider selection at runtime via configuration
 
 ---
 

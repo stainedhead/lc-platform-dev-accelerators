@@ -1,6 +1,6 @@
 # lc-platform-dev-accelerators - Technical Details
 
-**Status**: Full Platform Complete - 11 Services Implemented (User Stories 1-7)
+**Status**: Full Platform Complete - 12 Control Plane Services + 9 Data Plane Clients Implemented
 
 ## Table of Contents
 1. [Architecture Overview](#architecture-overview)
@@ -41,8 +41,9 @@ lc-platform-dev-accelerators follows hexagonal architecture principles to achiev
 ┌───────▼──────┐  ┌──────────▼───────────┐  ┌─────▼───────┐
 │ Core Domain  │  │    AWS Layer         │  │ Mock Layer  │
 │              │  │                      │  │             │
-│ 11 Services: │  │  AWS Adapters:       │  │ Adapters:   │
+│ 12 Services: │  │  AWS Adapters:       │  │ Adapters:   │
 │ - WebHosting │  │  - AppRunner         │  │ - InMemory  │
+│ - FunctionHosting │ - Lambda          │  │ - InMemory  │
 │ - DataStore  │  │  - PostgreSQL        │  │ - InMemory  │
 │ - ObjectStore│  │  - S3                │  │ - InMemory  │
 │ - Batch      │  │  - Batch+EventBridge │  │ - InMemory  │

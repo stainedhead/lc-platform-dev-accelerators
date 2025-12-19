@@ -118,11 +118,33 @@ Send notifications via email, SMS, and push notifications.
 **Capabilities**: Topic-based pub/sub, direct messaging, multi-protocol support
 **AWS Implementation**: SNS | **Mock Implementation**: In-memory
 
-#### 11. **AuthenticationService** - OAuth2 Authentication
+#### 11. **FunctionHostingService** - Serverless Function Management
+Deploy and manage serverless functions with event triggers.
+
+**Capabilities**: Deploy functions, invoke synchronously/asynchronously, environment variables, timeout/memory configuration
+**AWS Implementation**: Lambda | **Mock Implementation**: In-memory
+
+#### 12. **AuthenticationService** - OAuth2 Authentication
 OAuth2/OIDC authentication with external providers.
 
 **Capabilities**: Authorization flows, token exchange, user info retrieval
 **AWS Implementation**: Cognito | **Mock Implementation**: In-memory
+
+## Data Plane Clients
+
+In addition to Control Plane services, the platform provides lightweight **Data Plane clients** for use within applications:
+
+### Runtime Clients
+
+- **QueueClient**: Lightweight message queue operations
+- **ObjectClient**: Streamlined object storage access  
+- **SecretsClient**: Secure secrets retrieval
+- **ConfigClient**: Configuration value access
+- **EventPublisher**: Event publishing for event-driven architectures
+- **NotificationClient**: Multi-channel notification sending
+- **DocumentClient**: NoSQL document operations
+- **DataClient**: SQL database operations with connection pooling
+- **AuthClient**: Authentication token operations
 
 ## Quick Start
 
