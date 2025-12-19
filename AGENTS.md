@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Runtime**: Bun 1.0+ (not Node.js) - Modern JavaScript runtime with native TypeScript support and built-in test runner.
 
-**Current Status**: Early-stage project - no source code implementation yet. The product definition (lcplatform-product-definition.md) outlines the complete architecture and service specifications.
+**Current Status**: MVP Complete - Full dual-plane implementation with 12 Control Plane services and 9 Data Plane clients. Both AWS and Mock providers implemented with 85%+ test coverage.
 
 ## Architecture
 
@@ -19,20 +19,56 @@ The codebase uses dependency inversion where:
 - **Provider implementations** contain cloud-specific code (`providers/aws/`, `providers/azure/`, `providers/mock/`)
 - **Applications depend on abstractions**, not concrete cloud SDKs
 
-Example structure:
+### Dual-Plane Architecture Structure
+
+The platform implements a **dual-plane architecture** separating infrastructure management from application runtime:
+
 ```
 src/
-├── core/               # Cloud-agnostic interfaces
-│   ├── hosting/        # WebHostingService interface
-│   ├── storage/        # ObjectStoreService interface
-│   ├── messaging/      # QueueService, EventBusService interfaces
-│   ├── configuration/  # ConfigurationService, SecretsService interfaces
-│   └── authentication/ # AuthenticationService interface
+├── core/                    # Cloud-agnostic interfaces
+│   ├── services/           # Control Plane interfaces (12 total)
+│   │   ├── WebHostingService.ts
+│   │   ├── FunctionHostingService.ts
+│   │   ├── BatchService.ts
+│   │   ├── DataStoreService.ts
+│   │   ├── DocumentStoreService.ts
+│   │   ├── ObjectStoreService.ts
+│   │   ├── QueueService.ts
+│   │   ├── EventBusService.ts
+│   │   ├── SecretsService.ts
+│   │   ├── ConfigurationService.ts
+│   │   ├── NotificationService.ts
+│   │   └── AuthenticationService.ts
+│   │
+│   ├── clients/            # Data Plane interfaces (9 total)
+│   │   ├── QueueClient.ts
+│   │   ├── ObjectClient.ts
+│   │   ├── SecretsClient.ts
+│   │   ├── ConfigClient.ts
+│   │   ├── EventPublisher.ts
+│   │   ├── NotificationClient.ts
+│   │   ├── DocumentClient.ts
+│   │   ├── DataClient.ts
+│   │   └── AuthClient.ts
+│   │
+│   └── types/              # Shared type definitions
+│
 ├── providers/
-│   ├── aws/           # AWS-specific implementations (App Runner, S3, SQS, etc.)
-│   ├── azure/         # Future: Azure implementations
-│   └── mock/          # Testing implementations
-└── index.ts           # Main entry point
+│   ├── aws/               # AWS-specific implementations
+│   │   ├── services/      # Control plane AWS implementations
+│   │   └── clients/       # Data plane AWS implementations
+│   ├── azure/             # Future: Azure implementations
+│   └── mock/              # Testing implementations
+│       ├── services/      # Mock control plane implementations  
+│       └── clients/       # Mock data plane implementations
+│
+├── factory/               # Dependency injection containers
+│   ├── LCPlatformFactory.ts    # Control plane factory
+│   └── LCAppRuntimeFactory.ts  # Data plane factory
+│
+├── LCPlatform.ts          # Control plane entry point (infrastructure management)
+├── LCAppRuntime.ts        # Data plane entry point (application runtime)
+└── index.ts               # Public API exports
 ```
 
 ### Key Architectural Principles
@@ -44,11 +80,16 @@ src/
 
 ## Service Mappings
 
-The package abstracts 11 cloud services. Key mappings:
+The package implements a **dual-plane architecture** with 21 total abstractions:
+- **Control Plane**: 12 services for infrastructure management (LCPlatform class)
+- **Data Plane**: 9 clients for application runtime operations (LCAppRuntime class)
+
+Key service mappings:
 
 | Service | AWS | Azure | Interface |
 |---------|-----|-------|-----------|
 | Web Hosting | App Runner | Container Apps | `WebHostingService` |
+| Function Hosting | Lambda | Function Apps | `FunctionHostingService` |
 | Batch Jobs | AWS Batch | Batch Service | `BatchService` |
 | Secrets | Secrets Manager | Key Vault | `SecretsService` |
 | Configuration | AppConfig | App Configuration | `ConfigurationService` |
@@ -177,6 +218,21 @@ Prefer workload identity (IAM roles in AWS, Managed Identity in Azure) over acce
 
 ## Documentation Structure
 
+**CRITICAL**: There are multiple documentation files that serve different purposes:
+
+### Main Project Documentation
+- **`/README.md`** (root) - **PRIMARY project documentation displayed on GitHub** 
+  - **ALWAYS update this file** when making documentation changes
+  - This is what users see when visiting the GitHub repository
+  - Contains architecture diagrams, service tables, and usage examples
+
+### Generated API Documentation  
+- **`/docs/README.md`** - **TypeDoc-generated documentation landing page**
+  - **DO NOT manually edit** - this is auto-generated from TypeDoc
+  - Contains links to auto-generated class/interface documentation
+  - Updated automatically when running `bun run docs`
+
+### Technical Documentation Directory
 The `documentation/` directory contains three main files that **MUST be kept updated** as architecture or code design changes:
 
 ### Required Documentation Files
@@ -205,6 +261,18 @@ The `documentation/` directory contains three main files that **MUST be kept upd
 - **Keep examples current** with actual code implementations
 - **Document breaking changes** in all three files
 - Documentation updates are **part of the definition of done** for any feature
+
+### Documentation Update Priority Order
+
+When making documentation changes, **ALWAYS follow this order**:
+
+1. **`/README.md`** (root) - **UPDATE FIRST** - This is the GitHub repository homepage
+2. `documentation/product-summary.md` - Update for stakeholder communication
+3. `documentation/product-details.md` - Update detailed specifications
+4. `documentation/technical-details.md` - Update technical architecture
+5. **NEVER manually edit `/docs/README.md`** - This is auto-generated by TypeDoc
+
+**Remember**: The root `/README.md` is what users see when they visit the GitHub repository. Always prioritize keeping this file current and comprehensive.
 
 ## Quality Standards
 
@@ -341,13 +409,21 @@ README sections:
 
 ## Important Files
 
+### Primary Documentation (UPDATE THESE FIRST)
+- **`README.md`** - **MAIN project documentation (GitHub repository homepage)**
 - `documentation/product-summary.md` - High-level product overview (MUST MAINTAIN)
-- `documentation/product-details.md` - Detailed specifications (MUST MAINTAIN)
+- `documentation/product-details.md` - Detailed specifications (MUST MAINTAIN)  
 - `documentation/technical-details.md` - Technical architecture (MUST MAINTAIN)
+
+### Generated Documentation (DO NOT EDIT MANUALLY)
+- `docs/README.md` - TypeDoc-generated API documentation landing page
+- `docs/classes/` - Auto-generated class documentation
+- `docs/interfaces/` - Auto-generated interface documentation
+
+### Project Configuration
 - `documentation/lcplatform-product-definition.md` - Original complete product specification
 - `.specify/memory/constitution.md` - Template for project principles
 - `.claude/commands/speckit.*.md` - SpecKit workflow commands
-- `README.md` - Professional project documentation
 - `.gitignore` - TypeScript package development exclusions
 
 ## Package Information
