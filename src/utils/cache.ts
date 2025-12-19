@@ -39,7 +39,7 @@ export class TtlCache<V> {
     this.cache = new LRUCache<string, CacheEntry<V>>({
       max: options.maxSize ?? DEFAULT_MAX_SIZE,
       dispose: (value, key) => {
-        if (options.onEviction) {
+        if (options.onEviction !== null && options.onEviction !== undefined) {
           options.onEviction(key, value.value);
         }
       },
@@ -53,7 +53,7 @@ export class TtlCache<V> {
   public get(key: string): V | undefined {
     const entry = this.cache.get(key);
 
-    if (!entry) {
+    if (entry === null || entry === undefined) {
       return undefined;
     }
 

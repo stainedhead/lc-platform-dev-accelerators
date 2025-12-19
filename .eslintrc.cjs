@@ -58,15 +58,36 @@ module.exports = {
   ],
   overrides: [
     {
-      // Mock implementations and test utilities can have async methods without await
-      files: ['**/mock/**/*.ts', '**/helpers/**/*.ts'],
+      // Production code: Keep strict rules for high quality
+      files: ['src/**/*.ts'],
+      excludedFiles: ['src/**/mock/**/*.ts'],
       rules: {
+        '@typescript-eslint/strict-boolean-expressions': 'error',
+        '@typescript-eslint/await-thenable': 'error',
+        '@typescript-eslint/explicit-function-return-type': 'error',
+      },
+    },
+    {
+      // Tests and Mock implementations: Relaxed rules for pragmatic testing
+      files: ['**/tests/**/*.ts', '**/*.test.ts', '**/mock/**/*.ts', '**/helpers/**/*.ts'],
+      rules: {
+        'no-console': 'off',
+        '@typescript-eslint/strict-boolean-expressions': 'off',
+        '@typescript-eslint/await-thenable': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
         '@typescript-eslint/require-await': 'off',
+        '@typescript-eslint/no-unsafe-argument': 'warn',
+        '@typescript-eslint/no-unsafe-assignment': 'warn',
+        '@typescript-eslint/no-unsafe-member-access': 'warn',
+        '@typescript-eslint/no-unsafe-return': 'warn',
+        '@typescript-eslint/no-base-to-string': 'warn',
+        'no-constant-condition': 'warn',
       },
     },
     {
       // AWS implementations: allow nullable checks for optional AWS SDK responses
       files: ['**/aws/**/*.ts'],
+      excludedFiles: ['**/aws/**/*.test.ts'],
       rules: {
         '@typescript-eslint/strict-boolean-expressions': 'off',
         '@typescript-eslint/prefer-nullish-coalescing': 'off',
@@ -75,19 +96,6 @@ module.exports = {
         '@typescript-eslint/no-unsafe-assignment': 'warn',
         '@typescript-eslint/no-unsafe-return': 'warn',
         '@typescript-eslint/no-base-to-string': 'warn',
-      },
-    },
-    {
-      // Tests can use console for debugging
-      files: ['**/*.test.ts'],
-      rules: {
-        'no-console': 'off',
-        '@typescript-eslint/no-unsafe-argument': 'warn',
-        '@typescript-eslint/no-unsafe-assignment': 'warn',
-        '@typescript-eslint/no-unsafe-member-access': 'warn',
-        '@typescript-eslint/require-await': 'off',
-        '@typescript-eslint/await-thenable': 'warn',
-        'no-constant-condition': 'warn',
       },
     },
     {

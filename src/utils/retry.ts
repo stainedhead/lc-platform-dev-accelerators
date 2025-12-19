@@ -83,7 +83,7 @@ export async function retryWithBackoff<T>(
 
   // All retries exhausted
   throw (
-    lastError ||
+    lastError ??
     new ServiceUnavailableError('Unknown service', {
       maxRetries: opts.maxRetries,
     })
@@ -104,13 +104,16 @@ function calculateBackoff(attempt: number, options: Required<RetryOptions>): num
 function isRetryableError(error: Error, retryableErrors: string[]): boolean {
   // Check error code
   const errorCode = (error as { code?: string }).code;
-  if (errorCode && retryableErrors.includes(errorCode)) {
+  if (errorCode !== null && errorCode !== undefined && retryableErrors.includes(errorCode)) {
     return true;
   }
 
   // Check error message for retryable patterns
-  const message = error.message.toUpperCase();
-  return retryableErrors.some((pattern) => message.includes(pattern));
+  const message = error.message;
+  if (message === null || message === undefined || message === '') {
+    return false;
+  }
+  return retryableErrors.some((pattern) => message.toUpperCase().includes(pattern));
 }
 
 /**
