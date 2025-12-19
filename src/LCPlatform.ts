@@ -22,6 +22,7 @@ import { DocumentStoreServiceFactory } from './factory/DocumentStoreServiceFacto
 import { EventBusServiceFactory } from './factory/EventBusServiceFactory';
 import { NotificationServiceFactory } from './factory/NotificationServiceFactory';
 import { AuthenticationServiceFactory } from './factory/AuthenticationServiceFactory';
+import { FunctionHostingServiceFactory } from './factory/FunctionHostingServiceFactory';
 
 // Service interfaces
 import type { WebHostingService } from './core/services/WebHostingService';
@@ -35,6 +36,7 @@ import type { QueueService } from './core/services/QueueService';
 import type { EventBusService } from './core/services/EventBusService';
 import type { NotificationService } from './core/services/NotificationService';
 import type { AuthenticationService } from './core/services/AuthenticationService';
+import type { FunctionHostingService } from './core/services/FunctionHostingService';
 
 /**
  * Main LCPlatform class
@@ -59,6 +61,7 @@ export class LCPlatform {
   private readonly eventBusFactory = new EventBusServiceFactory();
   private readonly notificationFactory = new NotificationServiceFactory();
   private readonly authenticationFactory = new AuthenticationServiceFactory();
+  private readonly functionHostingFactory = new FunctionHostingServiceFactory();
 
   constructor(config: ProviderConfig) {
     validateProviderConfig(config);
@@ -158,5 +161,13 @@ export class LCPlatform {
    */
   public getAuthentication(): AuthenticationService {
     return this.authenticationFactory.create(this.config);
+  }
+
+  /**
+   * Get FunctionHostingService for serverless function hosting
+   * Service: AWS Lambda / Azure Functions
+   */
+  public getFunctionHosting(): FunctionHostingService {
+    return this.functionHostingFactory.create(this.config);
   }
 }

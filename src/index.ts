@@ -7,8 +7,11 @@
  * @packageDocumentation
  */
 
-// Main Platform Class
+// Main Platform Class (Control Plane)
 export { LCPlatform } from './LCPlatform';
+
+// Runtime Class (Data Plane)
+export { LCAppRuntime } from './LCAppRuntime';
 
 // Common Types
 export type { ProviderConfig } from './core/types/common';
@@ -34,6 +37,7 @@ export type { QueueService } from './core/services/QueueService';
 export type { EventBusService } from './core/services/EventBusService';
 export type { NotificationService } from './core/services/NotificationService';
 export type { AuthenticationService } from './core/services/AuthenticationService';
+export type { FunctionHostingService } from './core/services/FunctionHostingService';
 
 // Service-specific Types
 // Deployment types
@@ -130,3 +134,60 @@ export { Protocol } from './core/types/notification';
 
 // Auth types
 export type { TokenSet, TokenClaims, UserInfo, AuthConfig } from './core/types/auth';
+
+// Function types
+export type {
+  ServerlessFunction,
+  CreateFunctionParams,
+  FunctionCode,
+  UpdateFunctionParams,
+  UpdateFunctionCodeParams,
+  InvokeFunctionParams,
+  InvocationResult,
+  ListFunctionsParams,
+  ListFunctionsResult,
+  EventSourceMapping,
+  CreateEventSourceParams,
+  FunctionUrl,
+  FunctionUrlParams,
+  FunctionUrlCors,
+} from './core/types/function';
+export {
+  FunctionStatus,
+  FunctionRuntime,
+  InvocationType,
+  EventSourceType,
+  FunctionUrlAuthType,
+} from './core/types/function';
+
+// Runtime Types (Data Plane)
+export type {
+  RuntimeConfig,
+  SendOptions,
+  ReceiveOptions,
+  BatchSendResult,
+  ListOptions,
+  BatchPublishResult,
+} from './core/types/runtime';
+
+// Data Plane Client Interfaces
+export type { QueueClient } from './core/clients/QueueClient';
+export type { ObjectClient } from './core/clients/ObjectClient';
+export type { SecretsClient } from './core/clients/SecretsClient';
+export type { ConfigClient } from './core/clients/ConfigClient';
+export type { EventPublisher } from './core/clients/EventPublisher';
+export type { NotificationClient } from './core/clients/NotificationClient';
+export type { DocumentClient } from './core/clients/DocumentClient';
+export type { DataClient } from './core/clients/DataClient';
+export type { AuthClient } from './core/clients/AuthClient';
+
+// Client Factories (Data Plane)
+export { QueueClientFactory } from './factory/clients/QueueClientFactory';
+export { ObjectClientFactory } from './factory/clients/ObjectClientFactory';
+export { SecretsClientFactory } from './factory/clients/SecretsClientFactory';
+export { ConfigClientFactory } from './factory/clients/ConfigClientFactory';
+export { EventPublisherFactory } from './factory/clients/EventPublisherFactory';
+export { NotificationClientFactory } from './factory/clients/NotificationClientFactory';
+export { DocumentClientFactory } from './factory/clients/DocumentClientFactory';
+export { DataClientFactory } from './factory/clients/DataClientFactory';
+export { AuthClientFactory } from './factory/clients/AuthClientFactory';

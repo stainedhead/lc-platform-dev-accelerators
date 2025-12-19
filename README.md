@@ -170,6 +170,76 @@ bun add @stainedhead/lc-platform-dev-accelerators
 "@stainedhead" = { url = "https://npm.pkg.github.com" }
 ```
 
+## Control Plane vs Data Plane Architecture
+
+lc-platform-dev-accelerators provides **two entry points** for different use cases:
+
+### Control Plane (`LCPlatform`)
+
+Use `LCPlatform` for **infrastructure management** - creating, configuring, and deleting cloud resources:
+
+```typescript
+import { LCPlatform, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+const platform = new LCPlatform({ provider: ProviderType.AWS, region: 'us-east-1' });
+
+// Create infrastructure
+const queue = platform.getQueue();
+await queue.createQueue('order-processing', { visibilityTimeout: 60 });
+
+// Create storage
+const storage = platform.getObjectStore();
+await storage.createBucket('my-app-assets');
+
+// Deploy a function
+const functions = platform.getFunctionHosting();
+await functions.createFunction({ name: 'order-handler', runtime: 'nodejs20.x', ... });
+```
+
+### Data Plane (`LCAppRuntime`)
+
+Use `LCAppRuntime` in your **hosted applications** for runtime operations only:
+
+```typescript
+import { LCAppRuntime, ProviderType } from '@stainedhead/lc-platform-dev-accelerators';
+
+const runtime = new LCAppRuntime({ provider: ProviderType.AWS });
+
+// Use existing resources (no create/delete operations)
+const queue = runtime.getQueueClient();
+await queue.send('order-processing', { orderId: '12345' });
+
+const secrets = runtime.getSecretsClient();
+const apiKey = await secrets.get('api-keys/stripe');
+
+const documents = runtime.getDocumentClient();
+const user = await documents.get('users', 'user-123');
+```
+
+### When to Use Each
+
+| Use Case | Entry Point | Example |
+|----------|-------------|---------|
+| DevOps / Infrastructure scripts | `LCPlatform` | Create buckets, deploy functions, configure queues |
+| Lambda functions | `LCAppRuntime` | Process queue messages, store documents |
+| Batch jobs | `LCAppRuntime` | Read config, publish events |
+| Web applications | `LCAppRuntime` | Authenticate users, store files |
+| CI/CD pipelines | `LCPlatform` | Deploy applications, manage secrets |
+
+### Data Plane Clients (9 Clients)
+
+| Client | Operations | AWS Service |
+|--------|------------|-------------|
+| `QueueClient` | send, receive, acknowledge | SQS |
+| `ObjectClient` | get, put, delete, list | S3 |
+| `SecretsClient` | get, getJson | Secrets Manager |
+| `ConfigClient` | get, getString, getNumber, getBoolean | AppConfig/SSM |
+| `EventPublisher` | publish, publishBatch | EventBridge |
+| `NotificationClient` | publish, publishBatch | SNS |
+| `DocumentClient` | get, put, update, delete, query | DynamoDB |
+| `DataClient` | query, execute, transaction | RDS Data API |
+| `AuthClient` | validateToken, getUserInfo, hasScope, hasRole | Cognito |
+
 ## Quick Start
 
 ### Basic Usage

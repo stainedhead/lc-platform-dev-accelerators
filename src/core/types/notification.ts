@@ -29,6 +29,8 @@ export const Protocol = {
   HTTP: 'http' as const,
   HTTPS: 'https' as const,
   WEBHOOK: 'webhook' as const,
+  SQS: 'sqs' as const,
+  LAMBDA: 'lambda' as const,
 };
 
 export type Protocol = (typeof Protocol)[keyof typeof Protocol];

@@ -14,6 +14,7 @@ import {
   ListConfigurationProfilesCommand,
   ListHostedConfigurationVersionsCommand,
   DeleteConfigurationProfileCommand,
+  DeleteHostedConfigurationVersionCommand,
   StartDeploymentCommand,
 } from '@aws-sdk/client-appconfig';
 import type { ConfigurationService } from '../../core/services/ConfigurationService';
@@ -119,7 +120,6 @@ export class AwsConfigurationService implements ConfigurationService {
         Content: contentBytes,
         ContentType: params.contentType || 'application/json',
         Description: params.description,
-        LatestVersionNumber: 1,
       });
 
       const versionResponse = await this.client.send(versionCommand);
@@ -174,7 +174,11 @@ export class AwsConfigurationService implements ConfigurationService {
         throw new ResourceNotFoundError('Configuration version', name);
       }
 
-      const latestVersion = versionsResponse.Items[versionsResponse.Items.length - 1];
+      // Sort by version number to ensure we get the latest
+      const sortedVersions = [...versionsResponse.Items].sort(
+        (a, b) => (a.VersionNumber || 0) - (b.VersionNumber || 0)
+      );
+      const latestVersion = sortedVersions[sortedVersions.length - 1];
 
       // Get the configuration content
       const getVersionCommand = new GetHostedConfigurationVersionCommand({
@@ -253,7 +257,7 @@ export class AwsConfigurationService implements ConfigurationService {
         Content: contentBytes,
         ContentType: params.contentType || 'application/json',
         Description: params.description,
-        LatestVersionNumber: latestVersionNumber + 1,
+        LatestVersionNumber: latestVersionNumber,
       });
 
       const versionResponse = await this.client.send(versionCommand);
@@ -298,7 +302,26 @@ export class AwsConfigurationService implements ConfigurationService {
         throw new ResourceNotFoundError('Configuration', name);
       }
 
-      // Delete configuration profile
+      // First, delete all hosted configuration versions
+      const listVersionsCommand = new ListHostedConfigurationVersionsCommand({
+        ApplicationId: applicationId,
+        ConfigurationProfileId: profile.Id,
+      });
+
+      const versionsResponse = await this.client.send(listVersionsCommand);
+
+      for (const version of versionsResponse.Items || []) {
+        if (version.VersionNumber) {
+          const deleteVersionCommand = new DeleteHostedConfigurationVersionCommand({
+            ApplicationId: applicationId,
+            ConfigurationProfileId: profile.Id,
+            VersionNumber: version.VersionNumber,
+          });
+          await this.client.send(deleteVersionCommand);
+        }
+      }
+
+      // Now delete the configuration profile
       const deleteCommand = new DeleteConfigurationProfileCommand({
         ApplicationId: applicationId,
         ConfigurationProfileId: profile.Id,

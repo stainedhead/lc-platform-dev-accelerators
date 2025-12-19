@@ -18,6 +18,10 @@ export interface ProviderConfig {
     accessKeyId?: string;
     secretAccessKey?: string;
   };
+  /**
+   * Optional endpoint override for testing (e.g., LocalStack)
+   */
+  endpoint?: string;
   options?: Record<string, unknown>;
 }
 
