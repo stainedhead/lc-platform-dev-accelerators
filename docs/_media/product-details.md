@@ -790,17 +790,170 @@ NoSQL document database with MongoDB-style queries.
 
 ### 9. EventBusService
 
-Event-driven architecture with event routing.
+Event-driven architecture with event routing and rule-based event processing.
 
 **AWS Implementation**: EventBridge | **Mock**: In-memory
 
-**Key Methods**:
-- `createEventBus(name: string): Promise<EventBus>` - Create event bus
-- `publishEvent(params: PublishEventParams): Promise<void>` - Publish event
-- `createRule(params: CreateRuleParams): Promise<Rule>` - Create routing rule
-- `addTarget(ruleName: string, target: Target): Promise<void>` - Add event target
-- `deleteRule(ruleName: string): Promise<void>` - Delete rule
-- `listRules(eventBusName?: string): Promise<Rule[]>` - List rules
+#### Interface Definition
+
+```typescript
+interface EventBusService {
+  /**
+   * Create a new event bus
+   */
+  createEventBus(name: string): Promise<EventBus>;
+
+  /**
+   * Get event bus details
+   */
+  getEventBus(name: string): Promise<EventBus>;
+
+  /**
+   * Delete an event bus
+   */
+  deleteEventBus(name: string): Promise<void>;
+
+  /**
+   * Publish an event to the event bus
+   */
+  publishEvent(busName: string, event: Event): Promise<string>;
+
+  /**
+   * Create a rule to route events to targets
+   */
+  createRule(busName: string, params: RuleParams): Promise<Rule>;
+
+  /**
+   * Get rule details
+   */
+  getRule(busName: string, ruleName: string): Promise<Rule>;
+
+  /**
+   * Update an existing rule
+   */
+  updateRule(busName: string, ruleName: string, params: RuleParams): Promise<Rule>;
+
+  /**
+   * Delete a rule
+   */
+  deleteRule(busName: string, ruleName: string): Promise<void>;
+
+  /**
+   * Add a target to a rule
+   */
+  addTarget(busName: string, ruleName: string, target: Target): Promise<void>;
+
+  /**
+   * Remove a target from a rule
+   */
+  removeTarget(busName: string, ruleName: string, targetId: string): Promise<void>;
+
+  /**
+   * List all rules for an event bus
+   */
+  listRules(busName: string): Promise<Rule[]>;
+}
+```
+
+#### Type Definitions
+
+```typescript
+interface Event {
+  source: string;           // Event source (e.g., 'order-service')
+  detailType: string;       // Event type (e.g., 'order.created')
+  detail: Record<string, unknown>; // Event payload
+}
+
+interface EventBus {
+  name: string;
+  arn: string;
+  created: Date;
+}
+
+interface Rule {
+  name: string;
+  eventBusName: string;
+  eventPattern?: EventPattern;
+  schedule?: string;       // Cron expression
+  enabled: boolean;
+  targets: Target[];
+}
+
+interface RuleParams {
+  name: string;
+  eventPattern?: EventPattern;  // Filter events by pattern
+  schedule?: string;            // Alternative: schedule-based trigger
+  enabled?: boolean;
+}
+
+interface EventPattern {
+  source?: string[];
+  detailType?: string[];
+  // Match specific event patterns
+}
+
+interface Target {
+  id: string;
+  type: 'lambda' | 'queue' | 'topic';
+  arn: string;
+}
+```
+
+#### Usage Example
+
+```typescript
+const eventBus = platform.getEventBus();
+
+// Create event bus
+await eventBus.createEventBus('app-events');
+
+// Publish events
+const eventId = await eventBus.publishEvent('app-events', {
+  source: 'user-service',
+  detailType: 'user.created',
+  detail: {
+    userId: '123',
+    email: 'user@example.com',
+    timestamp: new Date().toISOString()
+  }
+});
+
+// Create rule to route user events to Lambda
+const rule = await eventBus.createRule('app-events', {
+  name: 'user-signup-processor',
+  eventPattern: {
+    source: ['user-service'],
+    detailType: ['user.created']
+  },
+  enabled: true
+});
+
+// Add Lambda as target
+await eventBus.addTarget('app-events', 'user-signup-processor', {
+  id: 'welcome-email-lambda',
+  type: 'lambda',
+  arn: 'arn:aws:lambda:us-east-1:123456789012:function:send-welcome-email'
+});
+
+// Create scheduled rule (cron)
+await eventBus.createRule('app-events', {
+  name: 'daily-report',
+  schedule: 'cron(0 9 * * ? *)', // 9 AM daily
+  enabled: true
+});
+
+// List all rules
+const rules = await eventBus.listRules('app-events');
+console.log(`Event bus has ${rules.length} rules`);
+```
+
+#### Use Cases
+
+- **Event-Driven Microservices**: Decouple services through events
+- **Asynchronous Processing**: Trigger background tasks on events
+- **Audit Logging**: Route all events to logging service
+- **Multi-Target Routing**: Send same event to multiple consumers
+- **Scheduled Tasks**: Trigger functions on cron schedules
 
 ---
 
@@ -881,7 +1034,7 @@ const secrets = runtime.getSecretsClient();
 ### Available Clients
 
 1. **QueueClient** - Lightweight message queue operations
-2. **ObjectClient** - Streamlined object storage access  
+2. **ObjectClient** - Streamlined object storage access
 3. **SecretsClient** - Secure secrets retrieval
 4. **ConfigClient** - Configuration value access
 5. **EventPublisher** - Event publishing for event-driven architectures
@@ -897,6 +1050,123 @@ const secrets = runtime.getSecretsClient();
 - **Connection pooling**: Efficient resource management
 - **Type-safe**: Full TypeScript support with interfaces
 - **Mock support**: Test without cloud resources
+
+---
+
+### Data Plane Client Details
+
+#### 1. EventPublisher
+
+Lightweight runtime client for publishing events to event buses. Designed for use in hosted applications (Lambda functions, batch jobs, web apps) that need to emit events without managing event bus infrastructure.
+
+**AWS Implementation**: EventBridge | **Mock**: In-memory
+
+**Interface Definition**
+
+```typescript
+interface EventPublisher {
+  /**
+   * Publish an event to an event bus
+   * @param eventBusName - Name of the event bus
+   * @param event - Event to publish
+   * @returns Event ID
+   */
+  publish(eventBusName: string, event: Event): Promise<string>;
+
+  /**
+   * Publish multiple events to an event bus
+   * @param eventBusName - Name of the event bus
+   * @param events - Array of events to publish
+   * @returns Result with successful and failed entries
+   */
+  publishBatch(eventBusName: string, events: Event[]): Promise<BatchPublishResult>;
+}
+```
+
+**Type Definitions**
+
+```typescript
+interface Event {
+  source: string;           // Event source (e.g., 'order-service')
+  detailType: string;       // Event type (e.g., 'order.completed')
+  detail: Record<string, unknown>; // Event payload
+}
+
+interface BatchPublishResult {
+  successCount: number;
+  failureCount: number;
+  failedEntries: Array<{
+    index: number;
+    error: string;
+  }>;
+}
+```
+
+**Usage Example**
+
+```typescript
+import { LCAppRuntime } from '@stainedhead/lc-platform-dev-accelerators';
+
+const runtime = new LCAppRuntime({ provider: ProviderType.AWS });
+const events = runtime.getEventPublisher();
+
+// Publish single event
+const eventId = await events.publish('app-events', {
+  source: 'order-service',
+  detailType: 'order.completed',
+  detail: {
+    orderId: '789',
+    customerId: 'cust-456',
+    total: 99.99,
+    items: 3,
+    timestamp: new Date().toISOString()
+  }
+});
+
+// Batch publish multiple events
+const result = await events.publishBatch('app-events', [
+  {
+    source: 'inventory-service',
+    detailType: 'stock.low',
+    detail: { sku: 'ABC123', quantity: 5 }
+  },
+  {
+    source: 'inventory-service',
+    detailType: 'stock.low',
+    detail: { sku: 'DEF456', quantity: 2 }
+  },
+  {
+    source: 'inventory-service',
+    detailType: 'stock.low',
+    detail: { sku: 'GHI789', quantity: 1 }
+  }
+]);
+
+console.log(`Published ${result.successCount} events successfully`);
+if (result.failureCount > 0) {
+  console.error(`Failed to publish ${result.failureCount} events`);
+}
+```
+
+**Use Cases**
+
+- **Lambda Functions**: Emit events after processing (e.g., order completion, user signup)
+- **Batch Jobs**: Publish status updates and results
+- **Web Applications**: Emit user activity events for analytics
+- **Microservices**: Publish domain events without infrastructure management
+- **Event Sourcing**: Record state changes as events
+
+**Key Differences vs EventBusService**
+
+| Feature | EventPublisher (Data Plane) | EventBusService (Control Plane) |
+|---------|----------------------------|----------------------------------|
+| **Purpose** | Publish events only | Full event bus management |
+| **Operations** | publish, publishBatch | create/delete buses, rules, targets |
+| **Use In** | Hosted apps (Lambda, web apps) | DevOps scripts, infrastructure code |
+| **Create Resources** | ❌ No | ✅ Yes |
+| **Delete Resources** | ❌ No | ✅ Yes |
+| **Configure Rules** | ❌ No | ✅ Yes |
+| **Lightweight** | ✅ Yes | ❌ No (full service) |
 
 ---
 

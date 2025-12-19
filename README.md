@@ -185,9 +185,19 @@ const apiKey = await secrets.getSecret('api-key');
 const config = runtime.getConfigClient();
 const setting = await config.getConfiguration('feature-flags', 'enable-new-ui');
 
-// Event publishing
+// Event publishing (lightweight, publish-only)
 const events = runtime.getEventPublisher();
-await events.publishEvent('user-service', 'user.created', { userId: '123' });
+await events.publish('app-events', {
+  source: 'order-service',
+  detailType: 'order.completed',
+  detail: { orderId: '789', total: 99.99 }
+});
+
+// Batch event publishing
+await events.publishBatch('app-events', [
+  { source: 'inventory', detailType: 'stock.low', detail: { sku: 'ABC123' } },
+  { source: 'inventory', detailType: 'stock.low', detail: { sku: 'DEF456' } }
+]);
 
 // Notifications
 const notifications = runtime.getNotificationClient();
@@ -447,6 +457,10 @@ const user = await documents.get('users', 'user-123');
 | `DataClient` | query, execute, transaction | RDS Data API |
 | `AuthClient` | validateToken, getUserInfo, hasScope, hasRole | Cognito |
 
+**Key Distinction: EventPublisher vs EventBusService**
+- **EventPublisher (Data Plane)**: Lightweight runtime client for publishing events only. Use in hosted applications (Lambda, batch jobs, web apps) that need to emit events but not manage infrastructure.
+- **EventBusService (Control Plane)**: Full-featured service for creating event buses, rules, and targets. Use in DevOps scripts and infrastructure management.
+
 ## Quick Start
 
 ### Basic Usage
@@ -629,6 +643,29 @@ Twelve services fully implemented with AWS and Mock providers:
 10. **EventBusService** - Event-driven architecture support
     - Publish events, create rules, route to targets
     - AWS: EventBridge
+    ```typescript
+    // Create event bus and routing rules
+    const eventBus = platform.getEventBus();
+    await eventBus.createEventBus('app-events');
+
+    // Publish events
+    await eventBus.publishEvent('app-events', {
+      source: 'user-service',
+      detailType: 'user.created',
+      detail: { userId: '123', email: 'user@example.com' }
+    });
+
+    // Create rule to route events to Lambda
+    await eventBus.createRule('app-events', {
+      name: 'user-signup-processor',
+      eventPattern: { source: ['user-service'], detailType: ['user.created'] }
+    });
+    await eventBus.addTarget('app-events', 'user-signup-processor', {
+      id: 'welcome-email-function',
+      type: 'lambda',
+      arn: 'arn:aws:lambda:...'
+    });
+    ```
 
 11. **NotificationService** - Send notifications via email/SMS/push
     - Topic-based pub/sub, direct messaging, multi-protocol
