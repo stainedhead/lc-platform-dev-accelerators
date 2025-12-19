@@ -6,7 +6,7 @@
 
 # Interface: Connection
 
-Defined in: [src/core/types/datastore.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/datastore.ts#L35)
+Defined in: [src/core/types/datastore.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/datastore.ts#L35)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/datastore.ts:35](https://github.com/stainedhead/lc-p
 
 > **query**\<`T`\>(`sql`, `params?`): `Promise`\<`T`[]\>
 
-Defined in: [src/core/types/datastore.ts:36](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/datastore.ts#L36)
+Defined in: [src/core/types/datastore.ts:36](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/datastore.ts#L36)
 
 #### Type Parameters
 
@@ -42,7 +42,7 @@ Defined in: [src/core/types/datastore.ts:36](https://github.com/stainedhead/lc-p
 
 > **execute**(`sql`, `params?`): `Promise`\<[`ExecuteResult`](ExecuteResult.md)\>
 
-Defined in: [src/core/types/datastore.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/datastore.ts#L37)
+Defined in: [src/core/types/datastore.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/datastore.ts#L37)
 
 #### Parameters
 
@@ -64,7 +64,7 @@ Defined in: [src/core/types/datastore.ts:37](https://github.com/stainedhead/lc-p
 
 > **close**(): `Promise`\<`void`\>
 
-Defined in: [src/core/types/datastore.ts:38](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/datastore.ts#L38)
+Defined in: [src/core/types/datastore.ts:38](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/datastore.ts#L38)
 
 #### Returns
 

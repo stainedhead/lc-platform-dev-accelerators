@@ -6,7 +6,7 @@
 
 # Enumeration: TargetType
 
-Defined in: [src/core/types/event.ts:40](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L40)
+Defined in: [src/core/types/event.ts:40](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L40)
 
 ## Enumeration Members
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/event.ts:40](https://github.com/stainedhead/lc-platf
 
 > **HTTP**: `"http"`
 
-Defined in: [src/core/types/event.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L41)
+Defined in: [src/core/types/event.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L41)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/event.ts:41](https://github.com/stainedhead/lc-platf
 
 > **HTTPS**: `"https"`
 
-Defined in: [src/core/types/event.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L42)
+Defined in: [src/core/types/event.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L42)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/event.ts:42](https://github.com/stainedhead/lc-platf
 
 > **QUEUE**: `"queue"`
 
-Defined in: [src/core/types/event.ts:43](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L43)
+Defined in: [src/core/types/event.ts:43](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L43)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/event.ts:43](https://github.com/stainedhead/lc-platf
 
 > **FUNCTION**: `"function"`
 
-Defined in: [src/core/types/event.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L44)
+Defined in: [src/core/types/event.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L44)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/core/types/event.ts:44](https://github.com/stainedhead/lc-platf
 
 > **EMAIL**: `"email"`
 
-Defined in: [src/core/types/event.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L45)
+Defined in: [src/core/types/event.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L45)

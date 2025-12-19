@@ -6,7 +6,7 @@
 
 # Interface: UpdateConfigurationParams
 
-Defined in: [src/core/types/configuration.ts:52](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L52)
+Defined in: [src/core/types/configuration.ts:52](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L52)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/configuration.ts:52](https://github.com/stainedhead/
 
 > `optional` **content**: `string`
 
-Defined in: [src/core/types/configuration.ts:53](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L53)
+Defined in: [src/core/types/configuration.ts:53](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L53)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/configuration.ts:53](https://github.com/stainedhead/
 
 > `optional` **label**: `string`
 
-Defined in: [src/core/types/configuration.ts:54](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L54)
+Defined in: [src/core/types/configuration.ts:54](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L54)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/configuration.ts:54](https://github.com/stainedhead/
 
 > `optional` **contentType**: `string`
 
-Defined in: [src/core/types/configuration.ts:55](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L55)
+Defined in: [src/core/types/configuration.ts:55](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L55)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/configuration.ts:55](https://github.com/stainedhead/
 
 > `optional` **description**: `string`
 
-Defined in: [src/core/types/configuration.ts:56](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L56)
+Defined in: [src/core/types/configuration.ts:56](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L56)

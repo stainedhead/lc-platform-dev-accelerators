@@ -6,7 +6,7 @@
 
 # Interface: UpdateApplicationParams
 
-Defined in: [src/core/types/deployment.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/deployment.ts#L44)
+Defined in: [src/core/types/deployment.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/deployment.ts#L44)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/deployment.ts:44](https://github.com/stainedhead/lc-
 
 > `optional` **image**: `string`
 
-Defined in: [src/core/types/deployment.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/deployment.ts#L45)
+Defined in: [src/core/types/deployment.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/deployment.ts#L45)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/deployment.ts:45](https://github.com/stainedhead/lc-
 
 > `optional` **environment**: `Record`\<`string`, `string`\>
 
-Defined in: [src/core/types/deployment.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/deployment.ts#L46)
+Defined in: [src/core/types/deployment.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/deployment.ts#L46)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/deployment.ts:46](https://github.com/stainedhead/lc-
 
 > `optional` **cpu**: `number`
 
-Defined in: [src/core/types/deployment.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/deployment.ts#L47)
+Defined in: [src/core/types/deployment.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/deployment.ts#L47)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/deployment.ts:47](https://github.com/stainedhead/lc-
 
 > `optional` **memory**: `number`
 
-Defined in: [src/core/types/deployment.ts:48](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/deployment.ts#L48)
+Defined in: [src/core/types/deployment.ts:48](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/deployment.ts#L48)

@@ -91,6 +91,7 @@ describe('AwsObjectClient Integration (LocalStack)', () => {
     expect(result.bucket).toBe(TEST_BUCKET);
     expect(result.key).toBe('retrieve-test.txt');
     expect(result.contentType).toBe('text/plain');
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     expect(result.data.toString()).toBe('Test content for retrieval');
   });
 

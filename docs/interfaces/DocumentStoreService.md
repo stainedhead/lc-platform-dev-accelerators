@@ -6,7 +6,7 @@
 
 # Interface: DocumentStoreService
 
-Defined in: [src/core/services/DocumentStoreService.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L8)
+Defined in: [src/core/services/DocumentStoreService.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L8)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/DocumentStoreService.ts:8](https://github.com/sta
 
 > **createCollection**(`name`, `options?`): `Promise`\<[`Collection`](Collection.md)\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L15)
+Defined in: [src/core/services/DocumentStoreService.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L15)
 
 Create a new collection
 
@@ -44,7 +44,7 @@ The created collection
 
 > **getCollection**(`name`): `Promise`\<[`Collection`](Collection.md)\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L22)
+Defined in: [src/core/services/DocumentStoreService.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L22)
 
 Get collection details
 
@@ -68,7 +68,7 @@ Collection metadata
 
 > **deleteCollection**(`name`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L28)
+Defined in: [src/core/services/DocumentStoreService.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L28)
 
 Delete a collection and all its documents
 
@@ -90,7 +90,7 @@ Collection name
 
 > **insertDocument**\<`T`\>(`collectionName`, `document`): `Promise`\<[`Document`](Document.md)\<`T`\>\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:36](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L36)
+Defined in: [src/core/services/DocumentStoreService.ts:36](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L36)
 
 Insert a document into a collection
 
@@ -126,7 +126,7 @@ The inserted document with generated _id
 
 > **findById**\<`T`\>(`collectionName`, `id`): `Promise`\<[`Document`](Document.md)\<`T`\> \| `null`\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L44)
+Defined in: [src/core/services/DocumentStoreService.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L44)
 
 Find a document by ID
 
@@ -162,7 +162,7 @@ The document if found
 
 > **find**\<`T`\>(`collectionName`, `query`, `limit?`): `Promise`\<[`Document`](Document.md)\<`T`\>[]\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:53](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L53)
+Defined in: [src/core/services/DocumentStoreService.ts:53](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L53)
 
 Find documents matching a query
 
@@ -204,7 +204,7 @@ Array of matching documents
 
 > **updateDocument**\<`T`\>(`collectionName`, `id`, `update`): `Promise`\<[`Document`](Document.md)\<`T`\>\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:62](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L62)
+Defined in: [src/core/services/DocumentStoreService.ts:62](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L62)
 
 Update a document by ID
 
@@ -246,7 +246,7 @@ The updated document
 
 > **deleteDocument**(`collectionName`, `id`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:69](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L69)
+Defined in: [src/core/services/DocumentStoreService.ts:69](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L69)
 
 Delete a document by ID
 
@@ -274,7 +274,7 @@ Document ID
 
 > **listCollections**(): `Promise`\<`string`[]\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:75](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L75)
+Defined in: [src/core/services/DocumentStoreService.ts:75](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L75)
 
 List all collections
 
@@ -290,7 +290,7 @@ Array of collection names
 
 > **count**(`collectionName`, `query?`): `Promise`\<`number`\>
 
-Defined in: [src/core/services/DocumentStoreService.ts:83](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/DocumentStoreService.ts#L83)
+Defined in: [src/core/services/DocumentStoreService.ts:83](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/DocumentStoreService.ts#L83)
 
 Count documents matching a query
 

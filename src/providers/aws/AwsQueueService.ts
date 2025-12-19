@@ -77,7 +77,7 @@ export class AwsQueueService implements QueueService {
         // In production, you would create a DLQ and set RedrivePolicy
         attributes.RedrivePolicy = JSON.stringify({
           maxReceiveCount: options.deadLetterAfterRetries,
-          deadLetterTargetArn: `arn:aws:sqs:${this.sqsClient.config.region}:123456789012:${name}-dlq`,
+          deadLetterTargetArn: `arn:aws:sqs:${String(this.sqsClient.config.region)}:123456789012:${name}-dlq`,
         });
       }
 
@@ -210,7 +210,7 @@ export class AwsQueueService implements QueueService {
         // Try to parse JSON, fall back to string
         let body: string | object = msg.Body || '';
         try {
-          body = JSON.parse(msg.Body || '');
+          body = JSON.parse(msg.Body || '') as Record<string, unknown>;
         } catch {
           // Keep as string if not valid JSON
         }

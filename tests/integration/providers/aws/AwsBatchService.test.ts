@@ -160,12 +160,12 @@ describe('AwsBatchService Integration (AWS)', () => {
         })
       );
 
-      subnetIds = subnetsResponse.Subnets?.map((s) => s.SubnetId!).filter(Boolean) || [];
+      subnetIds = subnetsResponse.Subnets?.map((s) => s.SubnetId!).filter(Boolean) ?? [];
       if (subnetIds.length === 0) {
         // Try to find subnets without VPC filter
         console.log('No subnets in selected VPC, checking all subnets...');
         const allSubnetsResponse = await ec2Client.send(new DescribeSubnetsCommand({}));
-        subnetIds = allSubnetsResponse.Subnets?.map((s) => s.SubnetId!).filter(Boolean) || [];
+        subnetIds = allSubnetsResponse.Subnets?.map((s) => s.SubnetId!).filter(Boolean) ?? [];
       }
 
       if (subnetIds.length === 0) {

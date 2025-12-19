@@ -333,6 +333,8 @@ enum Protocol {
   SMS = 'sms',
   HTTP = 'http',
   HTTPS = 'https',
+  WEBHOOK = 'webhook',
+  SQS = 'sqs',
   LAMBDA = 'lambda'
 }
 ```

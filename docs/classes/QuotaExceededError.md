@@ -6,7 +6,7 @@
 
 # Class: QuotaExceededError
 
-Defined in: [src/core/types/common.ts:66](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L66)
+Defined in: [src/core/types/common.ts:70](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L70)
 
 Base error class for all LCPlatform errors
 Extends Error with additional metadata for better error handling
@@ -21,7 +21,7 @@ Extends Error with additional metadata for better error handling
 
 > **new QuotaExceededError**(`resource`, `limit`, `details?`): `QuotaExceededError`
 
-Defined in: [src/core/types/common.ts:67](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L67)
+Defined in: [src/core/types/common.ts:71](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L71)
 
 #### Parameters
 
@@ -51,7 +51,7 @@ Defined in: [src/core/types/common.ts:67](https://github.com/stainedhead/lc-plat
 
 > **code**: `string`
 
-Defined in: [src/core/types/common.ts:31](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L31)
+Defined in: [src/core/types/common.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L35)
 
 #### Inherited from
 
@@ -63,7 +63,7 @@ Defined in: [src/core/types/common.ts:31](https://github.com/stainedhead/lc-plat
 
 > **retryable**: `boolean`
 
-Defined in: [src/core/types/common.ts:32](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L32)
+Defined in: [src/core/types/common.ts:36](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L36)
 
 #### Inherited from
 
@@ -75,7 +75,7 @@ Defined in: [src/core/types/common.ts:32](https://github.com/stainedhead/lc-plat
 
 > `optional` **details**: `Record`\<`string`, `unknown`\>
 
-Defined in: [src/core/types/common.ts:33](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L33)
+Defined in: [src/core/types/common.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L37)
 
 #### Inherited from
 

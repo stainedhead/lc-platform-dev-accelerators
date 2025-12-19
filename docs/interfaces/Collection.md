@@ -6,7 +6,7 @@
 
 # Interface: Collection
 
-Defined in: [src/core/types/document.ts:10](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L10)
+Defined in: [src/core/types/document.ts:10](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L10)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/document.ts:10](https://github.com/stainedhead/lc-pl
 
 > **name**: `string`
 
-Defined in: [src/core/types/document.ts:11](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L11)
+Defined in: [src/core/types/document.ts:11](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L11)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/document.ts:11](https://github.com/stainedhead/lc-pl
 
 > **indexes**: [`IndexDefinition`](IndexDefinition.md)[]
 
-Defined in: [src/core/types/document.ts:12](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L12)
+Defined in: [src/core/types/document.ts:12](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L12)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/document.ts:12](https://github.com/stainedhead/lc-pl
 
 > **documentCount**: `number`
 
-Defined in: [src/core/types/document.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L13)
+Defined in: [src/core/types/document.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L13)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/document.ts:13](https://github.com/stainedhead/lc-pl
 
 > `optional` **ttl**: `number`
 
-Defined in: [src/core/types/document.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L14)
+Defined in: [src/core/types/document.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L14)

@@ -6,7 +6,7 @@
 
 # Interface: ValidationResult
 
-Defined in: [src/core/types/configuration.ts:32](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L32)
+Defined in: [src/core/types/configuration.ts:32](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L32)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/configuration.ts:32](https://github.com/stainedhead/
 
 > **valid**: `boolean`
 
-Defined in: [src/core/types/configuration.ts:33](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L33)
+Defined in: [src/core/types/configuration.ts:33](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L33)
 
 ***
 
@@ -22,4 +22,4 @@ Defined in: [src/core/types/configuration.ts:33](https://github.com/stainedhead/
 
 > **errors**: `ValidationError`[]
 
-Defined in: [src/core/types/configuration.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L34)
+Defined in: [src/core/types/configuration.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L34)

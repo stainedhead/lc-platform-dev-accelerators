@@ -155,6 +155,7 @@ describe('AwsObjectStoreService Integration (AWS)', () => {
     const retrieved = await service.getObject(TEST_BUCKET, key);
 
     expect(retrieved.data).toBeDefined();
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     expect(retrieved.data.toString()).toBe(content);
   });
 
@@ -167,7 +168,8 @@ describe('AwsObjectStoreService Integration (AWS)', () => {
     });
 
     const retrieved = await service.getObject(TEST_BUCKET, key);
-    const parsedData = JSON.parse(retrieved.data.toString());
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    const parsedData = JSON.parse(retrieved.data.toString()) as Record<string, unknown>;
 
     expect(parsedData).toEqual(originalData);
   });
@@ -255,6 +257,7 @@ describe('AwsObjectStoreService Integration (AWS)', () => {
 
     // Verify content matches
     const retrieved = await service.getObject(TEST_BUCKET, destKey);
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     expect(retrieved.data.toString()).toBe(content);
   });
 
@@ -283,6 +286,7 @@ describe('AwsObjectStoreService Integration (AWS)', () => {
 
     // Verify content matches
     const retrieved = await service.getObject(destBucket, destKey);
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     expect(retrieved.data.toString()).toBe(content);
   });
 
@@ -334,6 +338,7 @@ describe('AwsObjectStoreService Integration (AWS)', () => {
     await service.putObject(TEST_BUCKET, key, Buffer.from(content));
 
     const retrieved = await service.getObject(TEST_BUCKET, key);
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     expect(retrieved.data.toString()).toBe(content);
 
     // Cleanup

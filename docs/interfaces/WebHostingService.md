@@ -6,7 +6,7 @@
 
 # Interface: WebHostingService
 
-Defined in: [src/core/services/WebHostingService.ts:18](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/WebHostingService.ts#L18)
+Defined in: [src/core/services/WebHostingService.ts:18](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/WebHostingService.ts#L18)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/WebHostingService.ts:18](https://github.com/stain
 
 > **deployApplication**(`params`): `Promise`\<[`Deployment`](Deployment.md)\>
 
-Defined in: [src/core/services/WebHostingService.ts:23](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/WebHostingService.ts#L23)
+Defined in: [src/core/services/WebHostingService.ts:23](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/WebHostingService.ts#L23)
 
 Deploy a containerized application
 FR-001: Deploy containerized applications with auto-scaling
@@ -35,7 +35,7 @@ FR-001: Deploy containerized applications with auto-scaling
 
 > **getDeployment**(`deploymentId`): `Promise`\<[`Deployment`](Deployment.md)\>
 
-Defined in: [src/core/services/WebHostingService.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/WebHostingService.ts#L29)
+Defined in: [src/core/services/WebHostingService.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/WebHostingService.ts#L29)
 
 Get deployment status and details
 FR-002: Get application URL and deployment status
@@ -56,7 +56,7 @@ FR-002: Get application URL and deployment status
 
 > **updateApplication**(`deploymentId`, `params`): `Promise`\<[`Deployment`](Deployment.md)\>
 
-Defined in: [src/core/services/WebHostingService.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/WebHostingService.ts#L35)
+Defined in: [src/core/services/WebHostingService.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/WebHostingService.ts#L35)
 
 Update a running application (rolling update)
 FR-003: Update application with zero downtime
@@ -81,7 +81,7 @@ FR-003: Update application with zero downtime
 
 > **deleteApplication**(`deploymentId`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/WebHostingService.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/WebHostingService.ts#L41)
+Defined in: [src/core/services/WebHostingService.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/WebHostingService.ts#L41)
 
 Delete an application deployment
 FR-004: Delete application and clean up resources
@@ -102,7 +102,7 @@ FR-004: Delete application and clean up resources
 
 > **getApplicationUrl**(`deploymentId`): `Promise`\<`string`\>
 
-Defined in: [src/core/services/WebHostingService.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/WebHostingService.ts#L47)
+Defined in: [src/core/services/WebHostingService.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/WebHostingService.ts#L47)
 
 Get the public URL for an application
 FR-002: Retrieve application URL
@@ -123,7 +123,7 @@ FR-002: Retrieve application URL
 
 > **scaleApplication**(`deploymentId`, `params`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/WebHostingService.ts:53](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/WebHostingService.ts#L53)
+Defined in: [src/core/services/WebHostingService.ts:53](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/WebHostingService.ts#L53)
 
 Scale application instances
 FR-005: Scale min/max instances

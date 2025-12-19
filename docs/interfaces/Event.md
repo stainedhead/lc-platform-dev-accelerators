@@ -6,7 +6,7 @@
 
 # Interface: Event
 
-Defined in: [src/core/types/event.ts:5](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L5)
+Defined in: [src/core/types/event.ts:5](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L5)
 
 Event Bus Types
 
@@ -16,7 +16,7 @@ Event Bus Types
 
 > **source**: `string`
 
-Defined in: [src/core/types/event.ts:6](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L6)
+Defined in: [src/core/types/event.ts:6](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L6)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [src/core/types/event.ts:6](https://github.com/stainedhead/lc-platfo
 
 > **type**: `string`
 
-Defined in: [src/core/types/event.ts:7](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L7)
+Defined in: [src/core/types/event.ts:7](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L7)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/core/types/event.ts:7](https://github.com/stainedhead/lc-platfo
 
 > **data**: `object`
 
-Defined in: [src/core/types/event.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L8)
+Defined in: [src/core/types/event.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L8)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/core/types/event.ts:8](https://github.com/stainedhead/lc-platfo
 
 > `optional` **metadata**: `Record`\<`string`, `string`\>
 
-Defined in: [src/core/types/event.ts:9](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L9)
+Defined in: [src/core/types/event.ts:9](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L9)
 
 ***
 
@@ -48,7 +48,7 @@ Defined in: [src/core/types/event.ts:9](https://github.com/stainedhead/lc-platfo
 
 > `optional` **time**: `Date`
 
-Defined in: [src/core/types/event.ts:10](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L10)
+Defined in: [src/core/types/event.ts:10](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L10)
 
 ***
 
@@ -56,4 +56,4 @@ Defined in: [src/core/types/event.ts:10](https://github.com/stainedhead/lc-platf
 
 > `optional` **id**: `string`
 
-Defined in: [src/core/types/event.ts:11](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L11)
+Defined in: [src/core/types/event.ts:11](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L11)

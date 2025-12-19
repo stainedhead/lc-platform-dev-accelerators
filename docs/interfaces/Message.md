@@ -6,7 +6,7 @@
 
 # Interface: Message
 
-Defined in: [src/core/types/queue.ts:5](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L5)
+Defined in: [src/core/types/queue.ts:5](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L5)
 
 Queue Types - Message Queuing
 
@@ -16,7 +16,7 @@ Queue Types - Message Queuing
 
 > **body**: `string` \| `object`
 
-Defined in: [src/core/types/queue.ts:6](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L6)
+Defined in: [src/core/types/queue.ts:6](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L6)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [src/core/types/queue.ts:6](https://github.com/stainedhead/lc-platfo
 
 > `optional` **attributes**: `Record`\<`string`, `string`\>
 
-Defined in: [src/core/types/queue.ts:7](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L7)
+Defined in: [src/core/types/queue.ts:7](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L7)
 
 ***
 
@@ -32,7 +32,7 @@ Defined in: [src/core/types/queue.ts:7](https://github.com/stainedhead/lc-platfo
 
 > `optional` **delaySeconds**: `number`
 
-Defined in: [src/core/types/queue.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L8)
+Defined in: [src/core/types/queue.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L8)
 
 ***
 
@@ -40,7 +40,7 @@ Defined in: [src/core/types/queue.ts:8](https://github.com/stainedhead/lc-platfo
 
 > `optional` **deduplicationId**: `string`
 
-Defined in: [src/core/types/queue.ts:9](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L9)
+Defined in: [src/core/types/queue.ts:9](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L9)
 
 ***
 
@@ -48,4 +48,4 @@ Defined in: [src/core/types/queue.ts:9](https://github.com/stainedhead/lc-platfo
 
 > `optional` **groupId**: `string`
 
-Defined in: [src/core/types/queue.ts:10](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L10)
+Defined in: [src/core/types/queue.ts:10](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L10)

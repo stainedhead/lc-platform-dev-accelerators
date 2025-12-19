@@ -6,7 +6,7 @@
 
 # Interface: ConfigurationService
 
-Defined in: [src/core/services/ConfigurationService.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L15)
+Defined in: [src/core/services/ConfigurationService.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L15)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/ConfigurationService.ts:15](https://github.com/st
 
 > **createConfiguration**(`params`): `Promise`\<[`Configuration`](Configuration.md)\>
 
-Defined in: [src/core/services/ConfigurationService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L21)
+Defined in: [src/core/services/ConfigurationService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L21)
 
 Create a new configuration
 
@@ -38,7 +38,7 @@ The created configuration
 
 > **getConfiguration**(`name`, `label?`): `Promise`\<[`Configuration`](Configuration.md)\>
 
-Defined in: [src/core/services/ConfigurationService.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L29)
+Defined in: [src/core/services/ConfigurationService.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L29)
 
 Retrieve a configuration by name and optional label
 
@@ -68,7 +68,7 @@ The configuration content and metadata
 
 > **updateConfiguration**(`name`, `params`): `Promise`\<[`Configuration`](Configuration.md)\>
 
-Defined in: [src/core/services/ConfigurationService.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L37)
+Defined in: [src/core/services/ConfigurationService.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L37)
 
 Update an existing configuration
 
@@ -98,7 +98,7 @@ The updated configuration
 
 > **deleteConfiguration**(`name`, `label?`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/ConfigurationService.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L44)
+Defined in: [src/core/services/ConfigurationService.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L44)
 
 Delete a configuration
 
@@ -126,7 +126,7 @@ Optional version label (if not specified, deletes all versions)
 
 > **listConfigurations**(`label?`): `Promise`\<[`Configuration`](Configuration.md)[]\>
 
-Defined in: [src/core/services/ConfigurationService.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L51)
+Defined in: [src/core/services/ConfigurationService.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L51)
 
 List all configurations
 
@@ -150,7 +150,7 @@ Array of configurations
 
 > **validateConfiguration**(`content`, `schema`): `Promise`\<[`ValidationResult`](ValidationResult.md)\>
 
-Defined in: [src/core/services/ConfigurationService.ts:59](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L59)
+Defined in: [src/core/services/ConfigurationService.ts:59](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L59)
 
 Validate configuration content against a schema
 
@@ -180,7 +180,7 @@ Validation result with any errors
 
 > **createProfile**(`name`, `retrievalRole?`): `Promise`\<[`ConfigurationProfile`](ConfigurationProfile.md)\>
 
-Defined in: [src/core/services/ConfigurationService.ts:67](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L67)
+Defined in: [src/core/services/ConfigurationService.ts:67](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L67)
 
 Create a configuration profile for deployment
 
@@ -210,7 +210,7 @@ The created profile
 
 > **deployConfiguration**(`params`): `Promise`\<`string`\>
 
-Defined in: [src/core/services/ConfigurationService.ts:74](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/ConfigurationService.ts#L74)
+Defined in: [src/core/services/ConfigurationService.ts:74](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/ConfigurationService.ts#L74)
 
 Deploy a configuration to an environment
 

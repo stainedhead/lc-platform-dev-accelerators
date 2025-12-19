@@ -6,7 +6,7 @@
 
 # Interface: EventBus
 
-Defined in: [src/core/types/event.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L14)
+Defined in: [src/core/types/event.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L14)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/event.ts:14](https://github.com/stainedhead/lc-platf
 
 > **name**: `string`
 
-Defined in: [src/core/types/event.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L15)
+Defined in: [src/core/types/event.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L15)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/event.ts:15](https://github.com/stainedhead/lc-platf
 
 > `optional` **arn**: `string`
 
-Defined in: [src/core/types/event.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L16)
+Defined in: [src/core/types/event.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L16)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/core/types/event.ts:16](https://github.com/stainedhead/lc-platf
 
 > **created**: `Date`
 
-Defined in: [src/core/types/event.ts:17](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/event.ts#L17)
+Defined in: [src/core/types/event.ts:17](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/event.ts#L17)

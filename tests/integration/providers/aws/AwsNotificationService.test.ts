@@ -109,7 +109,7 @@ describe('AwsNotificationService Integration (AWS)', () => {
       })
     );
 
-    const queueArn = attrs.Attributes?.QueueArn || '';
+    const queueArn = attrs.Attributes?.QueueArn ?? '';
 
     return { url: queueUrl, arn: queueArn };
   }
@@ -246,7 +246,7 @@ describe('AwsNotificationService Integration (AWS)', () => {
     expect(messages.Messages).toBeDefined();
     expect(messages.Messages!.length).toBeGreaterThan(0);
 
-    const receivedMessage = JSON.parse(messages.Messages![0]!.Body!);
+    const receivedMessage = JSON.parse(messages.Messages![0]!.Body!) as Record<string, unknown>;
     expect(receivedMessage.Message).toBe('Test notification message');
     expect(receivedMessage.Subject).toBe('Test Subject');
   });

@@ -6,7 +6,7 @@
 
 # Interface: Job
 
-Defined in: [src/core/types/job.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L14)
+Defined in: [src/core/types/job.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L14)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/job.ts:14](https://github.com/stainedhead/lc-platfor
 
 > **id**: `string`
 
-Defined in: [src/core/types/job.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L15)
+Defined in: [src/core/types/job.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L15)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/job.ts:15](https://github.com/stainedhead/lc-platfor
 
 > **name**: `string`
 
-Defined in: [src/core/types/job.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L16)
+Defined in: [src/core/types/job.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L16)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/job.ts:16](https://github.com/stainedhead/lc-platfor
 
 > **status**: [`JobStatus`](../enumerations/JobStatus.md)
 
-Defined in: [src/core/types/job.ts:17](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L17)
+Defined in: [src/core/types/job.ts:17](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L17)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/job.ts:17](https://github.com/stainedhead/lc-platfor
 
 > **image**: `string`
 
-Defined in: [src/core/types/job.ts:18](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L18)
+Defined in: [src/core/types/job.ts:18](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L18)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/core/types/job.ts:18](https://github.com/stainedhead/lc-platfor
 
 > `optional` **command**: `string`[]
 
-Defined in: [src/core/types/job.ts:19](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L19)
+Defined in: [src/core/types/job.ts:19](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L19)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/core/types/job.ts:19](https://github.com/stainedhead/lc-platfor
 
 > **environment**: `Record`\<`string`, `string`\>
 
-Defined in: [src/core/types/job.ts:20](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L20)
+Defined in: [src/core/types/job.ts:20](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L20)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/core/types/job.ts:20](https://github.com/stainedhead/lc-platfor
 
 > **cpu**: `number`
 
-Defined in: [src/core/types/job.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L21)
+Defined in: [src/core/types/job.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L21)
 
 ***
 
@@ -70,7 +70,7 @@ Defined in: [src/core/types/job.ts:21](https://github.com/stainedhead/lc-platfor
 
 > **memory**: `number`
 
-Defined in: [src/core/types/job.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L22)
+Defined in: [src/core/types/job.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L22)
 
 ***
 
@@ -78,7 +78,7 @@ Defined in: [src/core/types/job.ts:22](https://github.com/stainedhead/lc-platfor
 
 > **timeout**: `number`
 
-Defined in: [src/core/types/job.ts:23](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L23)
+Defined in: [src/core/types/job.ts:23](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L23)
 
 ***
 
@@ -86,7 +86,7 @@ Defined in: [src/core/types/job.ts:23](https://github.com/stainedhead/lc-platfor
 
 > **retryCount**: `number`
 
-Defined in: [src/core/types/job.ts:24](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L24)
+Defined in: [src/core/types/job.ts:24](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L24)
 
 ***
 
@@ -94,7 +94,7 @@ Defined in: [src/core/types/job.ts:24](https://github.com/stainedhead/lc-platfor
 
 > **attemptsMade**: `number`
 
-Defined in: [src/core/types/job.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L25)
+Defined in: [src/core/types/job.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L25)
 
 ***
 
@@ -102,7 +102,7 @@ Defined in: [src/core/types/job.ts:25](https://github.com/stainedhead/lc-platfor
 
 > **created**: `Date`
 
-Defined in: [src/core/types/job.ts:26](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L26)
+Defined in: [src/core/types/job.ts:26](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L26)
 
 ***
 
@@ -110,7 +110,7 @@ Defined in: [src/core/types/job.ts:26](https://github.com/stainedhead/lc-platfor
 
 > `optional` **started**: `Date`
 
-Defined in: [src/core/types/job.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L27)
+Defined in: [src/core/types/job.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L27)
 
 ***
 
@@ -118,7 +118,7 @@ Defined in: [src/core/types/job.ts:27](https://github.com/stainedhead/lc-platfor
 
 > `optional` **completed**: `Date`
 
-Defined in: [src/core/types/job.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L28)
+Defined in: [src/core/types/job.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L28)
 
 ***
 
@@ -126,7 +126,7 @@ Defined in: [src/core/types/job.ts:28](https://github.com/stainedhead/lc-platfor
 
 > `optional` **exitCode**: `number`
 
-Defined in: [src/core/types/job.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L29)
+Defined in: [src/core/types/job.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L29)
 
 ***
 
@@ -134,4 +134,4 @@ Defined in: [src/core/types/job.ts:29](https://github.com/stainedhead/lc-platfor
 
 > `optional` **errorMessage**: `string`
 
-Defined in: [src/core/types/job.ts:30](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L30)
+Defined in: [src/core/types/job.ts:30](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L30)

@@ -6,7 +6,7 @@
 
 # Interface: EventBusService
 
-Defined in: [src/core/services/EventBusService.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L8)
+Defined in: [src/core/services/EventBusService.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L8)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/EventBusService.ts:8](https://github.com/stainedh
 
 > **createEventBus**(`name`): `Promise`\<[`EventBus`](EventBus.md)\>
 
-Defined in: [src/core/services/EventBusService.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L14)
+Defined in: [src/core/services/EventBusService.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L14)
 
 Create a new event bus
 
@@ -38,7 +38,7 @@ The created event bus
 
 > **getEventBus**(`name`): `Promise`\<[`EventBus`](EventBus.md)\>
 
-Defined in: [src/core/services/EventBusService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L21)
+Defined in: [src/core/services/EventBusService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L21)
 
 Get event bus details
 
@@ -62,7 +62,7 @@ Event bus metadata
 
 > **deleteEventBus**(`name`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/EventBusService.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L27)
+Defined in: [src/core/services/EventBusService.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L27)
 
 Delete an event bus
 
@@ -84,7 +84,7 @@ Event bus name
 
 > **publishEvent**(`busName`, `event`): `Promise`\<`string`\>
 
-Defined in: [src/core/services/EventBusService.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L35)
+Defined in: [src/core/services/EventBusService.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L35)
 
 Publish an event to the event bus
 
@@ -114,7 +114,7 @@ Event ID
 
 > **createRule**(`busName`, `params`): `Promise`\<[`Rule`](Rule.md)\>
 
-Defined in: [src/core/services/EventBusService.ts:43](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L43)
+Defined in: [src/core/services/EventBusService.ts:43](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L43)
 
 Create a rule to route events to targets
 
@@ -144,7 +144,7 @@ The created rule
 
 > **getRule**(`busName`, `ruleName`): `Promise`\<[`Rule`](Rule.md)\>
 
-Defined in: [src/core/services/EventBusService.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L51)
+Defined in: [src/core/services/EventBusService.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L51)
 
 Get rule details
 
@@ -174,7 +174,7 @@ Rule configuration
 
 > **updateRule**(`busName`, `ruleName`, `params`): `Promise`\<[`Rule`](Rule.md)\>
 
-Defined in: [src/core/services/EventBusService.ts:60](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L60)
+Defined in: [src/core/services/EventBusService.ts:60](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L60)
 
 Update an existing rule
 
@@ -210,7 +210,7 @@ The updated rule
 
 > **deleteRule**(`busName`, `ruleName`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/EventBusService.ts:67](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L67)
+Defined in: [src/core/services/EventBusService.ts:67](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L67)
 
 Delete a rule
 
@@ -238,7 +238,7 @@ Rule name
 
 > **addTarget**(`busName`, `ruleName`, `target`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/EventBusService.ts:75](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L75)
+Defined in: [src/core/services/EventBusService.ts:75](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L75)
 
 Add a target to a rule
 
@@ -272,7 +272,7 @@ Target configuration
 
 > **removeTarget**(`busName`, `ruleName`, `targetId`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/EventBusService.ts:83](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L83)
+Defined in: [src/core/services/EventBusService.ts:83](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L83)
 
 Remove a target from a rule
 
@@ -306,7 +306,7 @@ Target ID to remove
 
 > **listRules**(`busName`): `Promise`\<[`Rule`](Rule.md)[]\>
 
-Defined in: [src/core/services/EventBusService.ts:90](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/EventBusService.ts#L90)
+Defined in: [src/core/services/EventBusService.ts:90](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/EventBusService.ts#L90)
 
 List all rules for an event bus
 

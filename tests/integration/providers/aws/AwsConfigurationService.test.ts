@@ -67,7 +67,7 @@ describe('AwsConfigurationService Integration (AWS)', () => {
           })
         );
 
-        for (const profile of profiles.Items || []) {
+        for (const profile of profiles.Items ?? []) {
           if (profile.Id) {
             try {
               // First, delete all hosted configuration versions
@@ -78,7 +78,7 @@ describe('AwsConfigurationService Integration (AWS)', () => {
                 })
               );
 
-              for (const version of versions.Items || []) {
+              for (const version of versions.Items ?? []) {
                 if (version.VersionNumber) {
                   try {
                     await appConfigClient.send(
@@ -120,7 +120,7 @@ describe('AwsConfigurationService Integration (AWS)', () => {
           })
         );
 
-        for (const env of environments.Items || []) {
+        for (const env of environments.Items ?? []) {
           if (env.Id) {
             try {
               await appConfigClient.send(

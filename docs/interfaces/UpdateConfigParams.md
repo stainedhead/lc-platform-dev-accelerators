@@ -6,7 +6,7 @@
 
 # Interface: UpdateConfigParams
 
-Defined in: [src/core/types/configuration.ts:24](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L24)
+Defined in: [src/core/types/configuration.ts:24](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L24)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/configuration.ts:24](https://github.com/stainedhead/
 
 > `optional` **data**: `object`
 
-Defined in: [src/core/types/configuration.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L25)
+Defined in: [src/core/types/configuration.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L25)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/configuration.ts:25](https://github.com/stainedhead/
 
 > `optional` **schema**: `object`
 
-Defined in: [src/core/types/configuration.ts:26](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L26)
+Defined in: [src/core/types/configuration.ts:26](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L26)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/core/types/configuration.ts:26](https://github.com/stainedhead/
 
 > `optional` **description**: `string`
 
-Defined in: [src/core/types/configuration.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L27)
+Defined in: [src/core/types/configuration.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L27)

@@ -6,7 +6,7 @@
 
 # Interface: ConfigurationProfile
 
-Defined in: [src/core/types/configuration.ts:66](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L66)
+Defined in: [src/core/types/configuration.ts:66](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L66)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/configuration.ts:66](https://github.com/stainedhead/
 
 > **name**: `string`
 
-Defined in: [src/core/types/configuration.ts:67](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L67)
+Defined in: [src/core/types/configuration.ts:67](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L67)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/configuration.ts:67](https://github.com/stainedhead/
 
 > **id**: `string`
 
-Defined in: [src/core/types/configuration.ts:68](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L68)
+Defined in: [src/core/types/configuration.ts:68](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L68)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/configuration.ts:68](https://github.com/stainedhead/
 
 > `optional` **retrievalRole**: `string`
 
-Defined in: [src/core/types/configuration.ts:69](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L69)
+Defined in: [src/core/types/configuration.ts:69](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L69)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/configuration.ts:69](https://github.com/stainedhead/
 
 > **created**: `Date`
 
-Defined in: [src/core/types/configuration.ts:70](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L70)
+Defined in: [src/core/types/configuration.ts:70](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L70)

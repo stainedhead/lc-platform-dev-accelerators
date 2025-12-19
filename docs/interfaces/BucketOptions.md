@@ -6,7 +6,7 @@
 
 # Interface: BucketOptions
 
-Defined in: [src/core/types/object.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L42)
+Defined in: [src/core/types/object.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L42)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/object.ts:42](https://github.com/stainedhead/lc-plat
 
 > `optional` **versioning**: `boolean`
 
-Defined in: [src/core/types/object.ts:43](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L43)
+Defined in: [src/core/types/object.ts:43](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L43)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/object.ts:43](https://github.com/stainedhead/lc-plat
 
 > `optional` **encryption**: `boolean`
 
-Defined in: [src/core/types/object.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L44)
+Defined in: [src/core/types/object.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L44)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/object.ts:44](https://github.com/stainedhead/lc-plat
 
 > `optional` **publicRead**: `boolean`
 
-Defined in: [src/core/types/object.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L45)
+Defined in: [src/core/types/object.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L45)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/object.ts:45](https://github.com/stainedhead/lc-plat
 
 > `optional` **lifecycle**: [`LifecycleRule`](LifecycleRule.md)[]
 
-Defined in: [src/core/types/object.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L46)
+Defined in: [src/core/types/object.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L46)

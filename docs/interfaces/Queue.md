@@ -6,7 +6,7 @@
 
 # Interface: Queue
 
-Defined in: [src/core/types/queue.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L22)
+Defined in: [src/core/types/queue.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L22)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/queue.ts:22](https://github.com/stainedhead/lc-platf
 
 > **name**: `string`
 
-Defined in: [src/core/types/queue.ts:23](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L23)
+Defined in: [src/core/types/queue.ts:23](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L23)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/queue.ts:23](https://github.com/stainedhead/lc-platf
 
 > **url**: `string`
 
-Defined in: [src/core/types/queue.ts:24](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L24)
+Defined in: [src/core/types/queue.ts:24](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L24)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/queue.ts:24](https://github.com/stainedhead/lc-platf
 
 > **messageCount**: `number`
 
-Defined in: [src/core/types/queue.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L25)
+Defined in: [src/core/types/queue.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L25)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/queue.ts:25](https://github.com/stainedhead/lc-platf
 
 > **created**: `Date`
 
-Defined in: [src/core/types/queue.ts:26](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L26)
+Defined in: [src/core/types/queue.ts:26](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L26)

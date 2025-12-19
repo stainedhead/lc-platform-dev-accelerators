@@ -221,7 +221,7 @@ export class AwsBatchService implements BatchService {
         Targets: [
           {
             Id: '1',
-            Arn: `arn:aws:batch:${this.batchClient.config.region}:${await this.getAccountId()}:job-queue/${this.jobQueue}`,
+            Arn: `arn:aws:batch:${String(this.batchClient.config.region)}:${await this.getAccountId()}:job-queue/${this.jobQueue}`,
             RoleArn: params.jobParams.environment?.EVENTBRIDGE_ROLE_ARN || '',
             BatchParameters: {
               JobDefinition: this.jobDefinition,

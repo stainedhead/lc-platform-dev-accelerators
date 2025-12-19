@@ -6,7 +6,7 @@
 
 # Interface: ReceivedMessage
 
-Defined in: [src/core/types/queue.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L13)
+Defined in: [src/core/types/queue.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L13)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/queue.ts:13](https://github.com/stainedhead/lc-platf
 
 > **id**: `string`
 
-Defined in: [src/core/types/queue.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L14)
+Defined in: [src/core/types/queue.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L14)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/queue.ts:14](https://github.com/stainedhead/lc-platf
 
 > **receiptHandle**: `string`
 
-Defined in: [src/core/types/queue.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L15)
+Defined in: [src/core/types/queue.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L15)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/queue.ts:15](https://github.com/stainedhead/lc-platf
 
 > **body**: `string` \| `object`
 
-Defined in: [src/core/types/queue.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L16)
+Defined in: [src/core/types/queue.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L16)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/queue.ts:16](https://github.com/stainedhead/lc-platf
 
 > **attributes**: `Record`\<`string`, `string`\>
 
-Defined in: [src/core/types/queue.ts:17](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L17)
+Defined in: [src/core/types/queue.ts:17](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L17)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/core/types/queue.ts:17](https://github.com/stainedhead/lc-platf
 
 > **sentTimestamp**: `Date`
 
-Defined in: [src/core/types/queue.ts:18](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L18)
+Defined in: [src/core/types/queue.ts:18](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L18)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/core/types/queue.ts:18](https://github.com/stainedhead/lc-platf
 
 > **approximateReceiveCount**: `number`
 
-Defined in: [src/core/types/queue.ts:19](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/queue.ts#L19)
+Defined in: [src/core/types/queue.ts:19](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/queue.ts#L19)

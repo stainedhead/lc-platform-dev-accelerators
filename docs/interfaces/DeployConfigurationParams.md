@@ -6,7 +6,7 @@
 
 # Interface: DeployConfigurationParams
 
-Defined in: [src/core/types/configuration.ts:59](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L59)
+Defined in: [src/core/types/configuration.ts:59](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L59)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/configuration.ts:59](https://github.com/stainedhead/
 
 > **configurationName**: `string`
 
-Defined in: [src/core/types/configuration.ts:60](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L60)
+Defined in: [src/core/types/configuration.ts:60](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L60)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/configuration.ts:60](https://github.com/stainedhead/
 
 > **environment**: `string`
 
-Defined in: [src/core/types/configuration.ts:61](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L61)
+Defined in: [src/core/types/configuration.ts:61](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L61)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/configuration.ts:61](https://github.com/stainedhead/
 
 > `optional` **label**: `string`
 
-Defined in: [src/core/types/configuration.ts:62](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L62)
+Defined in: [src/core/types/configuration.ts:62](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L62)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/configuration.ts:62](https://github.com/stainedhead/
 
 > `optional` **deploymentStrategy**: `string`
 
-Defined in: [src/core/types/configuration.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L63)
+Defined in: [src/core/types/configuration.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L63)

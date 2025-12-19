@@ -6,7 +6,7 @@
 
 # Interface: QueueService
 
-Defined in: [src/core/services/QueueService.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L14)
+Defined in: [src/core/services/QueueService.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L14)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/QueueService.ts:14](https://github.com/stainedhea
 
 > **createQueue**(`name`, `options?`): `Promise`\<[`Queue`](Queue.md)\>
 
-Defined in: [src/core/services/QueueService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L21)
+Defined in: [src/core/services/QueueService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L21)
 
 Create a new message queue
 
@@ -44,7 +44,7 @@ The created queue details
 
 > **getQueue**(`queueUrl`): `Promise`\<[`Queue`](Queue.md)\>
 
-Defined in: [src/core/services/QueueService.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L28)
+Defined in: [src/core/services/QueueService.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L28)
 
 Get details about a specific queue
 
@@ -68,7 +68,7 @@ Queue details including message counts
 
 > **deleteQueue**(`queueUrl`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/QueueService.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L34)
+Defined in: [src/core/services/QueueService.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L34)
 
 Delete a queue and all its messages
 
@@ -90,7 +90,7 @@ URL or identifier of the queue
 
 > **sendMessage**(`queueUrl`, `params`): `Promise`\<`string`\>
 
-Defined in: [src/core/services/QueueService.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L42)
+Defined in: [src/core/services/QueueService.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L42)
 
 Send a message to a queue
 
@@ -120,7 +120,7 @@ The message ID
 
 > **receiveMessages**(`queueUrl`, `params?`): `Promise`\<[`Message`](Message.md)[]\>
 
-Defined in: [src/core/services/QueueService.ts:50](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L50)
+Defined in: [src/core/services/QueueService.ts:50](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L50)
 
 Receive messages from a queue
 
@@ -150,7 +150,7 @@ Array of received messages
 
 > **deleteMessage**(`queueUrl`, `receiptHandle`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/QueueService.ts:57](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L57)
+Defined in: [src/core/services/QueueService.ts:57](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L57)
 
 Delete a message from the queue after processing
 
@@ -178,7 +178,7 @@ Receipt handle from the received message
 
 > **listQueues**(): `Promise`\<`string`[]\>
 
-Defined in: [src/core/services/QueueService.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L63)
+Defined in: [src/core/services/QueueService.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L63)
 
 List all queues
 
@@ -194,7 +194,7 @@ Array of queue URLs
 
 > **purgeQueue**(`queueUrl`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/QueueService.ts:69](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/QueueService.ts#L69)
+Defined in: [src/core/services/QueueService.ts:69](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/QueueService.ts#L69)
 
 Purge all messages from a queue
 

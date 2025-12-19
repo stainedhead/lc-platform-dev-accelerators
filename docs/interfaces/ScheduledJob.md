@@ -6,7 +6,7 @@
 
 # Interface: ScheduledJob
 
-Defined in: [src/core/types/job.ts:57](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L57)
+Defined in: [src/core/types/job.ts:57](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L57)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/job.ts:57](https://github.com/stainedhead/lc-platfor
 
 > **id**: `string`
 
-Defined in: [src/core/types/job.ts:58](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L58)
+Defined in: [src/core/types/job.ts:58](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L58)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/job.ts:58](https://github.com/stainedhead/lc-platfor
 
 > **name**: `string`
 
-Defined in: [src/core/types/job.ts:59](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L59)
+Defined in: [src/core/types/job.ts:59](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L59)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/job.ts:59](https://github.com/stainedhead/lc-platfor
 
 > **schedule**: `string`
 
-Defined in: [src/core/types/job.ts:60](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L60)
+Defined in: [src/core/types/job.ts:60](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L60)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/job.ts:60](https://github.com/stainedhead/lc-platfor
 
 > **jobParams**: [`JobParams`](JobParams.md)
 
-Defined in: [src/core/types/job.ts:61](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L61)
+Defined in: [src/core/types/job.ts:61](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L61)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/core/types/job.ts:61](https://github.com/stainedhead/lc-platfor
 
 > **enabled**: `boolean`
 
-Defined in: [src/core/types/job.ts:62](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L62)
+Defined in: [src/core/types/job.ts:62](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L62)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/core/types/job.ts:62](https://github.com/stainedhead/lc-platfor
 
 > **createdAt**: `Date`
 
-Defined in: [src/core/types/job.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L63)
+Defined in: [src/core/types/job.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L63)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/core/types/job.ts:63](https://github.com/stainedhead/lc-platfor
 
 > `optional` **lastRun**: `Date`
 
-Defined in: [src/core/types/job.ts:64](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L64)
+Defined in: [src/core/types/job.ts:64](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L64)
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: [src/core/types/job.ts:64](https://github.com/stainedhead/lc-platfor
 
 > **nextRun**: `Date`
 
-Defined in: [src/core/types/job.ts:65](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L65)
+Defined in: [src/core/types/job.ts:65](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L65)

@@ -6,7 +6,7 @@
 
 # Class: LCPlatform
 
-Defined in: [src/LCPlatform.ts:49](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L49)
+Defined in: [src/LCPlatform.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L51)
 
 Main LCPlatform class
 
@@ -23,7 +23,7 @@ const value = await secrets.getSecret('my-secret');
 
 > **new LCPlatform**(`config`): `LCPlatform`
 
-Defined in: [src/LCPlatform.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L63)
+Defined in: [src/LCPlatform.ts:66](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L66)
 
 #### Parameters
 
@@ -41,7 +41,7 @@ Defined in: [src/LCPlatform.ts:63](https://github.com/stainedhead/lc-platform-de
 
 > **getConfig**(): [`ProviderConfig`](../interfaces/ProviderConfig.md)
 
-Defined in: [src/LCPlatform.ts:71](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L71)
+Defined in: [src/LCPlatform.ts:74](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L74)
 
 Get the current provider configuration
 
@@ -55,7 +55,7 @@ Get the current provider configuration
 
 > **getWebHosting**(): [`WebHostingService`](../interfaces/WebHostingService.md)
 
-Defined in: [src/LCPlatform.ts:79](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L79)
+Defined in: [src/LCPlatform.ts:82](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L82)
 
 Get WebHostingService for deploying containerized applications
 Service: AWS App Runner / Azure Container Apps
@@ -70,7 +70,7 @@ Service: AWS App Runner / Azure Container Apps
 
 > **getBatch**(): [`BatchService`](../interfaces/BatchService.md)
 
-Defined in: [src/LCPlatform.ts:87](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L87)
+Defined in: [src/LCPlatform.ts:90](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L90)
 
 Get BatchService for running batch jobs and scheduled tasks
 Service: AWS Batch / Azure Batch
@@ -85,7 +85,7 @@ Service: AWS Batch / Azure Batch
 
 > **getSecrets**(): [`SecretsService`](../interfaces/SecretsService.md)
 
-Defined in: [src/LCPlatform.ts:95](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L95)
+Defined in: [src/LCPlatform.ts:98](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L98)
 
 Get SecretsService for managing sensitive data
 Service: AWS Secrets Manager / Azure Key Vault
@@ -100,7 +100,7 @@ Service: AWS Secrets Manager / Azure Key Vault
 
 > **getConfiguration**(): [`ConfigurationService`](../interfaces/ConfigurationService.md)
 
-Defined in: [src/LCPlatform.ts:103](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L103)
+Defined in: [src/LCPlatform.ts:106](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L106)
 
 Get ConfigurationService for application configuration
 Service: AWS AppConfig / Azure App Configuration
@@ -115,7 +115,7 @@ Service: AWS AppConfig / Azure App Configuration
 
 > **getDocumentStore**(): [`DocumentStoreService`](../interfaces/DocumentStoreService.md)
 
-Defined in: [src/LCPlatform.ts:111](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L111)
+Defined in: [src/LCPlatform.ts:114](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L114)
 
 Get DocumentStoreService for NoSQL document storage
 Service: AWS DocumentDB / Azure Cosmos DB
@@ -130,7 +130,7 @@ Service: AWS DocumentDB / Azure Cosmos DB
 
 > **getDataStore**(): [`DataStoreService`](../interfaces/DataStoreService.md)
 
-Defined in: [src/LCPlatform.ts:119](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L119)
+Defined in: [src/LCPlatform.ts:122](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L122)
 
 Get DataStoreService for relational database operations
 Service: AWS RDS PostgreSQL / Azure Database for PostgreSQL
@@ -145,7 +145,7 @@ Service: AWS RDS PostgreSQL / Azure Database for PostgreSQL
 
 > **getObjectStore**(): [`ObjectStoreService`](../interfaces/ObjectStoreService.md)
 
-Defined in: [src/LCPlatform.ts:127](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L127)
+Defined in: [src/LCPlatform.ts:130](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L130)
 
 Get ObjectStoreService for binary object/file storage
 Service: AWS S3 / Azure Blob Storage
@@ -160,7 +160,7 @@ Service: AWS S3 / Azure Blob Storage
 
 > **getQueue**(): [`QueueService`](../interfaces/QueueService.md)
 
-Defined in: [src/LCPlatform.ts:135](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L135)
+Defined in: [src/LCPlatform.ts:138](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L138)
 
 Get QueueService for message queuing
 Service: AWS SQS / Azure Storage Queues
@@ -175,7 +175,7 @@ Service: AWS SQS / Azure Storage Queues
 
 > **getEventBus**(): [`EventBusService`](../interfaces/EventBusService.md)
 
-Defined in: [src/LCPlatform.ts:143](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L143)
+Defined in: [src/LCPlatform.ts:146](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L146)
 
 Get EventBusService for event-driven architecture
 Service: AWS EventBridge / Azure Event Grid
@@ -190,7 +190,7 @@ Service: AWS EventBridge / Azure Event Grid
 
 > **getNotification**(): [`NotificationService`](../interfaces/NotificationService.md)
 
-Defined in: [src/LCPlatform.ts:151](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L151)
+Defined in: [src/LCPlatform.ts:154](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L154)
 
 Get NotificationService for multi-channel notifications
 Service: AWS SNS / Azure Notification Hubs
@@ -205,7 +205,7 @@ Service: AWS SNS / Azure Notification Hubs
 
 > **getAuthentication**(): [`AuthenticationService`](../interfaces/AuthenticationService.md)
 
-Defined in: [src/LCPlatform.ts:159](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/LCPlatform.ts#L159)
+Defined in: [src/LCPlatform.ts:162](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L162)
 
 Get AuthenticationService for OAuth2/OIDC authentication
 Service: AWS Cognito + Okta / Azure AD B2C
@@ -213,3 +213,18 @@ Service: AWS Cognito + Okta / Azure AD B2C
 #### Returns
 
 [`AuthenticationService`](../interfaces/AuthenticationService.md)
+
+***
+
+### getFunctionHosting()
+
+> **getFunctionHosting**(): [`FunctionHostingService`](../interfaces/FunctionHostingService.md)
+
+Defined in: [src/LCPlatform.ts:170](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/LCPlatform.ts#L170)
+
+Get FunctionHostingService for serverless function hosting
+Service: AWS Lambda / Azure Functions
+
+#### Returns
+
+[`FunctionHostingService`](../interfaces/FunctionHostingService.md)

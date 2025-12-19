@@ -90,7 +90,7 @@ export class AwsSecretsService implements SecretsService {
       if (response.SecretString) {
         // Try to parse as JSON, fall back to string
         try {
-          return JSON.parse(response.SecretString);
+          return JSON.parse(response.SecretString) as object;
         } catch {
           return response.SecretString;
         }

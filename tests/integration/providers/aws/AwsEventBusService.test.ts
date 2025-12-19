@@ -118,7 +118,7 @@ describe('AwsEventBusService Integration (AWS)', () => {
       })
     );
 
-    return { url: queueUrl, arn: attrs.Attributes?.QueueArn || '' };
+    return { url: queueUrl, arn: attrs.Attributes?.QueueArn ?? '' };
   }
 
   // Helper to set SQS policy allowing EventBridge to publish
@@ -365,7 +365,7 @@ describe('AwsEventBusService Integration (AWS)', () => {
     expect(messages.Messages).toBeDefined();
     expect(messages.Messages!.length).toBeGreaterThan(0);
 
-    const receivedEvent = JSON.parse(messages.Messages![0]!.Body!);
+    const receivedEvent = JSON.parse(messages.Messages![0]!.Body!) as Record<string, unknown>;
     expect(receivedEvent.source).toBe('publish.test');
     expect(receivedEvent['detail-type']).toBe('integration.test');
   });

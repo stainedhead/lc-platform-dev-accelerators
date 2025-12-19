@@ -6,7 +6,7 @@
 
 # Interface: RotationConfig
 
-Defined in: [src/core/types/secret.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L37)
+Defined in: [src/core/types/secret.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L37)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/secret.ts:37](https://github.com/stainedhead/lc-plat
 
 > **rotationDays**: `number`
 
-Defined in: [src/core/types/secret.ts:38](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L38)
+Defined in: [src/core/types/secret.ts:38](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L38)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/secret.ts:38](https://github.com/stainedhead/lc-plat
 
 > **rotationFunction**: [`RotationFunction`](../type-aliases/RotationFunction.md)
 
-Defined in: [src/core/types/secret.ts:39](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L39)
+Defined in: [src/core/types/secret.ts:39](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L39)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/core/types/secret.ts:39](https://github.com/stainedhead/lc-plat
 
 > **automaticRotation**: `boolean`
 
-Defined in: [src/core/types/secret.ts:40](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L40)
+Defined in: [src/core/types/secret.ts:40](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L40)

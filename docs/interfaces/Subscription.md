@@ -6,7 +6,7 @@
 
 # Interface: Subscription
 
-Defined in: [src/core/types/notification.ts:18](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L18)
+Defined in: [src/core/types/notification.ts:18](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L18)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/notification.ts:18](https://github.com/stainedhead/l
 
 > **id**: `string`
 
-Defined in: [src/core/types/notification.ts:19](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L19)
+Defined in: [src/core/types/notification.ts:19](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L19)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/notification.ts:19](https://github.com/stainedhead/l
 
 > **protocol**: [`Protocol`](../type-aliases/Protocol.md)
 
-Defined in: [src/core/types/notification.ts:20](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L20)
+Defined in: [src/core/types/notification.ts:20](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L20)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/notification.ts:20](https://github.com/stainedhead/l
 
 > **endpoint**: `string`
 
-Defined in: [src/core/types/notification.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L21)
+Defined in: [src/core/types/notification.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L21)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/notification.ts:21](https://github.com/stainedhead/l
 
 > **confirmed**: `boolean`
 
-Defined in: [src/core/types/notification.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L22)
+Defined in: [src/core/types/notification.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L22)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/core/types/notification.ts:22](https://github.com/stainedhead/l
 
 > **created**: `Date`
 
-Defined in: [src/core/types/notification.ts:23](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L23)
+Defined in: [src/core/types/notification.ts:23](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L23)

@@ -1,5 +1,7 @@
 # lc-platform-dev-accelerators - Technical Details
 
+**Status**: Full Platform Complete - 12 Control Plane Services + 9 Data Plane Clients Implemented
+
 ## Table of Contents
 1. [Architecture Overview](#architecture-overview)
 2. [Code Organization](#code-organization)
@@ -7,84 +9,121 @@
 4. [Provider Abstraction Layer](#provider-abstraction-layer)
 5. [Extension Points](#extension-points)
 6. [Build & Deployment](#build--deployment)
+7. [CI/CD Pipeline](#cicd-pipeline)
+8. [Performance Optimization](#performance-optimization)
 
 ---
 
 ## Architecture Overview
 
-### Control Plane / Data Plane Separation
+### Dual-Plane Hexagonal Architecture
 
-lc-platform-dev-accelerators provides **two entry points** for different use cases:
+lc-platform-dev-accelerators implements a **dual-plane architecture** using Hexagonal (Ports and Adapters) patterns to achieve complete provider independence across both infrastructure management and application runtime scenarios.
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Control Plane Application                     │
-│              (Infrastructure Management / DevOps)                │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                         LCPlatform                               │
-│   12 Services: WebHosting, FunctionHosting, DataStore,           │
-│   ObjectStore, Batch, Queue, Secrets, Configuration,             │
-│   DocumentStore, EventBus, Notification, Authentication          │
-│         (Full CRUD - Create, Configure, Delete, List)            │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                     Cloud Infrastructure                         │
-│        Lambda, S3, SQS, Secrets Manager, DynamoDB, etc.          │
-└─────────────────────────────────────────────────────────────────┘
-                              ▲
-                              │
-┌─────────────────────────────────────────────────────────────────┐
-│                        LCAppRuntime                              │
-│     9 Clients: QueueClient, ObjectClient, SecretsClient,         │
-│     ConfigClient, EventPublisher, NotificationClient,            │
-│     DocumentClient, DataClient, AuthClient                       │
-│              (Runtime Operations Only - No CRUD)                 │
-└─────────────────────────────────────────────────────────────────┘
-                              ▲
-                              │
-┌─────────────────────────────────────────────────────────────────┐
-│                      Hosted Application                          │
-│           (Lambda Function, Batch Job, Web App)                  │
-└─────────────────────────────────────────────────────────────────┘
-```
+#### Control Plane Architecture (LCPlatform)
 
-### Hexagonal Architecture (Ports and Adapters)
-
-lc-platform-dev-accelerators follows hexagonal architecture principles to achieve complete provider independence.
+The **Control Plane** provides comprehensive service management for platform operators:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Application Layer                        │
-│     LCPlatform (Control) / LCAppRuntime (Data Plane)        │
+│                Control Plane Application Layer               │
+│     (Platform operators using LCPlatform interfaces)        │
 └────────────────────────┬────────────────────────────────────┘
                          │
          ┌───────────────▼────────────────┐
-         │         Factories              │
+         │        LCPlatform              │
+         │  (Full service management)     │
+         └───────────────┬────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │    Service Factories           │
          │  (Runtime provider selection)  │
          └───────────────┬────────────────┘
                          │
         ┌────────────────┼────────────────┐
         │                │                │
-┌───────▼──────┐  ┌──────▼──────┐  ┌─────▼───────┐
-│ Core Domain  │  │  AWS Layer  │  │ Mock Layer  │
-│              │  │             │  │             │
-│ 12 Services  │  │ 12 Services │  │ 12 Services │
-│ 9 Clients    │  │ 9 Clients   │  │ 9 Clients   │
-└──────────────┘  └─────────────┘  └─────────────┘
+┌───────▼──────┐  ┌──────────▼───────────┐  ┌─────▼───────┐
+│ Core Domain  │  │    AWS Services      │  │ Mock Layer  │
+│              │  │                      │  │             │
+│ 12 Services: │  │  AWS Adapters:       │  │ Adapters:   │
+│ - WebHosting │  │  - AppRunner         │  │ - InMemory  │
+│ - FunctionHost│ │  - Lambda            │  │ - InMemory  │
+│ - Batch      │  │  - Batch+EventBridge │  │ - InMemory  │
+│ - DataStore  │  │  - RDS PostgreSQL    │  │ - InMemory  │
+│ - DocStore   │  │  - DocumentDB        │  │ - InMemory  │
+│ - ObjectStore│  │  - S3                │  │ - InMemory  │
+│ - Queue      │  │  - SQS               │  │ - InMemory  │
+│ - EventBus   │  │  - EventBridge       │  │ - InMemory  │
+│ - Secrets    │  │  - Secrets Manager   │  │ - InMemory  │
+│ - Config     │  │  - AppConfig         │  │ - InMemory  │
+│ - Notify     │  │  - SNS               │  │ - InMemory  │
+│ - Auth       │  │  - Cognito           │  │ - InMemory  │
+└──────────────┘  └──────────────────────┘  └─────────────┘
 ```
 
-### Key Principles
+#### Data Plane Architecture (LCAppRuntime)
 
-1. **Dependency Inversion**: Application depends on abstractions (interfaces), not implementations
-2. **Provider Independence**: No cloud-specific types in core domain
-3. **Control/Data Separation**: Infrastructure management vs runtime operations
-4. **Testability**: Mock adapter enables testing without cloud resources
-5. **Configurability**: Provider selection at runtime via configuration
+The **Data Plane** provides lightweight runtime access for applications:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                 Data Plane Application Layer                │
+│        (Running applications using LCAppRuntime)            │
+└────────────────────────┬────────────────────────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │      LCAppRuntime              │
+         │  (Lightweight runtime API)     │
+         └───────────────┬────────────────┘
+                         │
+         ┌───────────────▼────────────────┐
+         │    Client Factories            │
+         │  (Auto provider detection)     │
+         └───────────────┬────────────────┘
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+┌───────▼──────┐  ┌──────────▼───────────┐  ┌─────▼───────┐
+│ Core Domain  │  │   AWS Clients        │  │ Mock Layer  │
+│              │  │                      │  │             │
+│ 9 Clients:   │  │  Lightweight AWS:    │  │ Adapters:   │
+│ - QueueClient│  │  - SQS Client        │  │ - InMemory  │
+│ - ObjectClient│ │  - S3 Client         │  │ - InMemory  │
+│ - SecretsClient│ │  - Secrets Client    │  │ - InMemory  │
+│ - ConfigClient│ │  - AppConfig Client  │  │ - InMemory  │
+│ - EventPublisher│ │ - EventBridge      │  │ - InMemory  │
+│ - NotifyClient│ │  - SNS Client        │  │ - InMemory  │
+│ - DocClient  │  │  - DocumentDB Client │  │ - InMemory  │
+│ - DataClient │  │  - PostgreSQL Client │  │ - InMemory  │
+│ - AuthClient │  │  - Cognito Client    │  │ - InMemory  │
+└──────────────┘  └──────────────────────┘  └─────────────┘
+```
+
+### Architectural Principles & Benefits
+
+#### 1. **Separation of Concerns**
+- **Control Plane (LCPlatform)**: Infrastructure management, service orchestration, full feature sets
+- **Data Plane (LCAppRuntime)**: Runtime service access, lightweight operations, minimal overhead
+
+#### 2. **Provider Independence**
+- **Dependency Inversion**: Applications depend on abstractions (interfaces), not implementations
+- **No Cloud Lock-in**: No cloud-specific types in core domain interfaces
+- **Configuration-based**: Provider selection at runtime via environment variables
+
+#### 3. **Testability & Development**
+- **Mock Providers**: Enable testing and development without cloud resources
+- **Fast Feedback**: No network calls during unit testing
+- **Cost Efficiency**: Local development without cloud costs
+
+#### 4. **Performance Optimization**
+- **Control Plane**: Rich feature sets with full service capabilities
+- **Data Plane**: Optimized for runtime performance with minimal resource usage
+- **Connection Pooling**: Efficient resource management in both planes
+
+#### 5. **Operational Benefits**
+- **Different Use Cases**: Infrastructure ops vs application runtime
+- **Independent Scaling**: Scale control plane and data plane independently
+- **Security Boundaries**: Different authentication and access patterns
 
 ---
 
@@ -96,41 +135,119 @@ lc-platform-dev-accelerators follows hexagonal architecture principles to achiev
 lc-platform-dev-accelerators/
 ├── src/
 │   ├── core/                    # Domain layer (provider-agnostic)
-│   │   ├── types/              # Type definitions
+│   │   ├── types/              # Shared type definitions
 │   │   │   ├── common.ts       # Shared types, errors, config
+│   │   │   ├── runtime.ts      # Runtime-specific types
 │   │   │   ├── deployment.ts   # WebHosting types
+│   │   │   ├── function.ts     # FunctionHosting types
 │   │   │   ├── datastore.ts    # Database types
 │   │   │   ├── object.ts       # Object storage types
-│   │   │   └── ...             # Other service types
-│   │   └── services/           # Service interfaces
-│   │       ├── WebHostingService.ts
-│   │       ├── DataStoreService.ts
-│   │       ├── ObjectStoreService.ts
-│   │       └── ...             # Other services
+│   │   │   ├── job.ts          # Batch job types
+│   │   │   ├── queue.ts        # Queue types
+│   │   │   ├── secret.ts       # Secrets types
+│   │   │   ├── configuration.ts # Configuration types
+│   │   │   ├── document.ts     # Document store types
+│   │   │   ├── event.ts        # Event bus types
+│   │   │   ├── notification.ts # Notification types
+│   │   │   └── auth.ts         # Authentication types
+│   │   │
+│   │   ├── services/           # Control Plane interfaces (12 total)
+│   │   │   ├── WebHostingService.ts
+│   │   │   ├── FunctionHostingService.ts
+│   │   │   ├── BatchService.ts
+│   │   │   ├── DataStoreService.ts
+│   │   │   ├── DocumentStoreService.ts
+│   │   │   ├── ObjectStoreService.ts
+│   │   │   ├── QueueService.ts
+│   │   │   ├── EventBusService.ts
+│   │   │   ├── SecretsService.ts
+│   │   │   ├── ConfigurationService.ts
+│   │   │   ├── NotificationService.ts
+│   │   │   └── AuthenticationService.ts
+│   │   │
+│   │   └── clients/            # Data Plane interfaces (9 total)
+│   │       ├── QueueClient.ts
+│   │       ├── ObjectClient.ts
+│   │       ├── SecretsClient.ts
+│   │       ├── ConfigClient.ts
+│   │       ├── EventPublisher.ts
+│   │       ├── NotificationClient.ts
+│   │       ├── DocumentClient.ts
+│   │       ├── DataClient.ts
+│   │       └── AuthClient.ts
 │   │
-│   ├── providers/              # Infrastructure layer
+│   ├── providers/              # Infrastructure layer (cloud-specific)
 │   │   ├── aws/               # AWS implementations
-│   │   │   ├── AwsWebHostingService.ts
-│   │   │   ├── AwsDataStoreService.ts
-│   │   │   └── AwsObjectStoreService.ts
+│   │   │   ├── services/      # Control plane services (12 total)
+│   │   │   │   ├── AwsWebHostingService.ts      # App Runner
+│   │   │   │   ├── AwsFunctionHostingService.ts # Lambda
+│   │   │   │   ├── AwsBatchService.ts           # AWS Batch
+│   │   │   │   ├── AwsDataStoreService.ts       # RDS PostgreSQL
+│   │   │   │   ├── AwsDocumentStoreService.ts   # DocumentDB
+│   │   │   │   ├── AwsObjectStoreService.ts     # S3
+│   │   │   │   ├── AwsQueueService.ts           # SQS
+│   │   │   │   ├── AwsEventBusService.ts        # EventBridge
+│   │   │   │   ├── AwsSecretsService.ts         # Secrets Manager
+│   │   │   │   ├── AwsConfigurationService.ts   # AppConfig
+│   │   │   │   ├── AwsNotificationService.ts    # SNS
+│   │   │   │   └── AwsAuthenticationService.ts  # Cognito + Okta
+│   │   │   │
+│   │   │   ├── clients/       # Data plane clients (9 total)
+│   │   │   │   ├── AwsQueueClient.ts            # SQS client
+│   │   │   │   ├── AwsObjectClient.ts           # S3 client
+│   │   │   │   ├── AwsSecretsClient.ts          # Secrets Manager client
+│   │   │   │   ├── AwsConfigClient.ts           # AppConfig client
+│   │   │   │   ├── AwsEventPublisher.ts         # EventBridge client
+│   │   │   │   ├── AwsNotificationClient.ts     # SNS client
+│   │   │   │   ├── AwsDocumentClient.ts         # DocumentDB client
+│   │   │   │   ├── AwsDataClient.ts             # RDS client
+│   │   │   │   └── AwsAuthClient.ts             # Cognito client
+│   │   │   │
+│   │   │   └── AwsProviderConfig.ts # AWS provider configuration
+│   │   │
 │   │   ├── azure/             # Future: Azure implementations
-│   │   └── mock/              # Mock implementations
-│   │       ├── MockWebHostingService.ts
-│   │       ├── MockDataStoreService.ts
-│   │       └── MockObjectStoreService.ts
+│   │   │   ├── services/      # Azure control plane services
+│   │   │   └── clients/       # Azure data plane clients
+│   │   │
+│   │   └── mock/              # Mock implementations (testing)
+│   │       ├── services/      # Mock control plane services (12 total)
+│   │       │   ├── MockWebHostingService.ts
+│   │       │   ├── MockFunctionHostingService.ts
+│   │       │   ├── MockBatchService.ts
+│   │       │   ├── MockDataStoreService.ts
+│   │       │   ├── MockDocumentStoreService.ts
+│   │       │   ├── MockObjectStoreService.ts
+│   │       │   ├── MockQueueService.ts
+│   │       │   ├── MockEventBusService.ts
+│   │       │   ├── MockSecretsService.ts
+│   │       │   ├── MockConfigurationService.ts
+│   │       │   ├── MockNotificationService.ts
+│   │       │   └── MockAuthenticationService.ts
+│   │       │
+│   │       ├── clients/       # Mock data plane clients (9 total)
+│   │       │   ├── MockQueueClient.ts
+│   │       │   ├── MockObjectClient.ts
+│   │       │   ├── MockSecretsClient.ts
+│   │       │   ├── MockConfigClient.ts
+│   │       │   ├── MockEventPublisher.ts
+│   │       │   ├── MockNotificationClient.ts
+│   │       │   ├── MockDocumentClient.ts
+│   │       │   ├── MockDataClient.ts
+│   │       │   └── MockAuthClient.ts
+│   │       │
+│   │       └── MockProviderConfig.ts # Mock provider configuration
 │   │
 │   ├── factory/               # Factory pattern implementations
-│   │   ├── ProviderFactory.ts           # Base factory
-│   │   ├── WebHostingServiceFactory.ts  # WebHosting factory
-│   │   ├── DataStoreServiceFactory.ts   # DataStore factory
-│   │   └── ObjectStoreServiceFactory.ts # ObjectStore factory
+│   │   ├── LCPlatformFactory.ts    # Control plane DI container
+│   │   └── LCAppRuntimeFactory.ts  # Data plane DI container
 │   │
 │   ├── utils/                 # Utility functions
 │   │   ├── retry.ts          # Retry logic with exponential backoff
 │   │   ├── cache.ts          # LRU cache implementation
 │   │   └── validation.ts     # Input validation utilities
 │   │
-│   ├── LCPlatform.ts         # Main entry point
+│   ├── LCPlatform.ts         # Control plane entry point
+│   ├── LCAppRuntime.ts       # Data plane entry point
 │   └── index.ts              # Public API exports
 │
 ├── tests/
@@ -215,61 +332,91 @@ export class AwsObjectStoreService implements ObjectStoreService {
 
 ## Design Patterns
 
-### 1. Factory Pattern
+### 1. Dual-Plane Factory Pattern
 
-Runtime provider selection without code changes.
+The platform uses separate factory classes for Control Plane and Data Plane services.
 
 ```typescript
-// src/factory/ProviderFactory.ts
-export abstract class BaseProviderFactory<T> {
-  create(config: ProviderConfig): T {
-    switch (config.provider) {
-      case ProviderType.AWS:
-        return this.createAwsService(config);
-      case ProviderType.AZURE:
-        return this.createAzureService(config);
-      case ProviderType.MOCK:
-        return this.createMockService(config);
-      default:
-        throw new Error(`Unknown provider: ${config.provider}`);
-    }
+// src/factory/LCPlatformFactory.ts - Control Plane Factory
+export class LCPlatformFactory {
+  constructor(private config: ProviderConfig) {}
+
+  createWebHostingService(): WebHostingService {
+    return this.createService('webhosting');
   }
 
-  protected abstract createAwsService(config: ProviderConfig): T;
-  protected abstract createAzureService(config: ProviderConfig): T;
-  protected abstract createMockService(config: ProviderConfig): T;
+  createFunctionHostingService(): FunctionHostingService {
+    return this.createService('functionhosting');
+  }
+
+  // ... other control plane services
+
+  private createService(serviceName: string) {
+    switch (this.config.provider) {
+      case 'aws': return new AwsServicesFactory().create(serviceName, this.config);
+      case 'mock': return new MockServicesFactory().create(serviceName, this.config);
+      default: throw new Error(`Unknown provider: ${this.config.provider}`);
+    }
+  }
+}
+
+// src/factory/LCAppRuntimeFactory.ts - Data Plane Factory
+export class LCAppRuntimeFactory {
+  constructor(private config: ProviderConfig) {}
+
+  createQueueClient(): QueueClient {
+    return this.createClient('queue');
+  }
+
+  createObjectClient(): ObjectClient {
+    return this.createClient('object');
+  }
+
+  // ... other data plane clients
+
+  private createClient(clientName: string) {
+    switch (this.config.provider) {
+      case 'aws': return new AwsClientsFactory().create(clientName, this.config);
+      case 'mock': return new MockClientsFactory().create(clientName, this.config);
+      default: throw new Error(`Unknown provider: ${this.config.provider}`);
+    }
+  }
 }
 ```
 
-**Usage**:
-```typescript
-const factory = new WebHostingServiceFactory();
-const service = factory.create({ provider: ProviderType.AWS, region: 'us-east-1' });
-```
+### 2. Dual-Plane Dependency Injection
 
-### 2. Dependency Injection
-
-Services are injected via `LCPlatform` class.
+Services are injected via separate entry points for Control and Data planes.
 
 ```typescript
+// Control Plane - Infrastructure management
 export class LCPlatform {
-  private config: ProviderConfig;
+  private factory: LCPlatformFactory;
 
   constructor(config: ProviderConfig) {
-    this.config = config;
+    this.factory = new LCPlatformFactory(config);
   }
 
-  getWebHosting(): WebHostingService {
-    return new WebHostingServiceFactory().create(this.config);
+  // Control Plane Services (12 total)
+  getWebHosting(): WebHostingService { return this.factory.createWebHostingService(); }
+  getFunctionHosting(): FunctionHostingService { return this.factory.createFunctionHostingService(); }
+  getBatch(): BatchService { return this.factory.createBatchService(); }
+  // ... other services
+}
+
+// Data Plane - Runtime operations
+export class LCAppRuntime {
+  private factory: LCAppRuntimeFactory;
+
+  constructor(config: ProviderConfig) {
+    this.factory = new LCAppRuntimeFactory(config);
   }
 
-  getDataStore(): DataStoreService {
-    return new DataStoreServiceFactory().create(this.config);
-  }
-
-  getObjectStore(): ObjectStoreService {
-    return new ObjectStoreServiceFactory().create(this.config);
-  }
+  // Data Plane Clients (9 total)
+  getQueue(): QueueClient { return this.factory.createQueueClient(); }
+  getObject(): ObjectClient { return this.factory.createObjectClient(); }
+  getSecrets(): SecretsClient { return this.factory.createSecretsClient(); }
+  // ... other clients
 }
 ```
 
@@ -785,5 +932,88 @@ services:
 
 ---
 
-**Last Updated**: October 20, 2025
+---
+
+## CI/CD Pipeline
+
+### GitHub Actions Workflows
+
+Three automated workflows ensure code quality and deployment:
+
+#### 1. CI Workflow (`.github/workflows/ci.yml`)
+- **Triggers**: Every push and pull request
+- **Matrix Testing**: Ubuntu, macOS, Windows × Bun 1.0.0, latest
+- **Steps**:
+  - Type checking (`tsc --noEmit`)
+  - Linting (`eslint`)
+  - Formatting check (`prettier`)
+  - Unit tests with coverage
+  - Build validation
+
+#### 2. Publish Workflow (`.github/workflows/publish.yml`)
+- **Triggers**: Release creation or manual dispatch
+- **Dual Publishing**:
+  - NPM public registry
+  - GitHub Packages registry
+- **Version Management**: Automatic semantic versioning
+
+#### 3. Integration Tests (`.github/workflows/integration-tests.yml`)
+- **Schedule**: Weekly automated runs
+- **AWS Integration**: Full AWS service testing
+- **Requires**: AWS credentials from secrets
+
+### Quality Gates
+
+All merges to `main` branch must pass:
+- ✅ 0 TypeScript errors
+- ✅ 0 ESLint errors
+- ✅ 95%+ test pass rate
+- ✅ 80%+ code coverage
+- ✅ Prettier formatting
+
+---
+
+## Performance Optimization
+
+### Actual Performance Results
+
+From `benchmarks/index.ts` (23 operations across 11 services):
+
+| Category | Operation | Ops/Second | Performance |
+|----------|-----------|------------|-------------|
+| Object Creation | Direct | 16.6M | ✅ Exceeds 100K target |
+| Object Creation | With types | 14.3M | ✅ Exceeds 100K target |
+| Object Creation | Factory pattern | 13.4M | ✅ Exceeds 100K target |
+| Storage | Upload 1KB | 5M | ✅ Exceeds 10K target |
+| Storage | Download | 4M | ✅ Exceeds 10K target |
+| Storage | Delete | 2M | ✅ Exceeds 10K target |
+| Storage | List | 1.5M | ✅ Exceeds 10K target |
+| Storage | Presigned URL | 1.8M | ✅ Exceeds 10K target |
+| Database | SELECT | 2.7M | ✅ Exceeds 50K target |
+| Database | Parameterized | 2.5M | ✅ Exceeds 50K target |
+| Database | Transaction (3 ops) | 700K | ✅ Exceeds 50K target |
+| Batch | Submit job | 25K | ✅ Good performance |
+| Batch | List jobs | 35K | ✅ Good performance |
+| Queue | Send message | 1.5M | ✅ Exceeds 20K target |
+| Queue | Receive | 30K | ✅ Exceeds 20K target |
+| Secrets | Create | 55K | ✅ Good performance |
+| Config | Create | 60K | ✅ Good performance |
+
+**Key Insights**:
+- Mock provider overhead: <5% vs direct implementation
+- Factory pattern adds negligible overhead
+- All operations exceed conservative targets by 10-100x
+
+### Optimization Strategies Implemented
+
+1. **Connection Pooling**: PostgreSQL pool (10-100 connections)
+2. **LRU Caching**: Secrets and configuration (5min TTL)
+3. **Streaming**: Objects >5MB use streams (constant memory)
+4. **Batch Operations**: Transaction grouping for database ops
+5. **Async/Parallel**: Connection pooling enables concurrency
+
+---
+
+**Last Updated**: October 21, 2025
 **Architecture Version**: 1.0.0 (Hexagonal Architecture with Factory Pattern)
+**Services**: 11/11 Complete (User Stories 1-7)

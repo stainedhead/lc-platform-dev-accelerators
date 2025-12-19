@@ -6,7 +6,7 @@
 
 # Interface: NotificationMessage
 
-Defined in: [src/core/types/notification.ts:5](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L5)
+Defined in: [src/core/types/notification.ts:5](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L5)
 
 Notification Types
 
@@ -16,7 +16,7 @@ Notification Types
 
 > `optional` **subject**: `string`
 
-Defined in: [src/core/types/notification.ts:6](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L6)
+Defined in: [src/core/types/notification.ts:6](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L6)
 
 ***
 
@@ -24,7 +24,7 @@ Defined in: [src/core/types/notification.ts:6](https://github.com/stainedhead/lc
 
 > **body**: `string`
 
-Defined in: [src/core/types/notification.ts:7](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L7)
+Defined in: [src/core/types/notification.ts:7](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L7)
 
 ***
 
@@ -32,4 +32,4 @@ Defined in: [src/core/types/notification.ts:7](https://github.com/stainedhead/lc
 
 > `optional` **attributes**: `Record`\<`string`, `string`\>
 
-Defined in: [src/core/types/notification.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L8)
+Defined in: [src/core/types/notification.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L8)

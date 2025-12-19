@@ -6,7 +6,7 @@
 
 # Interface: BatchService
 
-Defined in: [src/core/services/BatchService.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/BatchService.ts#L8)
+Defined in: [src/core/services/BatchService.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/BatchService.ts#L8)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/BatchService.ts:8](https://github.com/stainedhead
 
 > **submitJob**(`params`): `Promise`\<[`Job`](Job.md)\>
 
-Defined in: [src/core/services/BatchService.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/BatchService.ts#L14)
+Defined in: [src/core/services/BatchService.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/BatchService.ts#L14)
 
 Submit a batch job for execution
 
@@ -38,7 +38,7 @@ The created job with ID and initial status
 
 > **getJob**(`jobId`): `Promise`\<[`Job`](Job.md)\>
 
-Defined in: [src/core/services/BatchService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/BatchService.ts#L21)
+Defined in: [src/core/services/BatchService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/BatchService.ts#L21)
 
 Get the current status and details of a job
 
@@ -62,7 +62,7 @@ Job details including status, progress, and results
 
 > **cancelJob**(`jobId`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/BatchService.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/BatchService.ts#L27)
+Defined in: [src/core/services/BatchService.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/BatchService.ts#L27)
 
 Cancel a running or pending job
 
@@ -84,7 +84,7 @@ Unique identifier of the job to cancel
 
 > **listJobs**(`status?`): `Promise`\<[`Job`](Job.md)[]\>
 
-Defined in: [src/core/services/BatchService.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/BatchService.ts#L34)
+Defined in: [src/core/services/BatchService.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/BatchService.ts#L34)
 
 List all jobs, optionally filtered by status
 
@@ -108,7 +108,7 @@ Array of jobs matching the filter
 
 > **scheduleJob**(`params`): `Promise`\<[`ScheduledJob`](ScheduledJob.md)\>
 
-Defined in: [src/core/services/BatchService.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/BatchService.ts#L41)
+Defined in: [src/core/services/BatchService.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/BatchService.ts#L41)
 
 Schedule a job to run on a recurring basis
 
@@ -132,7 +132,7 @@ The created scheduled job
 
 > **deleteScheduledJob**(`scheduleId`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/BatchService.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/BatchService.ts#L47)
+Defined in: [src/core/services/BatchService.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/BatchService.ts#L47)
 
 Remove a scheduled job
 
@@ -154,7 +154,7 @@ Unique identifier of the scheduled job
 
 > **listScheduledJobs**(): `Promise`\<[`ScheduledJob`](ScheduledJob.md)[]\>
 
-Defined in: [src/core/services/BatchService.ts:53](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/BatchService.ts#L53)
+Defined in: [src/core/services/BatchService.ts:53](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/BatchService.ts#L53)
 
 List all scheduled jobs
 

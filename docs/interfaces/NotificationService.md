@@ -6,7 +6,7 @@
 
 # Interface: NotificationService
 
-Defined in: [src/core/services/NotificationService.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L15)
+Defined in: [src/core/services/NotificationService.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L15)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/NotificationService.ts:15](https://github.com/sta
 
 > **createTopic**(`name`): `Promise`\<[`Topic`](Topic.md)\>
 
-Defined in: [src/core/services/NotificationService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L21)
+Defined in: [src/core/services/NotificationService.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L21)
 
 Create a new notification topic
 
@@ -38,7 +38,7 @@ The created topic
 
 > **getTopic**(`topicArn`): `Promise`\<[`Topic`](Topic.md)\>
 
-Defined in: [src/core/services/NotificationService.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L28)
+Defined in: [src/core/services/NotificationService.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L28)
 
 Get topic details
 
@@ -62,7 +62,7 @@ Topic metadata including subscriptions
 
 > **deleteTopic**(`topicArn`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/NotificationService.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L34)
+Defined in: [src/core/services/NotificationService.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L34)
 
 Delete a topic and all its subscriptions
 
@@ -84,7 +84,7 @@ Topic ARN or name
 
 > **publishToTopic**(`topicArn`, `message`): `Promise`\<`string`\>
 
-Defined in: [src/core/services/NotificationService.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L42)
+Defined in: [src/core/services/NotificationService.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L42)
 
 Publish a message to a topic
 
@@ -114,7 +114,7 @@ Message ID
 
 > **subscribe**(`topicArn`, `protocol`, `endpoint`): `Promise`\<[`Subscription`](Subscription.md)\>
 
-Defined in: [src/core/services/NotificationService.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L51)
+Defined in: [src/core/services/NotificationService.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L51)
 
 Subscribe to a topic
 
@@ -150,7 +150,7 @@ The created subscription
 
 > **unsubscribe**(`subscriptionId`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/NotificationService.ts:57](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L57)
+Defined in: [src/core/services/NotificationService.ts:57](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L57)
 
 Unsubscribe from a topic
 
@@ -172,7 +172,7 @@ Subscription ID
 
 > **confirmSubscription**(`subscriptionId`, `token`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/NotificationService.ts:64](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L64)
+Defined in: [src/core/services/NotificationService.ts:64](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L64)
 
 Confirm a subscription (typically after receiving confirmation message)
 
@@ -200,7 +200,7 @@ Confirmation token
 
 > **listTopics**(): `Promise`\<[`Topic`](Topic.md)[]\>
 
-Defined in: [src/core/services/NotificationService.ts:70](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L70)
+Defined in: [src/core/services/NotificationService.ts:70](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L70)
 
 List all topics
 
@@ -216,7 +216,7 @@ Array of topics
 
 > **listSubscriptions**(`topicArn`): `Promise`\<[`Subscription`](Subscription.md)[]\>
 
-Defined in: [src/core/services/NotificationService.ts:77](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L77)
+Defined in: [src/core/services/NotificationService.ts:77](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L77)
 
 List subscriptions for a topic
 
@@ -240,7 +240,7 @@ Array of subscriptions
 
 > **sendEmail**(`params`): `Promise`\<`string`\>
 
-Defined in: [src/core/services/NotificationService.ts:84](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L84)
+Defined in: [src/core/services/NotificationService.ts:84](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L84)
 
 Send an email directly (without using topics)
 
@@ -264,7 +264,7 @@ Message ID
 
 > **sendSMS**(`params`): `Promise`\<`string`\>
 
-Defined in: [src/core/services/NotificationService.ts:91](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/NotificationService.ts#L91)
+Defined in: [src/core/services/NotificationService.ts:91](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/NotificationService.ts#L91)
 
 Send an SMS message directly (without using topics)
 

@@ -6,7 +6,7 @@
 
 # Interface: CreateConfigurationParams
 
-Defined in: [src/core/types/configuration.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L44)
+Defined in: [src/core/types/configuration.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L44)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/configuration.ts:44](https://github.com/stainedhead/
 
 > **name**: `string`
 
-Defined in: [src/core/types/configuration.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L45)
+Defined in: [src/core/types/configuration.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L45)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/configuration.ts:45](https://github.com/stainedhead/
 
 > **content**: `string`
 
-Defined in: [src/core/types/configuration.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L46)
+Defined in: [src/core/types/configuration.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L46)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/configuration.ts:46](https://github.com/stainedhead/
 
 > `optional` **label**: `string`
 
-Defined in: [src/core/types/configuration.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L47)
+Defined in: [src/core/types/configuration.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L47)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/configuration.ts:47](https://github.com/stainedhead/
 
 > `optional` **contentType**: `string`
 
-Defined in: [src/core/types/configuration.ts:48](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L48)
+Defined in: [src/core/types/configuration.ts:48](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L48)
 
 ***
 
@@ -46,4 +46,4 @@ Defined in: [src/core/types/configuration.ts:48](https://github.com/stainedhead/
 
 > `optional` **description**: `string`
 
-Defined in: [src/core/types/configuration.ts:49](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/configuration.ts#L49)
+Defined in: [src/core/types/configuration.ts:49](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/configuration.ts#L49)

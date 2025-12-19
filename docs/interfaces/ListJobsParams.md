@@ -6,7 +6,7 @@
 
 # Interface: ListJobsParams
 
-Defined in: [src/core/types/job.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L44)
+Defined in: [src/core/types/job.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L44)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/job.ts:44](https://github.com/stainedhead/lc-platfor
 
 > `optional` **status**: [`JobStatus`](../enumerations/JobStatus.md)
 
-Defined in: [src/core/types/job.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L45)
+Defined in: [src/core/types/job.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L45)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/job.ts:45](https://github.com/stainedhead/lc-platfor
 
 > `optional` **limit**: `number`
 
-Defined in: [src/core/types/job.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L46)
+Defined in: [src/core/types/job.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L46)
 
 ***
 
@@ -30,4 +30,4 @@ Defined in: [src/core/types/job.ts:46](https://github.com/stainedhead/lc-platfor
 
 > `optional` **nextToken**: `string`
 
-Defined in: [src/core/types/job.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/job.ts#L47)
+Defined in: [src/core/types/job.ts:47](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/job.ts#L47)

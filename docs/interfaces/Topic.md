@@ -6,7 +6,7 @@
 
 # Interface: Topic
 
-Defined in: [src/core/types/notification.ts:11](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L11)
+Defined in: [src/core/types/notification.ts:11](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L11)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/notification.ts:11](https://github.com/stainedhead/l
 
 > **name**: `string`
 
-Defined in: [src/core/types/notification.ts:12](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L12)
+Defined in: [src/core/types/notification.ts:12](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L12)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/notification.ts:12](https://github.com/stainedhead/l
 
 > `optional` **arn**: `string`
 
-Defined in: [src/core/types/notification.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L13)
+Defined in: [src/core/types/notification.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L13)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/notification.ts:13](https://github.com/stainedhead/l
 
 > **subscriptions**: [`Subscription`](Subscription.md)[]
 
-Defined in: [src/core/types/notification.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L14)
+Defined in: [src/core/types/notification.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L14)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/notification.ts:14](https://github.com/stainedhead/l
 
 > **created**: `Date`
 
-Defined in: [src/core/types/notification.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/notification.ts#L15)
+Defined in: [src/core/types/notification.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/notification.ts#L15)

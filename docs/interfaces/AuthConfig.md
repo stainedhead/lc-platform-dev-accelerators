@@ -6,7 +6,7 @@
 
 # Interface: AuthConfig
 
-Defined in: [src/core/types/auth.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/auth.ts#L37)
+Defined in: [src/core/types/auth.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/auth.ts#L37)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/auth.ts:37](https://github.com/stainedhead/lc-platfo
 
 > **provider**: `"okta"` \| `"auth0"` \| `"azure-ad"`
 
-Defined in: [src/core/types/auth.ts:38](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/auth.ts#L38)
+Defined in: [src/core/types/auth.ts:38](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/auth.ts#L38)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/auth.ts:38](https://github.com/stainedhead/lc-platfo
 
 > **domain**: `string`
 
-Defined in: [src/core/types/auth.ts:39](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/auth.ts#L39)
+Defined in: [src/core/types/auth.ts:39](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/auth.ts#L39)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/auth.ts:39](https://github.com/stainedhead/lc-platfo
 
 > **clientId**: `string`
 
-Defined in: [src/core/types/auth.ts:40](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/auth.ts#L40)
+Defined in: [src/core/types/auth.ts:40](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/auth.ts#L40)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/auth.ts:40](https://github.com/stainedhead/lc-platfo
 
 > `optional` **clientSecret**: `string`
 
-Defined in: [src/core/types/auth.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/auth.ts#L41)
+Defined in: [src/core/types/auth.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/auth.ts#L41)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/core/types/auth.ts:41](https://github.com/stainedhead/lc-platfo
 
 > `optional` **scopes**: `string`[]
 
-Defined in: [src/core/types/auth.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/auth.ts#L42)
+Defined in: [src/core/types/auth.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/auth.ts#L42)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/core/types/auth.ts:42](https://github.com/stainedhead/lc-platfo
 
 > `optional` **redirectUri**: `string`
 
-Defined in: [src/core/types/auth.ts:43](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/auth.ts#L43)
+Defined in: [src/core/types/auth.ts:43](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/auth.ts#L43)

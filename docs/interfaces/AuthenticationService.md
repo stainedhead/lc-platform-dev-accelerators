@@ -6,7 +6,7 @@
 
 # Interface: AuthenticationService
 
-Defined in: [src/core/services/AuthenticationService.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L8)
+Defined in: [src/core/services/AuthenticationService.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L8)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/AuthenticationService.ts:8](https://github.com/st
 
 > **configure**(`config`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/AuthenticationService.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L13)
+Defined in: [src/core/services/AuthenticationService.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L13)
 
 Initialize the authentication service with provider configuration
 
@@ -36,7 +36,7 @@ Authentication provider configuration
 
 > **getAuthorizationUrl**(`redirectUri`, `scopes?`, `state?`): `Promise`\<`string`\>
 
-Defined in: [src/core/services/AuthenticationService.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L22)
+Defined in: [src/core/services/AuthenticationService.ts:22](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L22)
 
 Get the authorization URL to redirect users for login
 
@@ -72,7 +72,7 @@ Authorization URL
 
 > **exchangeCodeForTokens**(`code`, `redirectUri`): `Promise`\<[`TokenSet`](TokenSet.md)\>
 
-Defined in: [src/core/services/AuthenticationService.ts:30](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L30)
+Defined in: [src/core/services/AuthenticationService.ts:30](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L30)
 
 Exchange authorization code for tokens
 
@@ -102,7 +102,7 @@ Token set including access token, ID token, and refresh token
 
 > **refreshAccessToken**(`refreshToken`): `Promise`\<[`TokenSet`](TokenSet.md)\>
 
-Defined in: [src/core/services/AuthenticationService.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L37)
+Defined in: [src/core/services/AuthenticationService.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L37)
 
 Refresh an access token using a refresh token
 
@@ -126,7 +126,7 @@ New token set
 
 > **validateToken**(`accessToken`): `Promise`\<[`TokenClaims`](TokenClaims.md)\>
 
-Defined in: [src/core/services/AuthenticationService.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L44)
+Defined in: [src/core/services/AuthenticationService.ts:44](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L44)
 
 Validate and decode an access token
 
@@ -150,7 +150,7 @@ Decoded token claims if valid
 
 > **getUserInfo**(`accessToken`): `Promise`\<[`UserInfo`](UserInfo.md)\>
 
-Defined in: [src/core/services/AuthenticationService.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L51)
+Defined in: [src/core/services/AuthenticationService.ts:51](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L51)
 
 Get user information using an access token
 
@@ -174,7 +174,7 @@ User profile information
 
 > **revokeToken**(`token`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/AuthenticationService.ts:57](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L57)
+Defined in: [src/core/services/AuthenticationService.ts:57](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L57)
 
 Revoke a token (logout)
 
@@ -196,7 +196,7 @@ The token to revoke (access or refresh)
 
 > **verifyIdToken**(`idToken`): `Promise`\<[`TokenClaims`](TokenClaims.md)\>
 
-Defined in: [src/core/services/AuthenticationService.ts:64](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/AuthenticationService.ts#L64)
+Defined in: [src/core/services/AuthenticationService.ts:64](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/AuthenticationService.ts#L64)
 
 Verify an ID token's signature and claims
 

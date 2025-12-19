@@ -128,7 +128,7 @@ export class AwsConfigurationService implements ConfigurationService {
         application: this.applicationName,
         environment: params.label || 'default',
         version: String(versionResponse.VersionNumber || 1),
-        data: JSON.parse(params.content),
+        data: JSON.parse(params.content) as Record<string, unknown>,
         created: new Date(),
         deployed: false,
       };
@@ -200,7 +200,7 @@ export class AwsConfigurationService implements ConfigurationService {
         application: this.applicationName,
         environment: _label || 'default',
         version: String(latestVersion?.VersionNumber || 1),
-        data: JSON.parse(contentString),
+        data: JSON.parse(contentString) as Record<string, unknown>,
         created: new Date(),
         deployed: false,
       };
@@ -266,7 +266,7 @@ export class AwsConfigurationService implements ConfigurationService {
         application: this.applicationName,
         environment: params.label || 'default',
         version: String(versionResponse.VersionNumber || 1),
-        data: JSON.parse(params.content || '{}'),
+        data: JSON.parse(params.content || '{}') as Record<string, unknown>,
         created: new Date(),
         deployed: false,
       };
@@ -374,7 +374,7 @@ export class AwsConfigurationService implements ConfigurationService {
   async validateConfiguration(content: string, schema: object): Promise<ValidationResult> {
     try {
       // Parse content as JSON
-      const data = JSON.parse(content);
+      const data = JSON.parse(content) as Record<string, unknown>;
 
       // Simple validation: check if all required fields from schema are present
       // In production, use a library like ajv for JSON Schema validation

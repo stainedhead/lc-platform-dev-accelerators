@@ -6,7 +6,7 @@
 
 # Interface: ProviderConfig
 
-Defined in: [src/core/types/common.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L14)
+Defined in: [src/core/types/common.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L14)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/common.ts:14](https://github.com/stainedhead/lc-plat
 
 > **provider**: [`ProviderType`](../enumerations/ProviderType.md)
 
-Defined in: [src/core/types/common.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L15)
+Defined in: [src/core/types/common.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L15)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/common.ts:15](https://github.com/stainedhead/lc-plat
 
 > `optional` **region**: `string`
 
-Defined in: [src/core/types/common.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L16)
+Defined in: [src/core/types/common.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L16)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/common.ts:16](https://github.com/stainedhead/lc-plat
 
 > `optional` **credentials**: `object`
 
-Defined in: [src/core/types/common.ts:17](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L17)
+Defined in: [src/core/types/common.ts:17](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L17)
 
 #### accessKeyId?
 
@@ -42,8 +42,18 @@ Defined in: [src/core/types/common.ts:17](https://github.com/stainedhead/lc-plat
 
 ***
 
+### endpoint?
+
+> `optional` **endpoint**: `string`
+
+Defined in: [src/core/types/common.ts:24](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L24)
+
+Optional endpoint override for testing (e.g., LocalStack)
+
+***
+
 ### options?
 
 > `optional` **options**: `Record`\<`string`, `unknown`\>
 
-Defined in: [src/core/types/common.ts:21](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L21)
+Defined in: [src/core/types/common.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L25)

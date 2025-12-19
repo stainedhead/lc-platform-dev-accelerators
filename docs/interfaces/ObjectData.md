@@ -6,7 +6,7 @@
 
 # Interface: ObjectData
 
-Defined in: [src/core/types/object.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L8)
+Defined in: [src/core/types/object.ts:8](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L8)
 
 Object Storage Types
 
@@ -19,7 +19,7 @@ Provider-agnostic abstractions for AWS S3, Azure Blob Storage, etc.
 
 > **bucket**: `string`
 
-Defined in: [src/core/types/object.ts:9](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L9)
+Defined in: [src/core/types/object.ts:9](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L9)
 
 ***
 
@@ -27,7 +27,7 @@ Defined in: [src/core/types/object.ts:9](https://github.com/stainedhead/lc-platf
 
 > **key**: `string`
 
-Defined in: [src/core/types/object.ts:10](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L10)
+Defined in: [src/core/types/object.ts:10](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L10)
 
 ***
 
@@ -35,7 +35,7 @@ Defined in: [src/core/types/object.ts:10](https://github.com/stainedhead/lc-plat
 
 > **data**: `Buffer`\<`ArrayBufferLike`\> \| `ReadableStream`\<`any`\>
 
-Defined in: [src/core/types/object.ts:11](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L11)
+Defined in: [src/core/types/object.ts:11](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L11)
 
 ***
 
@@ -43,7 +43,7 @@ Defined in: [src/core/types/object.ts:11](https://github.com/stainedhead/lc-plat
 
 > **size**: `number`
 
-Defined in: [src/core/types/object.ts:12](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L12)
+Defined in: [src/core/types/object.ts:12](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L12)
 
 ***
 
@@ -51,7 +51,7 @@ Defined in: [src/core/types/object.ts:12](https://github.com/stainedhead/lc-plat
 
 > `optional` **contentType**: `string`
 
-Defined in: [src/core/types/object.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L13)
+Defined in: [src/core/types/object.ts:13](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L13)
 
 ***
 
@@ -59,7 +59,7 @@ Defined in: [src/core/types/object.ts:13](https://github.com/stainedhead/lc-plat
 
 > `optional` **metadata**: [`ObjectMetadata`](ObjectMetadata.md)
 
-Defined in: [src/core/types/object.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L14)
+Defined in: [src/core/types/object.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L14)
 
 ***
 
@@ -67,7 +67,7 @@ Defined in: [src/core/types/object.ts:14](https://github.com/stainedhead/lc-plat
 
 > **etag**: `string`
 
-Defined in: [src/core/types/object.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L15)
+Defined in: [src/core/types/object.ts:15](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L15)
 
 ***
 
@@ -75,4 +75,4 @@ Defined in: [src/core/types/object.ts:15](https://github.com/stainedhead/lc-plat
 
 > **lastModified**: `Date`
 
-Defined in: [src/core/types/object.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L16)
+Defined in: [src/core/types/object.ts:16](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L16)

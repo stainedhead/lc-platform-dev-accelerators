@@ -52,11 +52,11 @@ export class AwsDocumentStoreService implements DocumentStoreService {
     // DocumentDB connection string format:
     // mongodb://username:password@cluster-endpoint:27017/?tls=true&tlsCAFile=rds-combined-ca-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false
 
-    const host = config.options?.docDbHost || 'localhost';
-    const port = config.options?.docDbPort || 27017;
-    const username = config.options?.docDbUser || 'admin';
-    const password = config.options?.docDbPassword || 'password';
-    this.databaseName = String(config.options?.docDbName || 'lcplatform');
+    const host = String(config.options?.docDbHost ?? 'localhost');
+    const port = String(config.options?.docDbPort ?? 27017);
+    const username = String(config.options?.docDbUser ?? 'admin');
+    const password = String(config.options?.docDbPassword ?? 'password');
+    this.databaseName = String(config.options?.docDbName ?? 'lcplatform');
 
     this.connectionString = `mongodb://${username}:${password}@${host}:${port}/${this.databaseName}?tls=true&tlsAllowInvalidCertificates=true&retryWrites=false`;
   }

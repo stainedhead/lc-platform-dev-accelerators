@@ -6,7 +6,7 @@
 
 # Interface: QueryOperator
 
-Defined in: [src/core/types/document.ts:32](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L32)
+Defined in: [src/core/types/document.ts:33](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L33)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/document.ts:32](https://github.com/stainedhead/lc-pl
 
 > `optional` **$eq**: `unknown`
 
-Defined in: [src/core/types/document.ts:33](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L33)
+Defined in: [src/core/types/document.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L34)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/document.ts:33](https://github.com/stainedhead/lc-pl
 
 > `optional` **$ne**: `unknown`
 
-Defined in: [src/core/types/document.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L34)
+Defined in: [src/core/types/document.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L35)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/document.ts:34](https://github.com/stainedhead/lc-pl
 
 > `optional` **$gt**: `number` \| `Date`
 
-Defined in: [src/core/types/document.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L35)
+Defined in: [src/core/types/document.ts:36](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L36)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/document.ts:35](https://github.com/stainedhead/lc-pl
 
 > `optional` **$gte**: `number` \| `Date`
 
-Defined in: [src/core/types/document.ts:36](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L36)
+Defined in: [src/core/types/document.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L37)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/core/types/document.ts:36](https://github.com/stainedhead/lc-pl
 
 > `optional` **$lt**: `number` \| `Date`
 
-Defined in: [src/core/types/document.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L37)
+Defined in: [src/core/types/document.ts:38](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L38)
 
 ***
 
@@ -54,7 +54,7 @@ Defined in: [src/core/types/document.ts:37](https://github.com/stainedhead/lc-pl
 
 > `optional` **$lte**: `number` \| `Date`
 
-Defined in: [src/core/types/document.ts:38](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L38)
+Defined in: [src/core/types/document.ts:39](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L39)
 
 ***
 
@@ -62,7 +62,7 @@ Defined in: [src/core/types/document.ts:38](https://github.com/stainedhead/lc-pl
 
 > `optional` **$in**: `unknown`[]
 
-Defined in: [src/core/types/document.ts:39](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L39)
+Defined in: [src/core/types/document.ts:40](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L40)
 
 ***
 
@@ -70,4 +70,4 @@ Defined in: [src/core/types/document.ts:39](https://github.com/stainedhead/lc-pl
 
 > `optional` **$nin**: `unknown`[]
 
-Defined in: [src/core/types/document.ts:40](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L40)
+Defined in: [src/core/types/document.ts:41](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L41)

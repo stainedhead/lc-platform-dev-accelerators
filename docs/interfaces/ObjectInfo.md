@@ -6,7 +6,7 @@
 
 # Interface: ObjectInfo
 
-Defined in: [src/core/types/object.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L28)
+Defined in: [src/core/types/object.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L28)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/object.ts:28](https://github.com/stainedhead/lc-plat
 
 > **bucket**: `string`
 
-Defined in: [src/core/types/object.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L29)
+Defined in: [src/core/types/object.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L29)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/object.ts:29](https://github.com/stainedhead/lc-plat
 
 > **key**: `string`
 
-Defined in: [src/core/types/object.ts:30](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L30)
+Defined in: [src/core/types/object.ts:30](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L30)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/object.ts:30](https://github.com/stainedhead/lc-plat
 
 > **size**: `number`
 
-Defined in: [src/core/types/object.ts:31](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L31)
+Defined in: [src/core/types/object.ts:31](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L31)
 
 ***
 
@@ -38,7 +38,7 @@ Defined in: [src/core/types/object.ts:31](https://github.com/stainedhead/lc-plat
 
 > **lastModified**: `Date`
 
-Defined in: [src/core/types/object.ts:32](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L32)
+Defined in: [src/core/types/object.ts:32](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L32)
 
 ***
 
@@ -46,7 +46,7 @@ Defined in: [src/core/types/object.ts:32](https://github.com/stainedhead/lc-plat
 
 > **etag**: `string`
 
-Defined in: [src/core/types/object.ts:33](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L33)
+Defined in: [src/core/types/object.ts:33](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L33)
 
 ***
 
@@ -54,4 +54,4 @@ Defined in: [src/core/types/object.ts:33](https://github.com/stainedhead/lc-plat
 
 > `optional` **contentType**: `string`
 
-Defined in: [src/core/types/object.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/object.ts#L34)
+Defined in: [src/core/types/object.ts:34](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/object.ts#L34)

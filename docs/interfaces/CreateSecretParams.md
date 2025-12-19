@@ -6,7 +6,7 @@
 
 # Interface: CreateSecretParams
 
-Defined in: [src/core/types/secret.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L25)
+Defined in: [src/core/types/secret.ts:25](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L25)
 
 ## Properties
 
@@ -14,7 +14,7 @@ Defined in: [src/core/types/secret.ts:25](https://github.com/stainedhead/lc-plat
 
 > **name**: `string`
 
-Defined in: [src/core/types/secret.ts:26](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L26)
+Defined in: [src/core/types/secret.ts:26](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L26)
 
 ***
 
@@ -22,7 +22,7 @@ Defined in: [src/core/types/secret.ts:26](https://github.com/stainedhead/lc-plat
 
 > **value**: [`SecretValue`](../type-aliases/SecretValue.md)
 
-Defined in: [src/core/types/secret.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L27)
+Defined in: [src/core/types/secret.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L27)
 
 ***
 
@@ -30,7 +30,7 @@ Defined in: [src/core/types/secret.ts:27](https://github.com/stainedhead/lc-plat
 
 > `optional` **description**: `string`
 
-Defined in: [src/core/types/secret.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L28)
+Defined in: [src/core/types/secret.ts:28](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L28)
 
 ***
 
@@ -38,4 +38,4 @@ Defined in: [src/core/types/secret.ts:28](https://github.com/stainedhead/lc-plat
 
 > `optional` **tags**: `Record`\<`string`, `string`\>
 
-Defined in: [src/core/types/secret.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/secret.ts#L29)
+Defined in: [src/core/types/secret.ts:29](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/secret.ts#L29)

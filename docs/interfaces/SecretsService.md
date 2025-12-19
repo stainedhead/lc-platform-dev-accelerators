@@ -6,7 +6,7 @@
 
 # Interface: SecretsService
 
-Defined in: [src/core/services/SecretsService.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/SecretsService.ts#L14)
+Defined in: [src/core/services/SecretsService.ts:14](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/SecretsService.ts#L14)
 
 ## Methods
 
@@ -14,7 +14,7 @@ Defined in: [src/core/services/SecretsService.ts:14](https://github.com/stainedh
 
 > **createSecret**(`params`): `Promise`\<[`Secret`](Secret.md)\>
 
-Defined in: [src/core/services/SecretsService.ts:20](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/SecretsService.ts#L20)
+Defined in: [src/core/services/SecretsService.ts:20](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/SecretsService.ts#L20)
 
 Create a new secret
 
@@ -38,7 +38,7 @@ The created secret metadata
 
 > **getSecretValue**(`secretName`): `Promise`\<[`SecretValue`](../type-aliases/SecretValue.md)\>
 
-Defined in: [src/core/services/SecretsService.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/SecretsService.ts#L27)
+Defined in: [src/core/services/SecretsService.ts:27](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/SecretsService.ts#L27)
 
 Retrieve the current value of a secret
 
@@ -62,7 +62,7 @@ The secret value (string or binary)
 
 > **updateSecret**(`secretName`, `params`): `Promise`\<[`Secret`](Secret.md)\>
 
-Defined in: [src/core/services/SecretsService.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/SecretsService.ts#L35)
+Defined in: [src/core/services/SecretsService.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/SecretsService.ts#L35)
 
 Update an existing secret's value
 
@@ -92,7 +92,7 @@ The updated secret metadata
 
 > **deleteSecret**(`secretName`, `forceDelete?`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/SecretsService.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/SecretsService.ts#L42)
+Defined in: [src/core/services/SecretsService.ts:42](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/SecretsService.ts#L42)
 
 Delete a secret (may support recovery period)
 
@@ -120,7 +120,7 @@ If true, delete immediately without recovery period
 
 > **listSecrets**(): `Promise`\<[`Secret`](Secret.md)[]\>
 
-Defined in: [src/core/services/SecretsService.ts:48](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/SecretsService.ts#L48)
+Defined in: [src/core/services/SecretsService.ts:48](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/SecretsService.ts#L48)
 
 List all secrets
 
@@ -136,7 +136,7 @@ Array of secret metadata (without values)
 
 > **rotateSecret**(`secretName`, `config`): `Promise`\<[`Secret`](Secret.md)\>
 
-Defined in: [src/core/services/SecretsService.ts:56](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/SecretsService.ts#L56)
+Defined in: [src/core/services/SecretsService.ts:56](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/SecretsService.ts#L56)
 
 Configure automatic rotation for a secret
 
@@ -166,7 +166,7 @@ The updated secret metadata
 
 > **tagSecret**(`secretName`, `tags`): `Promise`\<`void`\>
 
-Defined in: [src/core/services/SecretsService.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/services/SecretsService.ts#L63)
+Defined in: [src/core/services/SecretsService.ts:63](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/services/SecretsService.ts#L63)
 
 Tag a secret with metadata
 

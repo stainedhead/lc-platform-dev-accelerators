@@ -164,7 +164,7 @@ export class MockDataStoreService implements DataStoreService {
           const whereClause = whereMatch[1].trim();
           // For UPDATE, params are [setValue1, setValue2, ..., whereValue1, whereValue2, ...]
           // We need to split them
-          const setCount = (setMatch[1].match(/=/g) || []).length;
+          const setCount = (setMatch[1].match(/=/g) ?? []).length;
           const whereParams = params.slice(setCount);
 
           if (this.evaluateWhere(row, whereClause, whereParams)) {

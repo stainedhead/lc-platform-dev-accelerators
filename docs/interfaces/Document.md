@@ -6,7 +6,7 @@
 
 # Interface: Document\<T\>
 
-Defined in: [src/core/types/document.ts:5](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L5)
+Defined in: [src/core/types/document.ts:5](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L5)
 
 Document Store Types - NoSQL
 
@@ -26,4 +26,4 @@ Document Store Types - NoSQL
 
 > **\_id**: `string`
 
-Defined in: [src/core/types/document.ts:6](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/document.ts#L6)
+Defined in: [src/core/types/document.ts:6](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/document.ts#L6)

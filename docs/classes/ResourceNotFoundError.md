@@ -6,7 +6,7 @@
 
 # Class: ResourceNotFoundError
 
-Defined in: [src/core/types/common.ts:45](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L45)
+Defined in: [src/core/types/common.ts:49](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L49)
 
 Error hierarchy for specific error types
 
@@ -20,7 +20,7 @@ Error hierarchy for specific error types
 
 > **new ResourceNotFoundError**(`resource`, `identifier`, `details?`): `ResourceNotFoundError`
 
-Defined in: [src/core/types/common.ts:46](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L46)
+Defined in: [src/core/types/common.ts:50](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L50)
 
 #### Parameters
 
@@ -50,7 +50,7 @@ Defined in: [src/core/types/common.ts:46](https://github.com/stainedhead/lc-plat
 
 > **code**: `string`
 
-Defined in: [src/core/types/common.ts:31](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L31)
+Defined in: [src/core/types/common.ts:35](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L35)
 
 #### Inherited from
 
@@ -62,7 +62,7 @@ Defined in: [src/core/types/common.ts:31](https://github.com/stainedhead/lc-plat
 
 > **retryable**: `boolean`
 
-Defined in: [src/core/types/common.ts:32](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L32)
+Defined in: [src/core/types/common.ts:36](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L36)
 
 #### Inherited from
 
@@ -74,7 +74,7 @@ Defined in: [src/core/types/common.ts:32](https://github.com/stainedhead/lc-plat
 
 > `optional` **details**: `Record`\<`string`, `unknown`\>
 
-Defined in: [src/core/types/common.ts:33](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/12c3626979e745866113de19cb4bb33222f28139/src/core/types/common.ts#L33)
+Defined in: [src/core/types/common.ts:37](https://github.com/stainedhead/lc-platform-dev-accelerators/blob/8e8a9bd5c5e99cde3287922bb5b9f0ba36e55f6d/src/core/types/common.ts#L37)
 
 #### Inherited from
 
