@@ -14,6 +14,10 @@ import { MockNotificationClient } from '../../src/providers/mock/clients/MockNot
 import { MockDocumentClient } from '../../src/providers/mock/clients/MockDocumentClient';
 import { MockDataClient } from '../../src/providers/mock/clients/MockDataClient';
 import { MockAuthClient } from '../../src/providers/mock/clients/MockAuthClient';
+import { MockCacheClient } from '../../src/providers/mock/clients/MockCacheClient';
+import { MockContainerRepoClient } from '../../src/providers/mock/clients/MockContainerRepoClient';
+import { MockCacheService } from '../../src/providers/mock/MockCacheService';
+import { MockContainerRepoService } from '../../src/providers/mock/MockContainerRepoService';
 
 describe('LCAppRuntime', () => {
   let runtime: LCAppRuntime;
@@ -234,6 +238,63 @@ describe('LCAppRuntime', () => {
     });
   });
 
+  describe('getCacheClient', () => {
+    test('should return a CacheClient instance', () => {
+      const client = runtime.getCacheClient();
+      expect(client).toBeInstanceOf(MockCacheClient);
+    });
+
+    test('should return the same instance on subsequent calls', () => {
+      const client1 = runtime.getCacheClient();
+      const client2 = runtime.getCacheClient();
+      expect(client1).toBe(client2);
+    });
+
+    test('should be functional', async () => {
+      const service = new MockCacheService();
+      await service.createCluster('test-cluster');
+
+      const client = runtime.getCacheClient();
+      await client.set('test-cluster', 'key1', 'value1');
+      const value = await client.get('test-cluster', 'key1');
+      expect(value).toBe('value1');
+
+      await client.set('test-cluster', 'counter', '0');
+      const incremented = await client.increment('test-cluster', 'counter');
+      expect(incremented).toBe(1);
+
+      MockCacheService.clusterDataStore.clear();
+    });
+  });
+
+  describe('getContainerRepoClient', () => {
+    test('should return a ContainerRepoClient instance', () => {
+      const client = runtime.getContainerRepoClient();
+      expect(client).toBeInstanceOf(MockContainerRepoClient);
+    });
+
+    test('should return the same instance on subsequent calls', () => {
+      const client1 = runtime.getContainerRepoClient();
+      const client2 = runtime.getContainerRepoClient();
+      expect(client1).toBe(client2);
+    });
+
+    test('should be functional', async () => {
+      const service = new MockContainerRepoService();
+      await service.createRepository('test-repo');
+
+      const client = runtime.getContainerRepoClient() as MockContainerRepoClient;
+      const uri = await client.getRepositoryUri('test-repo');
+      expect(uri).toContain('test-repo');
+
+      const image = await client._addMockImage('test-repo', 'v1.0');
+      const retrieved = await client.getImageByTag('test-repo', 'v1.0');
+      expect(retrieved.imageDigest).toBe(image.imageDigest);
+
+      MockContainerRepoService.repositoryDataStore.clear();
+    });
+  });
+
   describe('provider errors', () => {
     test('should throw for unknown provider', () => {
       expect(() => {
@@ -255,9 +316,21 @@ describe('LCAppRuntime', () => {
       expect(() => awsRuntime.getAuthClient()).not.toThrow();
     });
 
+    test('should throw for AWS Cache and ContainerRepo clients (not yet implemented)', () => {
+      const awsRuntime = new LCAppRuntime({ provider: ProviderType.AWS });
+      expect(() => awsRuntime.getCacheClient()).toThrow('AWS CacheClient not yet implemented');
+      expect(() => awsRuntime.getContainerRepoClient()).toThrow(
+        'AWS ContainerRepoClient not yet implemented'
+      );
+    });
+
     test('should throw for Azure (not yet implemented)', () => {
       const azureRuntime = new LCAppRuntime({ provider: ProviderType.AZURE });
       expect(() => azureRuntime.getQueueClient()).toThrow('Azure QueueClient not yet implemented');
+      expect(() => azureRuntime.getCacheClient()).toThrow('Azure CacheClient not yet implemented');
+      expect(() => azureRuntime.getContainerRepoClient()).toThrow(
+        'Azure ContainerRepoClient not yet implemented'
+      );
     });
   });
 

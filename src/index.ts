@@ -38,6 +38,8 @@ export type { EventBusService } from './core/services/EventBusService';
 export type { NotificationService } from './core/services/NotificationService';
 export type { AuthenticationService } from './core/services/AuthenticationService';
 export type { FunctionHostingService } from './core/services/FunctionHostingService';
+export type { CacheService } from './core/services/CacheService';
+export type { ContainerRepoService } from './core/services/ContainerRepoService';
 
 // Service-specific Types
 // Deployment types
@@ -160,6 +162,35 @@ export {
   FunctionUrlAuthType,
 } from './core/types/function';
 
+// Cache types
+export type {
+  CacheCluster,
+  CacheClusterOptions,
+  CacheClusterUpdateParams,
+  CacheSecurityConfig,
+} from './core/types/cache';
+export { ClusterStatus } from './core/types/cache';
+
+// Container types
+export type {
+  ContainerRepository,
+  ContainerRepositoryOptions,
+  ContainerImage,
+  ContainerImageDetail,
+  LifecyclePolicy,
+  ImageScanConfig,
+  RepositoryPermission,
+  ImageListOptions,
+  ImageFilter,
+} from './core/types/container';
+export {
+  EncryptionType,
+  TagStatus,
+  CountType,
+  ScanStatus,
+  RepositoryAction,
+} from './core/types/container';
+
 // Runtime Types (Data Plane)
 export type {
   RuntimeConfig,
@@ -168,6 +199,10 @@ export type {
   BatchSendResult,
   ListOptions,
   BatchPublishResult,
+  CacheSetOptions,
+  CacheGetResult,
+  BatchCacheResult,
+  BatchDeleteImagesResult,
 } from './core/types/runtime';
 
 // Data Plane Client Interfaces
@@ -180,6 +215,8 @@ export type { NotificationClient } from './core/clients/NotificationClient';
 export type { DocumentClient } from './core/clients/DocumentClient';
 export type { DataClient } from './core/clients/DataClient';
 export type { AuthClient } from './core/clients/AuthClient';
+export type { CacheClient } from './core/clients/CacheClient';
+export type { ContainerRepoClient } from './core/clients/ContainerRepoClient';
 
 // Client Factories (Data Plane)
 export { QueueClientFactory } from './factory/clients/QueueClientFactory';
@@ -191,3 +228,5 @@ export { NotificationClientFactory } from './factory/clients/NotificationClientF
 export { DocumentClientFactory } from './factory/clients/DocumentClientFactory';
 export { DataClientFactory } from './factory/clients/DataClientFactory';
 export { AuthClientFactory } from './factory/clients/AuthClientFactory';
+export { CacheClientFactory } from './factory/clients/CacheClientFactory';
+export { ContainerRepoClientFactory } from './factory/clients/ContainerRepoClientFactory';

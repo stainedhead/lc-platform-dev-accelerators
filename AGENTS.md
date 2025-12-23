@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Runtime**: Bun 1.0+ (not Node.js) - Modern JavaScript runtime with native TypeScript support and built-in test runner.
 
-**Current Status**: MVP Complete - Full dual-plane implementation with 12 Control Plane services and 9 Data Plane clients. Both AWS and Mock providers implemented with 85%+ test coverage.
+**Current Status**: MVP Complete - Full dual-plane implementation with 14 Control Plane services and 11 Data Plane clients. Both AWS and Mock providers implemented with 85%+ test coverage.
 
 ## Architecture
 
@@ -26,7 +26,7 @@ The platform implements a **dual-plane architecture** separating infrastructure 
 ```
 src/
 ├── core/                    # Cloud-agnostic interfaces
-│   ├── services/           # Control Plane interfaces (12 total)
+│   ├── services/           # Control Plane interfaces (14 total)
 │   │   ├── WebHostingService.ts
 │   │   ├── FunctionHostingService.ts
 │   │   ├── BatchService.ts
@@ -38,9 +38,11 @@ src/
 │   │   ├── SecretsService.ts
 │   │   ├── ConfigurationService.ts
 │   │   ├── NotificationService.ts
-│   │   └── AuthenticationService.ts
+│   │   ├── AuthenticationService.ts
+│   │   ├── CacheService.ts
+│   │   └── ContainerRepoService.ts
 │   │
-│   ├── clients/            # Data Plane interfaces (9 total)
+│   ├── clients/            # Data Plane interfaces (11 total)
 │   │   ├── QueueClient.ts
 │   │   ├── ObjectClient.ts
 │   │   ├── SecretsClient.ts
@@ -49,7 +51,9 @@ src/
 │   │   ├── NotificationClient.ts
 │   │   ├── DocumentClient.ts
 │   │   ├── DataClient.ts
-│   │   └── AuthClient.ts
+│   │   ├── AuthClient.ts
+│   │   ├── CacheClient.ts
+│   │   └── ContainerRepoClient.ts
 │   │
 │   └── types/              # Shared type definitions
 │
@@ -80,9 +84,9 @@ src/
 
 ## Service Mappings
 
-The package implements a **dual-plane architecture** with 21 total abstractions:
-- **Control Plane**: 12 services for infrastructure management (LCPlatform class)
-- **Data Plane**: 9 clients for application runtime operations (LCAppRuntime class)
+The package implements a **dual-plane architecture** with 25 total abstractions:
+- **Control Plane**: 14 services for infrastructure management (LCPlatform class)
+- **Data Plane**: 11 clients for application runtime operations (LCAppRuntime class)
 
 Key service mappings:
 
@@ -100,6 +104,8 @@ Key service mappings:
 | NoSQL DB | DocumentDB | Cosmos DB | `DocumentStoreService` |
 | SQL DB | RDS PostgreSQL | Database for PostgreSQL | `DataStoreService` |
 | Authentication | Cognito + Okta | Azure AD B2C | `AuthenticationService` |
+| Cache | ElastiCache Redis | Cache for Redis | `CacheService` |
+| Container Repo | Elastic Container Registry | Container Registry | `ContainerRepoService` |
 
 See lcplatform-product-definition.md:44-373 for complete interface definitions.
 

@@ -87,3 +87,50 @@ export interface BatchPublishResult {
     message: string;
   }>;
 }
+
+/**
+ * Options for cache set operations
+ */
+export interface CacheSetOptions {
+  /** Time to live in seconds */
+  ttl?: number;
+  /** Only set if key doesn't exist (NX) */
+  onlyIfNotExists?: boolean;
+  /** Only set if key exists (XX) */
+  onlyIfExists?: boolean;
+}
+
+/**
+ * Result of cache get operations
+ */
+export interface CacheGetResult {
+  value: string | null;
+  ttl?: number;
+}
+
+/**
+ * Result of batch cache operations
+ */
+export interface BatchCacheResult {
+  successful: string[];
+  failed: Array<{
+    key: string;
+    error: string;
+  }>;
+}
+
+/**
+ * Result of batch delete images operations
+ */
+export interface BatchDeleteImagesResult {
+  successful: Array<{
+    imageDigest: string;
+    imageTag?: string;
+  }>;
+  failed: Array<{
+    imageDigest?: string;
+    imageTag?: string;
+    code: string;
+    message: string;
+  }>;
+}

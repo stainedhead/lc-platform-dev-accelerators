@@ -7,6 +7,7 @@
 import { describe, it, expect } from 'bun:test';
 import { LCPlatform } from '../../src/LCPlatform';
 import { ProviderType } from '../../src/core/types/common';
+import { ClusterStatus } from '../../src/core/types/cache';
 
 describe('LCPlatform', () => {
   it('should create instance with Mock provider', () => {
@@ -68,5 +69,58 @@ describe('LCPlatform', () => {
     await db.connect();
     const result = await db.execute('INSERT INTO users VALUES (?)', ['test-user']);
     expect(result.rowsAffected).toBeGreaterThan(0);
+  });
+
+  it('should get CacheService', () => {
+    const platform = new LCPlatform({ provider: ProviderType.MOCK });
+    const service = platform.getCache();
+    expect(service).toBeDefined();
+  });
+
+  it('should create and manage cache cluster end-to-end', async () => {
+    const platform = new LCPlatform({ provider: ProviderType.MOCK });
+    const cache = platform.getCache();
+
+    const cluster = await cache.createCluster('test-cluster', {
+      nodeType: 'cache.t3.micro',
+      numNodes: 1,
+    });
+
+    expect(cluster).toBeDefined();
+    expect(cluster.name).toBe('test-cluster');
+    expect(cluster.nodeType).toBe('cache.t3.micro');
+
+    // Wait for cluster to be available
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
+    const retrieved = await cache.getCluster(cluster.clusterId);
+    expect(retrieved.status).toBe(ClusterStatus.AVAILABLE);
+
+    await cache.deleteCluster(cluster.clusterId);
+  });
+
+  it('should get ContainerRepoService', () => {
+    const platform = new LCPlatform({ provider: ProviderType.MOCK });
+    const service = platform.getContainerRepo();
+    expect(service).toBeDefined();
+  });
+
+  it('should create and manage container repository end-to-end', async () => {
+    const platform = new LCPlatform({ provider: ProviderType.MOCK });
+    const repo = platform.getContainerRepo();
+
+    const repository = await repo.createRepository('test-repo', {
+      imageScanOnPush: true,
+    });
+
+    expect(repository).toBeDefined();
+    expect(repository.name).toBe('test-repo');
+    expect(repository.imageScanningEnabled).toBe(true);
+    expect(repository.repositoryUri).toContain('test-repo');
+
+    const retrieved = await repo.getRepository('test-repo');
+    expect(retrieved.name).toBe('test-repo');
+
+    await repo.deleteRepository('test-repo');
   });
 });

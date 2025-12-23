@@ -23,6 +23,8 @@ Built on **Hexagonal Architecture** principles, this library abstracts cloud ser
 - ✅ **Deploy to AWS** today, Azure tomorrow, without application changes
 - ✅ **Avoid vendor lock-in** and maintain architectural flexibility
 - ✅ **Production-ready** with 85%+ test coverage and zero TypeScript errors
+- ✅ **Distributed caching** with Redis (ElastiCache) for session management and performance
+- ✅ **Container registry** management (ECR) for storing and managing Docker images
 
 ## Key Features
 
@@ -44,11 +46,13 @@ Built on **Hexagonal Architecture** principles, this library abstracts cloud ser
 | Configuration Service | AppConfig | In-Memory | ✅ Complete | `ConfigurationService` |
 | Notification Service | SNS | In-Memory | ✅ Complete | `NotificationService` |
 | Authentication Service | Cognito | In-Memory | ✅ Complete | `AuthenticationService` |
+| Cache Service | ElastiCache Redis | In-Memory | ✅ Complete | `CacheService` |
+| Container Repo | ECR | In-Memory | ✅ Complete | `ContainerRepoService` |
 
 **Data Plane Clients** - ✅ Complete with AWS and Mock providers:
 
 | Client | AWS | Mock | Status | Interface |
-|--------|-----|------|--------|-----------|  
+|--------|-----|------|--------|-----------|
 | Queue Client | SQS | In-Memory | ✅ Complete | `QueueClient` |
 | Object Client | S3 | In-Memory | ✅ Complete | `ObjectClient` |
 | Secrets Client | Secrets Manager | In-Memory | ✅ Complete | `SecretsClient` |
@@ -58,6 +62,8 @@ Built on **Hexagonal Architecture** principles, this library abstracts cloud ser
 | Document Client | DocumentDB | In-Memory | ✅ Complete | `DocumentClient` |
 | Data Client | PostgreSQL | In-Memory | ✅ Complete | `DataClient` |
 | Auth Client | Cognito | In-Memory | ✅ Complete | `AuthClient` |
+| Cache Client | ElastiCache Redis | In-Memory | ✅ Complete | `CacheClient` |
+| Container Repo Client | ECR | In-Memory | ✅ Complete | `ContainerRepoClient` |
 
 **Planned (Future Releases)**:
 
@@ -205,6 +211,18 @@ await notifications.sendNotification('alerts', 'System maintenance scheduled', {
   email: ['admin@company.com'],
   sms: ['+1234567890'],
 });
+
+// Distributed cache operations
+const cache = runtime.getCacheClient();
+await cache.set('session-cluster', 'user:123:session', { userId: '123', token: 'xyz' }, { ttl: 3600 });
+const session = await cache.get('session-cluster', 'user:123:session');
+await cache.increment('session-cluster', 'page-views');
+
+// Container image operations
+const containers = runtime.getContainerRepoClient();
+const images = await containers.listImages('my-app-repo', { filter: { tagStatus: 'tagged' } });
+const image = await containers.getImageByTag('my-app-repo', 'v1.0.0');
+const exists = await containers.imageExists('my-app-repo', 'latest');
 ```
 
 ### Switching Providers (Zero Code Changes!)
@@ -263,7 +281,7 @@ The **Control Plane** is designed for platform operators and developers managing
 ┌───────▼──────┐  ┌──────▼──────────────┐  ┌─────▼──────┐
 │ Core Domain  │  │    AWS Provider     │  │Mock Provider│
 │              │  │                     │  │             │
-│ 12 Services: │  │  AWS Adapters:      │  │ Adapters:   │
+│ 14 Services: │  │  AWS Adapters:      │  │ Adapters:   │
 │ WebHosting   │  │  - App Runner       │  │ - InMemory  │
 │ FunctionHost │  │  - Lambda           │  │ - InMemory  │
 │ Batch        │  │  - AWS Batch        │  │ - InMemory  │
@@ -276,6 +294,8 @@ The **Control Plane** is designed for platform operators and developers managing
 │ Config       │  │  - AppConfig        │  │ - InMemory  │
 │ Notification │  │  - SNS              │  │ - InMemory  │
 │ Auth         │  │  - Cognito          │  │ - InMemory  │
+│ Cache        │  │  - ElastiCache      │  │ - InMemory  │
+│ ContainerRepo│  │  - ECR              │  │ - InMemory  │
 └──────────────┘  └─────────────────────┘  └────────────┘
 ```
 
@@ -315,7 +335,7 @@ The **Data Plane** is designed for application runtime environments through the 
 ┌───────▼──────┐  ┌──────▼──────────────┐  ┌─────▼──────┐
 │ Core Domain  │  │    AWS Provider     │  │Mock Provider│
 │              │  │                     │  │             │
-│  9 Clients:  │  │  AWS Clients:       │  │ Clients:    │
+│ 11 Clients:  │  │  AWS Clients:       │  │ Clients:    │
 │ Queue        │  │  - SQS Client       │  │ - InMemory  │
 │ Object       │  │  - S3 Client        │  │ - InMemory  │
 │ Secrets      │  │  - Secrets Client   │  │ - InMemory  │
@@ -325,6 +345,8 @@ The **Data Plane** is designed for application runtime environments through the 
 │ Document     │  │  - DocumentDB Cli   │  │ - InMemory  │
 │ Data         │  │  - RDS Client       │  │ - InMemory  │
 │ Auth         │  │  - Cognito Client   │  │ - InMemory  │
+│ Cache        │  │  - ElastiCache Cli  │  │ - InMemory  │
+│ ContainerRepo│  │  - ECR Client       │  │ - InMemory  │
 └──────────────┘  └─────────────────────┘  └────────────┘
 ```
 
@@ -411,6 +433,14 @@ await storage.createBucket('my-app-assets');
 // Deploy a function
 const functions = platform.getFunctionHosting();
 await functions.createFunction({ name: 'order-handler', runtime: 'nodejs20.x', ... });
+
+// Create cache cluster
+const cache = platform.getCache();
+await cache.createCluster('session-cache', { nodeType: 'cache.t3.micro', numNodes: 2 });
+
+// Create container repository
+const repo = platform.getContainerRepo();
+await repo.createRepository('my-app-images', { imageScanOnPush: true });
 ```
 
 ### Data Plane (`LCAppRuntime`)
@@ -443,7 +473,7 @@ const user = await documents.get('users', 'user-123');
 | Web applications | `LCAppRuntime` | Authenticate users, store files |
 | CI/CD pipelines | `LCPlatform` | Deploy applications, manage secrets |
 
-### Data Plane Clients (9 Clients)
+### Data Plane Clients (11 Clients)
 
 | Client | Operations | AWS Service |
 |--------|------------|-------------|
@@ -456,6 +486,8 @@ const user = await documents.get('users', 'user-123');
 | `DocumentClient` | get, put, update, delete, query | DynamoDB |
 | `DataClient` | query, execute, transaction | RDS Data API |
 | `AuthClient` | validateToken, getUserInfo, hasScope, hasRole | Cognito |
+| `CacheClient` | get, set, delete, increment, mget, mset, expire, ttl | ElastiCache Redis |
+| `ContainerRepoClient` | listImages, getImageByTag, deleteImages, imageExists | ECR |
 
 **Key Distinction: EventPublisher vs EventBusService**
 - **EventPublisher (Data Plane)**: Lightweight runtime client for publishing events only. Use in hosted applications (Lambda, batch jobs, web apps) that need to emit events but not manage infrastructure.
@@ -600,9 +632,9 @@ interface Deployment {
 
 ## Available Services
 
-### ✅ All 12 Control Plane Services Complete
+### ✅ All 14 Control Plane Services Complete
 
-Twelve services fully implemented with AWS and Mock providers:
+Fourteen services fully implemented with AWS and Mock providers:
 
 1. **WebHostingService** - Deploy containerized web applications
    - Deploy/update/delete applications, auto-scaling, rolling updates
@@ -674,6 +706,56 @@ Twelve services fully implemented with AWS and Mock providers:
 12. **AuthenticationService** - OAuth2 authentication with external providers
     - Authorization flows, token exchange, user info
     - AWS: Cognito
+
+13. **CacheService** - Distributed cache cluster management with Redis
+    - Create/delete/update cache clusters, configure security, flush data
+    - AWS: ElastiCache Redis
+    ```typescript
+    // Create Redis cluster
+    const cache = platform.getCache();
+    const cluster = await cache.createCluster('session-cache', {
+      nodeType: 'cache.t3.micro',
+      numNodes: 2,
+      engine: 'redis',
+      engineVersion: '7.0'
+    });
+
+    // Configure security
+    await cache.configureSecurity(cluster.clusterId, {
+      authToken: 'your-secure-token',
+      transitEncryption: true
+    });
+
+    // Use with CacheClient for runtime operations (get/set/delete)
+    ```
+
+14. **ContainerRepoService** - Container image registry management
+    - Create/delete repositories, lifecycle policies, image scanning, permissions
+    - AWS: Elastic Container Registry (ECR)
+    ```typescript
+    // Create container repository
+    const repo = platform.getContainerRepo();
+    const repository = await repo.createRepository('my-app', {
+      imageScanOnPush: true,
+      encryptionType: 'AES256'
+    });
+
+    // Configure lifecycle policy to clean up old images
+    await repo.setLifecyclePolicy('my-app', {
+      rules: [{
+        rulePriority: 1,
+        description: 'Remove untagged images older than 7 days',
+        selection: {
+          tagStatus: 'untagged',
+          countType: 'sinceImagePushed',
+          countNumber: 7
+        },
+        action: { type: 'expire' }
+      }]
+    });
+
+    // Use with ContainerRepoClient for runtime operations (list/query images)
+    ```
 
 See [documentation/product-details.md](documentation/product-details.md) for complete API reference.
 

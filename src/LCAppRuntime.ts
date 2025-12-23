@@ -45,6 +45,8 @@ import type { NotificationClient } from './core/clients/NotificationClient';
 import type { DocumentClient } from './core/clients/DocumentClient';
 import type { DataClient } from './core/clients/DataClient';
 import type { AuthClient } from './core/clients/AuthClient';
+import type { CacheClient } from './core/clients/CacheClient';
+import type { ContainerRepoClient } from './core/clients/ContainerRepoClient';
 
 import { QueueClientFactory } from './factory/clients/QueueClientFactory';
 import { ObjectClientFactory } from './factory/clients/ObjectClientFactory';
@@ -55,6 +57,8 @@ import { NotificationClientFactory } from './factory/clients/NotificationClientF
 import { DocumentClientFactory } from './factory/clients/DocumentClientFactory';
 import { DataClientFactory } from './factory/clients/DataClientFactory';
 import { AuthClientFactory } from './factory/clients/AuthClientFactory';
+import { CacheClientFactory } from './factory/clients/CacheClientFactory';
+import { ContainerRepoClientFactory } from './factory/clients/ContainerRepoClientFactory';
 
 export class LCAppRuntime {
   private readonly config: RuntimeConfig;
@@ -70,6 +74,8 @@ export class LCAppRuntime {
   private readonly documentClientFactory = new DocumentClientFactory();
   private readonly dataClientFactory = new DataClientFactory();
   private readonly authClientFactory = new AuthClientFactory();
+  private readonly cacheClientFactory = new CacheClientFactory();
+  private readonly containerRepoClientFactory = new ContainerRepoClientFactory();
 
   // Cached client instances
   private queueClient?: QueueClient;
@@ -81,6 +87,8 @@ export class LCAppRuntime {
   private documentClient?: DocumentClient;
   private dataClient?: DataClient;
   private authClient?: AuthClient;
+  private cacheClient?: CacheClient;
+  private containerRepoClient?: ContainerRepoClient;
 
   constructor(config: RuntimeConfig) {
     this.config = config;
@@ -215,5 +223,27 @@ export class LCAppRuntime {
       this.authClient = this.authClientFactory.create(this.providerConfig);
     }
     return this.authClient;
+  }
+
+  /**
+   * Get a CacheClient for cache operations
+   * Cache operations: get, set, delete, exists, expire, ttl, persist, increment, decrement, mget, mset, mdel
+   */
+  public getCacheClient(): CacheClient {
+    if (this.cacheClient === undefined) {
+      this.cacheClient = this.cacheClientFactory.create(this.providerConfig);
+    }
+    return this.cacheClient;
+  }
+
+  /**
+   * Get a ContainerRepoClient for container image operations
+   * Container operations: getRepositoryUri, listImages, getImageByTag, getImageByDigest, imageExists, deleteImageByTag, deleteImageByDigest, deleteImages
+   */
+  public getContainerRepoClient(): ContainerRepoClient {
+    if (this.containerRepoClient === undefined) {
+      this.containerRepoClient = this.containerRepoClientFactory.create(this.providerConfig);
+    }
+    return this.containerRepoClient;
   }
 }

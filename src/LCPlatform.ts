@@ -23,6 +23,8 @@ import { EventBusServiceFactory } from './factory/EventBusServiceFactory';
 import { NotificationServiceFactory } from './factory/NotificationServiceFactory';
 import { AuthenticationServiceFactory } from './factory/AuthenticationServiceFactory';
 import { FunctionHostingServiceFactory } from './factory/FunctionHostingServiceFactory';
+import { CacheServiceFactory } from './factory/CacheServiceFactory';
+import { ContainerRepoServiceFactory } from './factory/ContainerRepoServiceFactory';
 
 // Service interfaces
 import type { WebHostingService } from './core/services/WebHostingService';
@@ -37,6 +39,8 @@ import type { EventBusService } from './core/services/EventBusService';
 import type { NotificationService } from './core/services/NotificationService';
 import type { AuthenticationService } from './core/services/AuthenticationService';
 import type { FunctionHostingService } from './core/services/FunctionHostingService';
+import type { CacheService } from './core/services/CacheService';
+import type { ContainerRepoService } from './core/services/ContainerRepoService';
 
 /**
  * Main LCPlatform class
@@ -62,6 +66,8 @@ export class LCPlatform {
   private readonly notificationFactory = new NotificationServiceFactory();
   private readonly authenticationFactory = new AuthenticationServiceFactory();
   private readonly functionHostingFactory = new FunctionHostingServiceFactory();
+  private readonly cacheFactory = new CacheServiceFactory();
+  private readonly containerRepoFactory = new ContainerRepoServiceFactory();
 
   constructor(config: ProviderConfig) {
     validateProviderConfig(config);
@@ -169,5 +175,21 @@ export class LCPlatform {
    */
   public getFunctionHosting(): FunctionHostingService {
     return this.functionHostingFactory.create(this.config);
+  }
+
+  /**
+   * Get CacheService for managing distributed cache clusters
+   * Service: AWS ElastiCache for Redis / Azure Cache for Redis
+   */
+  public getCache(): CacheService {
+    return this.cacheFactory.create(this.config);
+  }
+
+  /**
+   * Get ContainerRepoService for managing container image repositories
+   * Service: AWS ECR / Azure Container Registry
+   */
+  public getContainerRepo(): ContainerRepoService {
+    return this.containerRepoFactory.create(this.config);
   }
 }
