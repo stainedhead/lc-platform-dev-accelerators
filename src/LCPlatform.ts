@@ -42,6 +42,9 @@ import type { FunctionHostingService } from './core/services/FunctionHostingServ
 import type { CacheService } from './core/services/CacheService';
 import type { ContainerRepoService } from './core/services/ContainerRepoService';
 
+// Application dependency management types
+import { LCPlatformApp, type LCPlatformAppData } from './core/types/application';
+
 /**
  * Main LCPlatform class
  *
@@ -68,6 +71,9 @@ export class LCPlatform {
   private readonly functionHostingFactory = new FunctionHostingServiceFactory();
   private readonly cacheFactory = new CacheServiceFactory();
   private readonly containerRepoFactory = new ContainerRepoServiceFactory();
+
+  // Application registry for dependency management
+  private readonly applications = new Map<string, LCPlatformApp>();
 
   constructor(config: ProviderConfig) {
     validateProviderConfig(config);
@@ -191,5 +197,40 @@ export class LCPlatform {
    */
   public getContainerRepo(): ContainerRepoService {
     return this.containerRepoFactory.create(this.config);
+  }
+
+  // ============================================================================
+  // Application Dependency Management Methods
+  // ============================================================================
+
+  /**
+   * Register a new application with the platform
+   *
+   * @param data - Application registration data
+   * @returns Registered LCPlatformApp instance
+   */
+  public registerApplication(data: LCPlatformAppData): LCPlatformApp {
+    const app = new LCPlatformApp(data);
+    this.applications.set(app.id, app);
+    return app;
+  }
+
+  /**
+   * Get an application by ID
+   *
+   * @param id - Application ID
+   * @returns LCPlatformApp instance or undefined if not found
+   */
+  public getApplication(id: string): LCPlatformApp | undefined {
+    return this.applications.get(id);
+  }
+
+  /**
+   * List all registered applications
+   *
+   * @returns Array of all registered LCPlatformApp instances
+   */
+  public listApplications(): LCPlatformApp[] {
+    return Array.from(this.applications.values());
   }
 }

@@ -25,6 +25,41 @@ export {
   AuthenticationError,
 } from './core/types/common';
 
+// Application Dependency Management Types
+export { LCPlatformApp, PlatformType, Environment } from './core/types/application';
+export type { LCPlatformAppData, ApplicationVersion } from './core/types/application';
+
+export {
+  DependencyType,
+  DependencyStatus,
+  DependencyErrorCode,
+  EncryptionType,
+} from './core/types/dependency';
+export type {
+  ApplicationDependency,
+  DependencyConfiguration,
+  ObjectStoreConfiguration,
+  QueueConfiguration,
+  SecretsConfiguration,
+  DataStoreConfiguration,
+  PolicyDocument,
+  DependencyError,
+  LifecycleRule,
+} from './core/types/dependency';
+
+// Configuration Persistence
+export {
+  ConfigurationPersistence,
+  generateConfigPath,
+  generateAppConfigPath,
+} from './utils/configPersistence';
+export type { ObjectStoreService as ObjectStoreServiceInterface } from './utils/configPersistence';
+export { serializePolicy, deserializePolicy } from './utils/policySerializer';
+
+// Dependency Validation
+export { DependencyValidator } from './utils/dependencyValidator';
+export type { ValidationResult } from './utils/dependencyValidator';
+
 // Service Interfaces
 export type { WebHostingService } from './core/services/WebHostingService';
 export type { DataStoreService } from './core/services/DataStoreService';
@@ -62,7 +97,6 @@ export type {
   ObjectInfo,
   ObjectLocation,
   BucketOptions,
-  LifecycleRule,
 } from './core/types/object';
 
 // Job types
@@ -92,7 +126,6 @@ export type {
   ConfigurationParams,
   UpdateConfigParams,
   ConfigurationData,
-  ValidationResult,
   CreateConfigurationParams,
   UpdateConfigurationParams,
   DeployConfigurationParams,
@@ -183,13 +216,7 @@ export type {
   ImageListOptions,
   ImageFilter,
 } from './core/types/container';
-export {
-  EncryptionType,
-  TagStatus,
-  CountType,
-  ScanStatus,
-  RepositoryAction,
-} from './core/types/container';
+export { TagStatus, CountType, ScanStatus, RepositoryAction } from './core/types/container';
 
 // Runtime Types (Data Plane)
 export type {

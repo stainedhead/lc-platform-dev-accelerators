@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stainedhead.github.io/lc-platform/schemas/ApplicationDependency.json",
+  "title": "ApplicationDependency",
+  "description": "Cloud service dependency required by an application",
+  "type": "object",
+  "required": ["name", "type", "status", "configuration"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique dependency identifier",
+      "readOnly": true,
+      "pattern": "^dep-[a-f0-9]{8}$"
+    },
+    "name": {
+      "type": "string",
+      "description": "User-defined dependency name (unique per app)",
+      "minLength": 1,
+      "maxLength": 50,
+      "pattern": "^[a-zA-Z0-9\\-]+$"
+    },
+    "type": {
+      "type": "string",
+      "description": "Service type",
+      "enum": [
+        "object-store",
+        "queue",
+        "secrets",
+        "configuration",
+        "data-store",
+        "document-store",
+        "event-bus",
+        "notification",
+        "cache",
+        "web-hosting",
+        "function-hosting",
+        "batch",
+        "authentication",
+        "container-repo"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Lifecycle status",
+      "enum": [
+        "pending",
+        "validated",
+        "deploying",
+        "deployed",
+        "failed",
+        "updating",
+        "deleting"
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "description": "Service-specific configuration (validated against type-specific schema)"
+    },
+    "policy": {
+      "type": "object",
+      "description": "Access policy document",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Policy schema version"
+        },
+        "provider": {
+          "type": "string",
+          "enum": ["aws", "azure", "gcp"]
+        },
+        "content": {
+          "type": "string",
+          "description": "YAML or JSON policy document"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      },
+      "required": ["version", "provider", "content"]
+    },
+    "generatedName": {
+      "type": "string",
+      "description": "Globally unique resource name (e.g., S3 bucket name)",
+      "maxLength": 63,
+      "pattern": "^[a-z0-9][a-z0-9\\-]*[a-z0-9]$"
+    },
+    "deployedAt": {
+      "type": "string",
+      "description": "Deployment timestamp",
+      "format": "date-time"
+    },
+    "deployedBy": {
+      "type": "string",
+      "description": "User/system that deployed"
+    },
+    "deploymentError": {
+      "type": "string",
+      "description": "Error message if deployment failed"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "readOnly": true
+    }
+  },
+  "additionalProperties": false
+}

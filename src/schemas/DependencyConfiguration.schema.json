@@ -1,0 +1,195 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stainedhead.github.io/lc-platform/schemas/DependencyConfiguration.json",
+  "title": "DependencyConfiguration",
+  "description": "Service-specific dependency configuration (union type)",
+  "oneOf": [
+    { "$ref": "#/definitions/ObjectStoreConfiguration" },
+    { "$ref": "#/definitions/QueueConfiguration" },
+    { "$ref": "#/definitions/SecretsConfiguration" },
+    { "$ref": "#/definitions/DataStoreConfiguration" }
+  ],
+  "definitions": {
+    "ObjectStoreConfiguration": {
+      "type": "object",
+      "required": ["type", "versioning", "encryption", "publicAccess"],
+      "properties": {
+        "type": {
+          "const": "object-store"
+        },
+        "bucketName": {
+          "type": "string",
+          "description": "Optional custom bucket name (generated if omitted)",
+          "maxLength": 63,
+          "pattern": "^[a-z0-9][a-z0-9\\-]*[a-z0-9]$"
+        },
+        "versioning": {
+          "type": "boolean",
+          "description": "Enable object versioning"
+        },
+        "encryption": {
+          "type": "string",
+          "enum": ["none", "aes256", "kms"],
+          "description": "Encryption at rest type"
+        },
+        "publicAccess": {
+          "type": "boolean",
+          "description": "Allow public read access"
+        },
+        "lifecycleRules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "enabled"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 255
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "prefix": {
+                "type": "string"
+              },
+              "expirationDays": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "transitionToArchiveDays": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "QueueConfiguration": {
+      "type": "object",
+      "required": ["type", "fifo", "visibilityTimeout", "messageRetention", "encryption"],
+      "properties": {
+        "type": {
+          "const": "queue"
+        },
+        "queueName": {
+          "type": "string",
+          "description": "Optional custom queue name",
+          "maxLength": 80,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "fifo": {
+          "type": "boolean",
+          "description": "FIFO vs standard queue"
+        },
+        "visibilityTimeout": {
+          "type": "integer",
+          "description": "Message visibility timeout in seconds",
+          "minimum": 0,
+          "maximum": 43200
+        },
+        "messageRetention": {
+          "type": "integer",
+          "description": "Message retention period in seconds",
+          "minimum": 60,
+          "maximum": 1209600
+        },
+        "maxReceiveCount": {
+          "type": "integer",
+          "description": "Dead-letter queue threshold",
+          "minimum": 1
+        },
+        "deadLetterQueue": {
+          "type": "string",
+          "description": "Dead-letter queue name"
+        },
+        "encryption": {
+          "type": "boolean",
+          "description": "Enable encryption at rest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "SecretsConfiguration": {
+      "type": "object",
+      "required": ["type", "secretName"],
+      "properties": {
+        "type": {
+          "const": "secrets"
+        },
+        "secretName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 2048
+        },
+        "rotationEnabled": {
+          "type": "boolean",
+          "description": "Enable automatic secret rotation"
+        },
+        "rotationDays": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 365,
+          "description": "Rotation period in days"
+        }
+      },
+      "additionalProperties": false
+    },
+    "DataStoreConfiguration": {
+      "type": "object",
+      "required": ["type", "engine", "instanceClass", "allocatedStorage"],
+      "properties": {
+        "type": {
+          "const": "data-store"
+        },
+        "engine": {
+          "type": "string",
+          "enum": ["postgres", "mysql", "mariadb"],
+          "description": "Database engine"
+        },
+        "engineVersion": {
+          "type": "string",
+          "description": "Database engine version"
+        },
+        "instanceClass": {
+          "type": "string",
+          "description": "Instance size (e.g., db.t3.micro)",
+          "pattern": "^db\\.[a-z0-9]+\\.[a-z0-9]+$"
+        },
+        "allocatedStorage": {
+          "type": "integer",
+          "description": "Storage size in GB",
+          "minimum": 20,
+          "maximum": 65536
+        },
+        "multiAZ": {
+          "type": "boolean",
+          "description": "Enable multi-AZ deployment"
+        },
+        "backupRetention": {
+          "type": "integer",
+          "description": "Backup retention in days",
+          "minimum": 0,
+          "maximum": 35
+        },
+        "encrypted": {
+          "type": "boolean",
+          "description": "Enable encryption at rest"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

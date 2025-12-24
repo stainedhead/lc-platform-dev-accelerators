@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://stainedhead.github.io/lc-platform/schemas/LCPlatformApp.json",
+  "title": "LCPlatformApp",
+  "description": "Application registered with LCPlatform for dependency management",
+  "type": "object",
+  "required": [
+    "name",
+    "team",
+    "moniker",
+    "ciAppId",
+    "platformType",
+    "environment",
+    "supportEmail",
+    "ownerEmail"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique application identifier (generated)",
+      "readOnly": true,
+      "pattern": "^app-[a-f0-9]{8}$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable application name",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[a-zA-Z0-9\\s\\-]+$"
+    },
+    "team": {
+      "type": "string",
+      "description": "Owning team identifier",
+      "minLength": 1,
+      "maxLength": 50,
+      "pattern": "^[a-zA-Z0-9\\-]+$"
+    },
+    "moniker": {
+      "type": "string",
+      "description": "Short name for resource naming (lowercase alphanumeric + hyphens)",
+      "minLength": 1,
+      "maxLength": 20,
+      "pattern": "^[a-z0-9\\-]+$"
+    },
+    "ciAppId": {
+      "type": "string",
+      "description": "CI/CD system application ID",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "platformType": {
+      "type": "string",
+      "description": "Application deployment type",
+      "enum": ["web", "function", "batch", "mobile", "api"]
+    },
+    "environment": {
+      "type": "string",
+      "description": "Deployment environment",
+      "enum": ["dev", "staging", "prod", "test"]
+    },
+    "supportEmail": {
+      "type": "string",
+      "description": "Support contact email",
+      "format": "email"
+    },
+    "ownerEmail": {
+      "type": "string",
+      "description": "Application owner email",
+      "format": "email"
+    },
+    "dependencies": {
+      "type": "array",
+      "description": "Array of application dependencies",
+      "items": {
+        "$ref": "ApplicationDependency.schema.json"
+      },
+      "maxItems": 100
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Creation timestamp",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Last update timestamp",
+      "format": "date-time",
+      "readOnly": true
+    },
+    "currentVersion": {
+      "type": "string",
+      "description": "Latest persisted configuration version",
+      "pattern": "^(\\d+\\.\\d+\\.\\d+|\\d{4}-\\d{2}-\\d{2}T\\d{2}-\\d{2}-\\d{2}Z)$"
+    }
+  },
+  "additionalProperties": false
+}
