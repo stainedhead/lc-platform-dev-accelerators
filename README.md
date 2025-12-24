@@ -8,9 +8,9 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.1-success.svg)](https://github.com/stainedhead/lc-platform-dev-accelerators/packages)
 
-## 🎉 Status: MVP Complete (User Story 1)
+## 🎉 Status: Application Dependency Management Complete (User Stories 1-4)
 
-**47/47 tasks completed** • **85%+ test coverage** • **Production ready**
+**User Stories 1-4 Complete** • **Application Registration & Dependency Management** • **Configuration Persistence** • **Dependency Validation** • **Production ready**
 
 ## Overview
 
@@ -93,6 +93,132 @@ await storage.putObject('bucket', 'test.txt', Buffer.from('Hello World'));
 // Production - Same code, different provider
 const prodPlatform = new LCPlatform({ provider: ProviderType.AWS, region: 'us-east-1' });
 ```
+
+### 📦 Application Dependency Management
+
+**NEW**: Complete infrastructure for managing application dependencies and configurations:
+
+#### Features
+- ✅ **Application Registration** - Register applications with metadata (team, moniker, environment, platform type)
+- ✅ **Dependency Management** - Add and configure dependencies for your applications
+- ✅ **Configuration Persistence** - Version-based persistence to object storage with S3 path generation
+- ✅ **Dependency Validation** - Schema validation, required field detection, and name collision checking
+- ✅ **Type-Safe Configurations** - TypeScript enums and interfaces for all dependency types
+
+#### Supported Dependency Types
+- **Object Store** - S3-compatible storage with versioning, encryption, and lifecycle policies
+- **Queue** - Message queues with FIFO support, visibility timeout, and dead letter queues
+- **Secrets** - Secure secret storage with rotation support
+- **Data Store** - Relational databases (PostgreSQL, MySQL, MariaDB)
+
+#### Quick Example
+```typescript
+import { LCPlatform, PlatformType, Environment, DependencyType, EncryptionType } from '@stainedhead/lc-platform-dev-accelerators';
+
+const platform = new LCPlatform({ provider: ProviderType.MOCK });
+
+// Register application
+const app = platform.registerApplication({
+  name: 'My Application',
+  team: 'platform-team',
+  moniker: 'myapp',
+  ciAppId: 'APP-12345',
+  platformType: PlatformType.WEB,
+  environment: Environment.PRODUCTION,
+  supportEmail: 'support@company.com',
+  ownerEmail: 'owner@company.com'
+});
+
+// Set account ID (AWS account, Azure subscription, etc.)
+app.setAccountId('123456789012');
+
+// Add Object Store dependency
+const uploadsBucket = app.addDependency('uploads', DependencyType.OBJECT_STORE, {
+  type: 'object-store',
+  versioning: true,
+  encryption: EncryptionType.KMS,
+  publicAccess: false
+});
+
+// Add Queue dependency
+const taskQueue = app.addDependency('tasks', DependencyType.QUEUE, {
+  type: 'queue',
+  fifo: false,
+  visibilityTimeout: 30,
+  messageRetention: 3600,
+  encryption: true
+});
+
+// Add Secrets dependency
+const apiSecrets = app.addDependency('api-keys', DependencyType.SECRETS, {
+  type: 'secrets',
+  secretName: 'api-keys',
+  description: 'API keys for external services'
+});
+
+// List all dependencies
+const allDeps = app.listDependencies();
+console.log(`Application has ${allDeps.length} dependencies`);
+
+// Get generated resource names (follows lcp-{account}-{team}-{moniker} pattern)
+console.log(`Uploads bucket: ${uploadsBucket.generatedName}`);
+// Output: lcp-123456789012-platform-team-myapp-store-uploads
+
+console.log(`Task queue: ${taskQueue.generatedName}`);
+// Output: lcp-123456789012-platform-team-myapp-queue-tasks
+```
+
+#### Configuration Persistence
+```typescript
+import { ConfigurationPersistence } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Initialize persistence with object store
+const objectStore = platform.getObjectStore();
+const persistence = new ConfigurationPersistence(objectStore);
+
+// Persist application configuration as a version
+await persistence.persistVersion(
+  app,
+  'lcp-config-bucket',
+  'v1.0.0',
+  'admin@company.com',
+  'Initial production release'
+);
+
+// List all versions
+const versions = await persistence.listVersions(
+  'lcp-config-bucket',
+  'lcp-123456789012-platform-team-myapp'
+);
+
+// Retrieve specific version
+const version = await persistence.retrieveVersion(
+  'lcp-config-bucket',
+  'lcp-123456789012-platform-team-myapp',
+  'v1.0.0'
+);
+```
+
+#### Dependency Validation
+```typescript
+import { DependencyValidator } from '@stainedhead/lc-platform-dev-accelerators';
+
+const validator = new DependencyValidator();
+
+// Validate all dependencies
+const result = validator.validateApplication(app.listDependencies());
+
+if (result.valid) {
+  console.log(`✓ All ${result.validatedCount} dependencies are valid`);
+} else {
+  console.error(`✗ Found ${result.errorCount} errors:`);
+  result.errors?.forEach(error => {
+    console.error(`  - ${error.dependencyName}: ${error.message}`);
+  });
+}
+```
+
+See the [documentation/](documentation/) directory for complete API documentation.
 
 ## Installation
 
@@ -923,6 +1049,35 @@ Every push and pull request triggers GitHub Actions:
 
 **User Story 7: OAuth2 Authentication**
 - ✅ AuthenticationService (Cognito + Mock)
+
+### ✅ Completed - Application Dependency Management (User Stories 1-4)
+
+**User Story 1: Application Registration and Retrieval**
+- ✅ LCPlatformApp class with registration and metadata management
+- ✅ Unique ID generation (app-{8-hex} format)
+- ✅ Application retrieval and listing via LCPlatform
+- ✅ Resource tagging from application metadata
+
+**User Story 2: Dependency Registration and Management**
+- ✅ Support for 4 dependency types (Object Store, Queue, Secrets, Data Store)
+- ✅ Type-safe configuration schemas for each dependency type
+- ✅ Automatic resource naming with lcp-{account}-{team}-{moniker} pattern
+- ✅ Dependency lifecycle management (add, get, list)
+- ✅ Duplicate name collision prevention
+
+**User Story 3: Configuration Persistence**
+- ✅ Version-based configuration persistence to object storage
+- ✅ S3 path generation utilities (generateConfigPath, generateAppConfigPath)
+- ✅ Policy serialization/deserialization with YAML support
+- ✅ Version listing and retrieval from storage
+- ✅ Application and dependency metadata persistence
+
+**User Story 4: Dependency Validation**
+- ✅ Schema validation for all dependency configurations
+- ✅ Required field detection and reporting
+- ✅ Name collision detection across dependencies
+- ✅ Batch validation with summary results
+- ✅ Cross-field validation (e.g., DLQ with maxReceiveCount)
 
 ### ✅ Completed - Production Readiness
 

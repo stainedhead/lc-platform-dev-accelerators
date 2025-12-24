@@ -900,6 +900,674 @@ const secrets = runtime.getSecretsClient();
 
 ---
 
+## Application Dependency Management
+
+Complete infrastructure for managing application registrations and their cloud resource dependencies with versioning and validation.
+
+### Overview
+
+Application Dependency Management provides:
+- **Application Registration**: Register applications with complete metadata
+- **Dependency Management**: Add, configure, and manage cloud resource dependencies
+- **Configuration Persistence**: Version-based persistence with change tracking
+- **Dependency Validation**: Schema validation and collision detection
+
+### Core Classes
+
+#### LCPlatformApp
+
+The central class for managing application metadata and dependencies.
+
+**Constructor**:
+```typescript
+new LCPlatformApp(data: LCPlatformAppData)
+```
+
+**Interface Definition**:
+```typescript
+class LCPlatformApp {
+  readonly id: string;                    // Auto-generated: app-{8-hex}
+  readonly name: string;
+  readonly team: string;
+  readonly moniker: string;               // Lowercase alphanumeric + hyphens
+  readonly ciAppId: string;
+  readonly platformType: PlatformType;
+  readonly environment: Environment;
+  readonly supportEmail: string;
+  readonly ownerEmail: string;
+  readonly dependencies: ApplicationDependency[];
+  readonly createdAt: Date;
+  updatedAt: Date;
+  accountId?: string;
+
+  // Dependency Management
+  addDependency(
+    name: string,
+    type: DependencyType,
+    configuration: DependencyConfiguration
+  ): ApplicationDependency;
+
+  getDependency(name: string): ApplicationDependency | undefined;
+
+  listDependencies(type?: DependencyType): ApplicationDependency[];
+
+  removeDependency(name: string): void;
+
+  // Metadata Management
+  setAccountId(accountId: string): void;
+
+  toResourceTags(): Record<string, string>;
+
+  // Serialization
+  toJSON(): LCPlatformAppData;
+
+  static fromJSON(data: LCPlatformAppData): LCPlatformApp;
+}
+```
+
+**Type Definitions**:
+```typescript
+interface LCPlatformAppData {
+  id?: string;
+  name: string;
+  team: string;
+  moniker: string;
+  ciAppId: string;
+  platformType: PlatformType;
+  environment: Environment;
+  supportEmail: string;
+  ownerEmail: string;
+  dependencies?: ApplicationDependency[];
+  createdAt?: Date;
+  updatedAt?: Date;
+  accountId?: string;
+}
+
+enum PlatformType {
+  WEB = 'web',
+  FUNCTION = 'function',
+  BATCH = 'batch',
+  MOBILE = 'mobile',
+  API = 'api',
+}
+
+enum Environment {
+  DEVELOPMENT = 'dev',
+  STAGING = 'staging',
+  PRODUCTION = 'prod',
+  TEST = 'test',
+}
+```
+
+**Usage Example**:
+```typescript
+import { LCPlatformApp, PlatformType, Environment } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Create application
+const app = new LCPlatformApp({
+  name: 'My Web Application',
+  team: 'platform-team',
+  moniker: 'mywebapp',
+  ciAppId: 'APP-12345',
+  platformType: PlatformType.WEB,
+  environment: Environment.PRODUCTION,
+  supportEmail: 'support@company.com',
+  ownerEmail: 'owner@company.com',
+});
+
+// Set AWS account ID
+app.setAccountId('123456789012');
+
+// Get resource tags for cloud resources
+const tags = app.toResourceTags();
+// {
+//   Team: 'platform-team',
+//   Moniker: 'mywebapp',
+//   'CI-AppID': 'APP-12345',
+//   PlatformType: 'web',
+//   Environment: 'prod',
+//   SupportEmail: 'support@company.com',
+//   OwnerEmail: 'owner@company.com'
+// }
+```
+
+#### ApplicationDependency
+
+Represents a single cloud resource dependency.
+
+**Type Definition**:
+```typescript
+interface ApplicationDependency {
+  id: string;                           // Auto-generated: dep-{8-hex}
+  name: string;                         // User-defined name
+  type: DependencyType;
+  configuration: DependencyConfiguration;
+  resourceName: string;                 // Generated: lcp-{account}-{team}-{moniker}-{name}
+  status: DependencyStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+enum DependencyType {
+  OBJECT_STORE = 'object-store',
+  QUEUE = 'queue',
+  SECRETS = 'secrets',
+  DATA_STORE = 'data-store',
+}
+
+enum DependencyStatus {
+  PENDING = 'pending',
+  VALIDATED = 'validated',
+  DEPLOYED = 'deployed',
+  FAILED = 'failed',
+}
+```
+
+#### Dependency Configurations
+
+Type-safe configuration schemas for each dependency type.
+
+**ObjectStoreConfiguration**:
+```typescript
+interface ObjectStoreConfiguration {
+  type: 'object-store';
+  versioning: boolean;
+  encryption: EncryptionType;
+  publicAccess: boolean;
+  lifecycleRules?: LifecycleRule[];
+  cors?: CorsConfiguration;
+}
+
+enum EncryptionType {
+  NONE = 'none',
+  AES256 = 'aes256',
+  KMS = 'kms',
+}
+
+interface LifecycleRule {
+  id: string;
+  enabled: boolean;
+  prefix?: string;
+  expiration?: {
+    days?: number;
+    date?: Date;
+  };
+  transitions?: Array<{
+    days: number;
+    storageClass: string;
+  }>;
+}
+
+interface CorsConfiguration {
+  allowedOrigins: string[];
+  allowedMethods: string[];
+  allowedHeaders?: string[];
+  maxAge?: number;
+}
+```
+
+**QueueConfiguration**:
+```typescript
+interface QueueConfiguration {
+  type: 'queue';
+  fifo: boolean;
+  visibilityTimeout: number;      // Seconds
+  messageRetention: number;       // Seconds
+  encryption: boolean;
+  deadLetterQueue?: {
+    maxReceiveCount: number;
+    targetQueue?: string;
+  };
+}
+```
+
+**SecretsConfiguration**:
+```typescript
+interface SecretsConfiguration {
+  type: 'secrets';
+  secretName: string;
+  description?: string;
+  rotationEnabled?: boolean;
+  rotationDays?: number;
+  kmsKeyId?: string;
+}
+```
+
+**DataStoreConfiguration**:
+```typescript
+interface DataStoreConfiguration {
+  type: 'data-store';
+  engine: 'postgres' | 'mysql' | 'mariadb';
+  instanceClass: string;              // e.g., 'db.t3.micro'
+  allocatedStorage: number;           // GB
+  multiAZ?: boolean;
+  backup?: {
+    enabled: boolean;
+    retentionDays: number;
+    window?: string;
+  };
+  replication?: {
+    enabled: boolean;
+    replicas: number;
+  };
+}
+```
+
+**Complete Example**:
+```typescript
+import { DependencyType, EncryptionType } from '@stainedhead/lc-platform-dev-accelerators';
+
+// Add Object Store dependency
+const uploadsBucket = app.addDependency('uploads', DependencyType.OBJECT_STORE, {
+  type: 'object-store',
+  versioning: true,
+  encryption: EncryptionType.KMS,
+  publicAccess: false,
+  lifecycleRules: [
+    {
+      id: 'delete-old-uploads',
+      enabled: true,
+      prefix: 'temp/',
+      expiration: { days: 7 },
+    },
+  ],
+  cors: {
+    allowedOrigins: ['https://myapp.com'],
+    allowedMethods: ['GET', 'PUT'],
+    maxAge: 3600,
+  },
+});
+
+// Add Queue dependency
+const jobsQueue = app.addDependency('jobs', DependencyType.QUEUE, {
+  type: 'queue',
+  fifo: false,
+  visibilityTimeout: 30,
+  messageRetention: 86400,
+  encryption: true,
+  deadLetterQueue: {
+    maxReceiveCount: 3,
+  },
+});
+
+// Add Secrets dependency
+const apiSecrets = app.addDependency('api-secrets', DependencyType.SECRETS, {
+  type: 'secrets',
+  secretName: 'api-secrets',
+  description: 'API keys and credentials',
+  rotationEnabled: true,
+  rotationDays: 30,
+});
+
+// Add Data Store dependency
+const database = app.addDependency('database', DependencyType.DATA_STORE, {
+  type: 'data-store',
+  engine: 'postgres',
+  instanceClass: 'db.t3.micro',
+  allocatedStorage: 20,
+  multiAZ: true,
+  backup: {
+    enabled: true,
+    retentionDays: 7,
+    window: '03:00-04:00',
+  },
+});
+
+// List all dependencies
+console.log(`Total dependencies: ${app.listDependencies().length}`);
+
+// List only Object Store dependencies
+const buckets = app.listDependencies(DependencyType.OBJECT_STORE);
+console.log(`Object Store buckets: ${buckets.length}`);
+
+// Get specific dependency
+const uploads = app.getDependency('uploads');
+console.log(`Resource name: ${uploads.resourceName}`);
+// Output: lcp-123456789012-platform-team-mywebapp-uploads
+```
+
+### ConfigurationPersistence
+
+Persist and retrieve application configurations from object storage with versioning support.
+
+**Constructor**:
+```typescript
+new ConfigurationPersistence(objectStore: ObjectStoreService)
+```
+
+**Interface Definition**:
+```typescript
+class ConfigurationPersistence {
+  // Application Persistence
+  persistApplication(app: LCPlatformApp, bucket: string): Promise<void>;
+
+  loadApplication(bucket: string, appId: string): Promise<LCPlatformApp>;
+
+  // Version Management
+  persistVersion(
+    app: LCPlatformApp,
+    bucket: string,
+    version: string,
+    modifiedBy: string,
+    changeLog: string
+  ): Promise<void>;
+
+  retrieveVersion(
+    bucket: string,
+    appPath: string,
+    version: string
+  ): Promise<VersionedConfiguration>;
+
+  listVersions(bucket: string, appPath: string): Promise<string[]>;
+}
+```
+
+**Type Definitions**:
+```typescript
+interface VersionedConfiguration {
+  version: string;
+  modifiedBy: string;
+  modifiedAt: Date;
+  changeLog: string;
+  dependencies: ApplicationDependency[];
+}
+```
+
+**Path Generation Utilities**:
+```typescript
+// Generate versioned config path
+function generateConfigPath(
+  accountId: string,
+  team: string,
+  moniker: string,
+  version: string
+): string;
+// Returns: lcp-{accountId}-{team}-{moniker}/versions/{version}/
+
+// Generate app config path
+function generateAppConfigPath(
+  accountId: string,
+  team: string,
+  moniker: string
+): string;
+// Returns: lcp-{accountId}-{team}-{moniker}/app.config
+```
+
+**Usage Example**:
+```typescript
+import { ConfigurationPersistence } from '@stainedhead/lc-platform-dev-accelerators';
+
+const platform = new LCPlatform({ provider: ProviderType.AWS });
+const storage = platform.getObjectStore();
+const persistence = new ConfigurationPersistence(storage);
+
+// Create config bucket
+await storage.createBucket('lcp-config-bucket', {
+  versioning: true,
+  encryption: true,
+});
+
+// Persist current application state
+await persistence.persistApplication(app, 'lcp-config-bucket');
+
+// Persist versioned configuration
+await persistence.persistVersion(
+  app,
+  'lcp-config-bucket',
+  'v1.0.0',
+  'admin@company.com',
+  'Initial production configuration'
+);
+
+// List all versions
+const versions = await persistence.listVersions(
+  'lcp-config-bucket',
+  'lcp-123456789012-platform-team-mywebapp'
+);
+console.log(`Available versions: ${versions.join(', ')}`);
+// Output: v1.0.0, v1.1.0, v2.0.0
+
+// Retrieve specific version
+const v1 = await persistence.retrieveVersion(
+  'lcp-config-bucket',
+  'lcp-123456789012-platform-team-mywebapp',
+  'v1.0.0'
+);
+console.log(`Version ${v1.version} by ${v1.modifiedBy}`);
+console.log(`Changes: ${v1.changeLog}`);
+console.log(`Dependencies: ${v1.dependencies.length}`);
+
+// Load current application
+const loadedApp = await persistence.loadApplication(
+  'lcp-config-bucket',
+  app.id
+);
+console.log(`Loaded app: ${loadedApp.name}`);
+```
+
+### DependencyValidator
+
+Validate dependency configurations and detect issues.
+
+**Interface Definition**:
+```typescript
+class DependencyValidator {
+  validateDependencies(
+    dependencies: ApplicationDependency[]
+  ): ValidationResult;
+
+  validateConfiguration(
+    type: DependencyType,
+    configuration: DependencyConfiguration
+  ): ValidationResult;
+}
+```
+
+**Type Definitions**:
+```typescript
+interface ValidationResult {
+  isValid: boolean;
+  errors?: ValidationError[];
+}
+
+interface ValidationError {
+  field: string;
+  message: string;
+  value?: unknown;
+}
+```
+
+**Usage Example**:
+```typescript
+import { DependencyValidator } from '@stainedhead/lc-platform-dev-accelerators';
+
+const validator = new DependencyValidator();
+
+// Validate all dependencies
+const result = validator.validateDependencies(app.dependencies);
+
+if (!result.isValid) {
+  console.log('Validation errors:');
+  result.errors?.forEach(error => {
+    console.log(`  - ${error.field}: ${error.message}`);
+  });
+} else {
+  console.log('All dependencies are valid');
+}
+
+// Validate specific configuration
+const configResult = validator.validateConfiguration(
+  DependencyType.OBJECT_STORE,
+  {
+    type: 'object-store',
+    versioning: true,
+    encryption: EncryptionType.KMS,
+    publicAccess: false,
+  }
+);
+
+if (configResult.isValid) {
+  console.log('Configuration is valid');
+}
+```
+
+**Validation Rules**:
+
+1. **Required Fields**: All required fields must be present
+2. **Name Uniqueness**: No duplicate dependency names within an application
+3. **Resource Name Format**: Must match `lcp-{account}-{team}-{moniker}-{name}` pattern
+4. **Type Consistency**: Configuration must match dependency type
+5. **Value Ranges**:
+   - Queue visibility timeout: 0-43200 seconds
+   - Queue message retention: 60-1209600 seconds
+   - DataStore allocated storage: >0 GB
+   - DataStore backup retention: 1-35 days
+
+### Platform Integration
+
+Register applications through the main LCPlatform class.
+
+**LCPlatform Methods**:
+```typescript
+class LCPlatform {
+  // Application Management
+  registerApplication(data: LCPlatformAppData): LCPlatformApp;
+
+  getApplication(appId: string): LCPlatformApp | undefined;
+
+  listApplications(): LCPlatformApp[];
+}
+```
+
+**Complete Workflow Example**:
+```typescript
+import {
+  LCPlatform,
+  ProviderType,
+  PlatformType,
+  Environment,
+  DependencyType,
+  EncryptionType,
+  ConfigurationPersistence,
+  DependencyValidator,
+} from '@stainedhead/lc-platform-dev-accelerators';
+
+// Initialize platform
+const platform = new LCPlatform({
+  provider: ProviderType.AWS,
+  region: 'us-east-1',
+});
+
+// Register application
+const app = platform.registerApplication({
+  name: 'E-commerce Platform',
+  team: 'ecommerce',
+  moniker: 'shop',
+  ciAppId: 'APP-SHOP-001',
+  platformType: PlatformType.WEB,
+  environment: Environment.PRODUCTION,
+  supportEmail: 'support@ecommerce.com',
+  ownerEmail: 'platform@ecommerce.com',
+});
+
+app.setAccountId('123456789012');
+
+// Add all required dependencies
+app.addDependency('product-images', DependencyType.OBJECT_STORE, {
+  type: 'object-store',
+  versioning: true,
+  encryption: EncryptionType.KMS,
+  publicAccess: true,
+  cors: {
+    allowedOrigins: ['https://shop.com'],
+    allowedMethods: ['GET'],
+  },
+});
+
+app.addDependency('order-queue', DependencyType.QUEUE, {
+  type: 'queue',
+  fifo: true,
+  visibilityTimeout: 300,
+  messageRetention: 86400,
+  encryption: true,
+  deadLetterQueue: {
+    maxReceiveCount: 3,
+  },
+});
+
+app.addDependency('payment-secrets', DependencyType.SECRETS, {
+  type: 'secrets',
+  secretName: 'payment-api-keys',
+  description: 'Payment gateway API keys',
+  rotationEnabled: true,
+  rotationDays: 90,
+});
+
+app.addDependency('products-db', DependencyType.DATA_STORE, {
+  type: 'data-store',
+  engine: 'postgres',
+  instanceClass: 'db.r5.xlarge',
+  allocatedStorage: 100,
+  multiAZ: true,
+  backup: {
+    enabled: true,
+    retentionDays: 30,
+  },
+  replication: {
+    enabled: true,
+    replicas: 2,
+  },
+});
+
+// Validate dependencies
+const validator = new DependencyValidator();
+const validationResult = validator.validateDependencies(app.dependencies);
+
+if (!validationResult.isValid) {
+  console.error('Validation failed:', validationResult.errors);
+  process.exit(1);
+}
+
+// Persist configuration
+const storage = platform.getObjectStore();
+await storage.createBucket('ecommerce-config', {
+  versioning: true,
+  encryption: true,
+});
+
+const persistence = new ConfigurationPersistence(storage);
+
+// Save version 1.0.0
+await persistence.persistVersion(
+  app,
+  'ecommerce-config',
+  'v1.0.0',
+  'admin@ecommerce.com',
+  'Initial production configuration with payment integration'
+);
+
+// List registered applications
+const apps = platform.listApplications();
+console.log(`Total applications: ${apps.length}`);
+
+// Retrieve application
+const retrieved = platform.getApplication(app.id);
+console.log(`Retrieved: ${retrieved?.name}`);
+console.log(`Dependencies: ${retrieved?.dependencies.length}`);
+
+// Generate resource names for deployment
+retrieved?.dependencies.forEach(dep => {
+  console.log(`${dep.type}: ${dep.resourceName}`);
+});
+// Output:
+// object-store: lcp-123456789012-ecommerce-shop-product-images
+// queue: lcp-123456789012-ecommerce-shop-order-queue
+// secrets: lcp-123456789012-ecommerce-shop-payment-secrets
+// data-store: lcp-123456789012-ecommerce-shop-products-db
+```
+
+---
+
 ## Performance Benchmarks
 
 Results from benchmarking suite (30+ operations across 12 services + 9 clients):
@@ -940,5 +1608,5 @@ Breaking changes will result in major version bump. Semantic versioning (semver)
 
 ---
 
-**Last Updated**: December 18, 2025
-**Status**: Production Ready (Dual-Plane Architecture Complete - Control Plane & Data Plane)
+**Last Updated**: December 23, 2025
+**Status**: Production Ready (Dual-Plane Architecture + Application Dependency Management Complete)

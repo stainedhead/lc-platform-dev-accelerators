@@ -11,6 +11,21 @@ description: "Task list template for feature implementation"
 
 **Organization**: Tasks are grouped by user story to enable independent implementation and testing of each story.
 
+<!--
+===========================================================================================
+IMPORTANT FOR AI AGENTS: READ /AGENTS.md FOR DEVELOPMENT RULES
+===========================================================================================
+
+Before executing these tasks:
+→ READ /AGENTS.md for detailed development workflow, quality standards, and tooling commands
+→ /AGENTS.md is the SOURCE OF TRUTH for all implementation rules and practices
+→ Follow the exact commands and workflow defined in AGENTS.md (bun test, bun run lint, etc.)
+→ When adding new practices or changing workflows, UPDATE /AGENTS.md immediately
+
+Tasks below define WHAT to do. AGENTS.md defines HOW to do it following project standards.
+===========================================================================================
+-->
+
 ## Format: `[ID] [P?] [Story] Description`
 - **[P]**: Can run in parallel (different files, no dependencies)
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)

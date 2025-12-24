@@ -1,4 +1,21 @@
 <!--
+===========================================================================================
+IMPORTANT FOR AI AGENTS: AGENTS.md IS THE SOURCE OF TRUTH
+===========================================================================================
+
+This constitution provides HIGH-LEVEL PRINCIPLES and governance structure.
+For detailed implementation rules, workflow commands, and actionable standards:
+→ READ /AGENTS.md FIRST
+
+When updating this constitution:
+1. Update the corresponding sections in AGENTS.md to maintain sync
+2. AGENTS.md takes precedence for implementation details when conflicts arise
+3. See "Reference Documentation & Source of Truth" section at the end for sync mapping
+
+===========================================================================================
+-->
+
+<!--
 SYNC IMPACT REPORT
 ==================
 Version Change: [none] → 1.0.0
@@ -250,12 +267,32 @@ Justification format:
 |------------------|------------|-------------------------------------|
 | [Description] | [Rationale] | [Why simpler approach insufficient] |
 
-### Reference Documentation
+### Reference Documentation & Source of Truth
 
-For runtime development guidance, consult:
-- **AGENTS.md** - AI assistant and contributor development guidelines
-- **README.md** - Project overview, setup, contributing process
-- **documentation/technical-details.md** - Architecture implementation details
-- **documentation/product-details.md** - API reference and specifications
+**IMPORTANT FOR AI AGENTS**:
 
-**Version**: 1.0.0 | **Ratified**: 2025-01-20 | **Last Amended**: 2025-01-20
+**AGENTS.md is the SOURCE OF TRUTH** for all development rules, standards, and workflow requirements. This constitution file provides high-level principles, but AGENTS.md contains the detailed, actionable implementation rules that must be followed during development.
+
+**Rule Change Protocol**:
+- When constitution principles are added, modified, or clarified, **corresponding changes MUST be written to AGENTS.md**
+- When new development practices are established, they MUST be documented in AGENTS.md first
+- When tooling or workflow changes occur, update AGENTS.md to reflect the new commands/processes
+- AI agents and developers should **read AGENTS.md before starting any development work**
+- If conflicts arise between this constitution and AGENTS.md, **AGENTS.md takes precedence** for implementation details
+
+For runtime development guidance, consult these files in order:
+1. **AGENTS.md** - **PRIMARY SOURCE OF TRUTH** - AI assistant and contributor development guidelines, detailed rules, workflow commands, quality standards
+2. **README.md** - Project overview, setup instructions, contributing process
+3. **documentation/technical-details.md** - Architecture implementation details
+4. **documentation/product-details.md** - API reference and specifications
+5. **This file (constitution.md)** - High-level principles and governance
+
+**Synchronization Requirement**:
+When updating constitutional principles, immediately update the corresponding sections in AGENTS.md to maintain consistency. AGENTS.md sections to sync with this constitution:
+- "Quality Standards" → Constitution Principles II, III, IV
+- "Development Workflow" → Constitution Development Workflow section
+- "Architecture" → Constitution Principle I (Provider Independence)
+- "Testing Strategy" → Constitution Principle II (TDD)
+- "Documentation Structure" → Constitution Principle VII (Documentation as Code)
+
+**Version**: 1.0.0 | **Ratified**: 2025-01-20 | **Last Amended**: 2025-01-23

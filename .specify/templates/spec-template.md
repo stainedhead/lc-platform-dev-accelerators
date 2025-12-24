@@ -1,9 +1,23 @@
 # Feature Specification: [FEATURE NAME]
 
-**Feature Branch**: `[###-feature-name]`  
-**Created**: [DATE]  
-**Status**: Draft  
+**Feature Branch**: `[###-feature-name]`
+**Created**: [DATE]
+**Status**: Draft
 **Input**: User description: "$ARGUMENTS"
+
+<!--
+===========================================================================================
+IMPORTANT FOR AI AGENTS: READ /AGENTS.md FOR DEVELOPMENT RULES
+===========================================================================================
+
+Before implementing features from this spec:
+→ READ /AGENTS.md for detailed development workflow, quality standards, and tooling commands
+→ /AGENTS.md is the SOURCE OF TRUTH for all implementation rules and practices
+→ When adding new practices or changing workflows, UPDATE /AGENTS.md immediately
+
+This spec defines WHAT to build. AGENTS.md defines HOW to build it following project standards.
+===========================================================================================
+-->
 
 ## User Scenarios & Testing *(mandatory)*
 

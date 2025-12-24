@@ -5,6 +5,21 @@
 
 **Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
+<!--
+===========================================================================================
+IMPORTANT FOR AI AGENTS: READ /AGENTS.md FOR DEVELOPMENT RULES
+===========================================================================================
+
+Before implementing this plan:
+→ READ /AGENTS.md for detailed development workflow, quality standards, and tooling commands
+→ /AGENTS.md is the SOURCE OF TRUTH for all implementation rules and practices
+→ When adding new practices or changing workflows, UPDATE /AGENTS.md immediately
+
+Constitution Check section below references .specify/memory/constitution.md for high-level
+principles, but AGENTS.md contains the actionable implementation details you need to follow.
+===========================================================================================
+-->
+
 ## Summary
 
 [Extract from feature spec: primary requirement + technical approach from research]

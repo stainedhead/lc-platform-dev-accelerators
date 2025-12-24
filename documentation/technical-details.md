@@ -1,6 +1,6 @@
 # lc-platform-dev-accelerators - Technical Details
 
-**Status**: Full Platform Complete - 12 Control Plane Services + 9 Data Plane Clients Implemented
+**Status**: Full Platform Complete - 12 Control Plane Services + 9 Data Plane Clients + Application Dependency Management Implemented
 
 ## Table of Contents
 1. [Architecture Overview](#architecture-overview)
@@ -138,6 +138,8 @@ lc-platform-dev-accelerators/
 │   │   ├── types/              # Shared type definitions
 │   │   │   ├── common.ts       # Shared types, errors, config
 │   │   │   ├── runtime.ts      # Runtime-specific types
+│   │   │   ├── application.ts  # Application metadata types
+│   │   │   ├── dependency.ts   # Dependency configuration types
 │   │   │   ├── deployment.ts   # WebHosting types
 │   │   │   ├── function.ts     # FunctionHosting types
 │   │   │   ├── datastore.ts    # Database types
@@ -244,7 +246,9 @@ lc-platform-dev-accelerators/
 │   ├── utils/                 # Utility functions
 │   │   ├── retry.ts          # Retry logic with exponential backoff
 │   │   ├── cache.ts          # LRU cache implementation
-│   │   └── validation.ts     # Input validation utilities
+│   │   ├── validation.ts     # Input validation utilities
+│   │   ├── configPersistence.ts     # Configuration persistence to object storage
+│   │   └── dependencyValidator.ts  # Dependency validation and schema checking
 │   │
 │   ├── LCPlatform.ts         # Control plane entry point
 │   ├── LCAppRuntime.ts       # Data plane entry point
@@ -1014,7 +1018,8 @@ From `benchmarks/index.ts` (23 operations across 12 Control Plane services + 9 D
 
 ---
 
-**Last Updated**: December 18, 2025
+**Last Updated**: December 23, 2025
 **Architecture Version**: 1.0.0 (Dual-Plane Hexagonal Architecture with Factory Pattern)
 **Control Plane Services**: 12/12 Complete (User Stories 1-7)
 **Data Plane Clients**: 9/9 Complete (Runtime Support)
+**Application Dependency Management**: Complete (User Stories 1-4)

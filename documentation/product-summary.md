@@ -4,7 +4,7 @@
 
 **lc-platform-dev-accelerators** is a TypeScript library that provides cloud-agnostic service wrappers, enabling applications to work seamlessly across multiple cloud providers (AWS, Azure, GCP) without vendor lock-in. Built on hexagonal architecture principles, it abstracts cloud services behind provider-independent interfaces.
 
-**Current Status**: Full Platform Complete - User Stories 1-7 shipped (100%)
+**Current Status**: Full Platform Complete - User Stories 1-7 shipped + Application Dependency Management (User Stories 1-4)
 
 ## Product Vision
 
@@ -146,6 +146,84 @@ In addition to Control Plane services, the platform provides lightweight **Data 
 - **DataClient**: SQL database operations with connection pooling
 - **AuthClient**: Authentication token operations
 
+## Application Dependency Management
+
+The platform includes comprehensive **Application Dependency Management** capabilities for registering applications and managing their cloud resource dependencies.
+
+### Key Features
+
+- **Application Registration**: Register applications with metadata (team, moniker, CI App ID, environment)
+- **Dependency Management**: Add and configure dependencies (Object Store, Queue, Secrets, Data Store)
+- **Configuration Persistence**: Version-based persistence to object storage with change tracking
+- **Dependency Validation**: Schema validation, required field detection, and name collision prevention
+- **Type-Safe Configurations**: TypeScript enums and interfaces for all dependency types
+
+### Supported Dependency Types
+
+1. **Object Store** - S3-compatible storage buckets with versioning and encryption
+2. **Queue** - Message queues with FIFO support and DLQ configuration
+3. **Secrets** - Secure secret storage with automatic rotation
+4. **Data Store** - SQL databases with backup and replication configuration
+
+### Quick Example
+
+```typescript
+import {
+  LCPlatform,
+  PlatformType,
+  Environment,
+  DependencyType,
+  EncryptionType
+} from '@stainedhead/lc-platform-dev-accelerators';
+
+const platform = new LCPlatform({ provider: ProviderType.MOCK });
+
+// Register application
+const app = platform.registerApplication({
+  name: 'My Application',
+  team: 'platform-team',
+  moniker: 'myapp',
+  ciAppId: 'APP-12345',
+  platformType: PlatformType.WEB,
+  environment: Environment.PRODUCTION,
+  supportEmail: 'support@company.com',
+  ownerEmail: 'owner@company.com'
+});
+
+// Add dependencies
+app.addDependency('uploads', DependencyType.OBJECT_STORE, {
+  type: 'object-store',
+  versioning: true,
+  encryption: EncryptionType.KMS,
+  publicAccess: false
+});
+
+app.addDependency('jobs', DependencyType.QUEUE, {
+  type: 'queue',
+  fifo: false,
+  visibilityTimeout: 30,
+  messageRetention: 86400,
+  encryption: true
+});
+
+// Persist configuration with versioning
+const persistence = new ConfigurationPersistence(platform.getObjectStore());
+await persistence.persistVersion(
+  app,
+  'config-bucket',
+  'v1.0.0',
+  'admin@company.com',
+  'Initial configuration'
+);
+
+// Validate dependencies
+const validator = new DependencyValidator();
+const result = validator.validateDependencies(app.dependencies);
+if (result.isValid) {
+  console.log('All dependencies are valid');
+}
+```
+
 ## Quick Start
 
 ### Installation
@@ -229,6 +307,33 @@ console.log(`Application deployed at: ${deployment.url}`);
 - **User Story 7**: OAuth2 Authentication
   - AuthenticationService
 
+### ✅ Completed - Application Dependency Management (User Stories 1-4)
+
+**User Story 1: Application Registration and Retrieval**
+- LCPlatformApp class with registration and metadata management
+- Unique ID generation (app-{8-hex} format)
+- Application retrieval and listing via LCPlatform
+- Resource tagging from application metadata
+
+**User Story 2: Dependency Registration and Management**
+- Support for 4 dependency types (Object Store, Queue, Secrets, Data Store)
+- Type-safe configuration schemas for each dependency type
+- Automatic resource naming with lcp-{account}-{team}-{moniker} pattern
+- Dependency lifecycle management (add, get, list)
+- Duplicate name collision prevention
+
+**User Story 3: Configuration Persistence**
+- Version-based configuration persistence to object storage
+- S3 path generation utilities
+- Policy serialization/deserialization with YAML support
+- Version listing and retrieval from storage
+
+**User Story 4: Dependency Validation**
+- Schema validation for all dependency configurations
+- Required field detection and reporting
+- Name collision detection
+- Cross-field validation
+
 ### ✅ Completed - Production Readiness
 - CI/CD Pipeline (GitHub Actions - multi-OS testing)
 - API Documentation (TypeDoc with 100+ pages)
@@ -296,8 +401,8 @@ MIT License - See LICENSE file for details
 
 ---
 
-**Last Updated**: December 18, 2025
+**Last Updated**: December 23, 2025
 
-**Status**: 🎉 Dual-Plane Architecture Complete - 12 Control Plane Services + 9 Data Plane Clients
+**Status**: 🎉 Dual-Plane Architecture Complete - 12 Control Plane Services + 9 Data Plane Clients + Application Dependency Management
 
 **Next**: Azure Provider Implementation or Additional Services (Cache, CDN, DNS)
